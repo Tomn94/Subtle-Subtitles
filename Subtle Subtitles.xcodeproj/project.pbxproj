@@ -10,12 +10,13 @@
 		3FCC13E20D128CC3784598E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08A9A7D0B14129C80462E8EE /* libPods.a */; };
 		6438598A1CA727CD00BE70FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 643859891CA727CD00BE70FF /* main.m */; };
 		6438598D1CA727CD00BE70FF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6438598C1CA727CD00BE70FF /* AppDelegate.m */; };
-		643859901CA727CD00BE70FF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6438598F1CA727CD00BE70FF /* ViewController.m */; };
 		643859931CA727CD00BE70FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643859911CA727CD00BE70FF /* Main.storyboard */; };
 		643859951CA727CD00BE70FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643859941CA727CD00BE70FF /* Assets.xcassets */; };
 		643859981CA727CD00BE70FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643859961CA727CD00BE70FF /* LaunchScreen.storyboard */; };
 		643859A31CA727CD00BE70FF /* Subtle_SubtitlesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 643859A21CA727CD00BE70FF /* Subtle_SubtitlesTests.m */; };
 		643859AE1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 643859AD1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m */; };
+		64D8FBD71CA735F00082ADA8 /* SearchTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBD61CA735F00082ADA8 /* SearchTable.m */; };
+		64D8FBDA1CA74BBC0082ADA8 /* SubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBD91CA74BBC0082ADA8 /* SubViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +42,6 @@
 		643859891CA727CD00BE70FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6438598B1CA727CD00BE70FF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6438598C1CA727CD00BE70FF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6438598E1CA727CD00BE70FF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6438598F1CA727CD00BE70FF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		643859921CA727CD00BE70FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		643859941CA727CD00BE70FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		643859971CA727CD00BE70FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -53,6 +52,10 @@
 		643859A91CA727CD00BE70FF /* Subtle SubtitlesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subtle SubtitlesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		643859AD1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subtle_SubtitlesUITests.m; sourceTree = "<group>"; };
 		643859AF1CA727CD00BE70FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		64D8FBD51CA735F00082ADA8 /* SearchTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTable.h; sourceTree = "<group>"; };
+		64D8FBD61CA735F00082ADA8 /* SearchTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTable.m; sourceTree = "<group>"; };
+		64D8FBD81CA74BBC0082ADA8 /* SubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubViewController.h; sourceTree = "<group>"; };
+		64D8FBD91CA74BBC0082ADA8 /* SubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubViewController.m; sourceTree = "<group>"; };
 		DA171D11328EBC39F9D07E5F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E939A2E308D74BFEA0DAD35A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,8 +122,10 @@
 			children = (
 				6438598B1CA727CD00BE70FF /* AppDelegate.h */,
 				6438598C1CA727CD00BE70FF /* AppDelegate.m */,
-				6438598E1CA727CD00BE70FF /* ViewController.h */,
-				6438598F1CA727CD00BE70FF /* ViewController.m */,
+				64D8FBD51CA735F00082ADA8 /* SearchTable.h */,
+				64D8FBD61CA735F00082ADA8 /* SearchTable.m */,
+				64D8FBD81CA74BBC0082ADA8 /* SubViewController.h */,
+				64D8FBD91CA74BBC0082ADA8 /* SubViewController.m */,
 				643859911CA727CD00BE70FF /* Main.storyboard */,
 				643859941CA727CD00BE70FF /* Assets.xcassets */,
 				643859961CA727CD00BE70FF /* LaunchScreen.storyboard */,
@@ -345,9 +350,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				643859901CA727CD00BE70FF /* ViewController.m in Sources */,
 				6438598D1CA727CD00BE70FF /* AppDelegate.m in Sources */,
+				64D8FBD71CA735F00082ADA8 /* SearchTable.m in Sources */,
 				6438598A1CA727CD00BE70FF /* main.m in Sources */,
+				64D8FBDA1CA74BBC0082ADA8 /* SubViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
