@@ -5,6 +5,22 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "643859841CA727CD00BE70FF"
+               BuildableName = "Subtle Subtitles.app"
+               BlueprintName = "Subtle Subtitles"
+               ReferencedContainer = "container:Subtle Subtitles.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -12,7 +28,36 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6438599D1CA727CD00BE70FF"
+               BuildableName = "Subtle SubtitlesTests.xctest"
+               BlueprintName = "Subtle SubtitlesTests"
+               ReferencedContainer = "container:Subtle Subtitles.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "643859A81CA727CD00BE70FF"
+               BuildableName = "Subtle SubtitlesUITests.xctest"
+               BlueprintName = "Subtle SubtitlesUITests"
+               ReferencedContainer = "container:Subtle Subtitles.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "643859841CA727CD00BE70FF"
+            BuildableName = "Subtle Subtitles.app"
+            BlueprintName = "Subtle Subtitles"
+            ReferencedContainer = "container:Subtle Subtitles.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -26,6 +71,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "643859841CA727CD00BE70FF"
+            BuildableName = "Subtle Subtitles.app"
+            BlueprintName = "Subtle Subtitles"
+            ReferencedContainer = "container:Subtle Subtitles.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -35,6 +90,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "643859841CA727CD00BE70FF"
+            BuildableName = "Subtle Subtitles.app"
+            BlueprintName = "Subtle Subtitles"
+            ReferencedContainer = "container:Subtle Subtitles.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
