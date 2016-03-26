@@ -1,0 +1,521 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6438598A1CA727CD00BE70FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 643859891CA727CD00BE70FF /* main.m */; };
+		6438598D1CA727CD00BE70FF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6438598C1CA727CD00BE70FF /* AppDelegate.m */; };
+		643859901CA727CD00BE70FF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6438598F1CA727CD00BE70FF /* ViewController.m */; };
+		643859931CA727CD00BE70FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643859911CA727CD00BE70FF /* Main.storyboard */; };
+		643859951CA727CD00BE70FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643859941CA727CD00BE70FF /* Assets.xcassets */; };
+		643859981CA727CD00BE70FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643859961CA727CD00BE70FF /* LaunchScreen.storyboard */; };
+		643859A31CA727CD00BE70FF /* Subtle_SubtitlesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 643859A21CA727CD00BE70FF /* Subtle_SubtitlesTests.m */; };
+		643859AE1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 643859AD1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6438599F1CA727CD00BE70FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6438597D1CA727CD00BE70FF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 643859841CA727CD00BE70FF;
+			remoteInfo = "Subtle Subtitles";
+		};
+		643859AA1CA727CD00BE70FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6438597D1CA727CD00BE70FF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 643859841CA727CD00BE70FF;
+			remoteInfo = "Subtle Subtitles";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		643859851CA727CD00BE70FF /* Subtle Subtitles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Subtle Subtitles.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		643859891CA727CD00BE70FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6438598B1CA727CD00BE70FF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6438598C1CA727CD00BE70FF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6438598E1CA727CD00BE70FF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		6438598F1CA727CD00BE70FF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		643859921CA727CD00BE70FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		643859941CA727CD00BE70FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		643859971CA727CD00BE70FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		643859991CA727CD00BE70FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6438599E1CA727CD00BE70FF /* Subtle SubtitlesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subtle SubtitlesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		643859A21CA727CD00BE70FF /* Subtle_SubtitlesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subtle_SubtitlesTests.m; sourceTree = "<group>"; };
+		643859A41CA727CD00BE70FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		643859A91CA727CD00BE70FF /* Subtle SubtitlesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subtle SubtitlesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		643859AD1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subtle_SubtitlesUITests.m; sourceTree = "<group>"; };
+		643859AF1CA727CD00BE70FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		643859821CA727CD00BE70FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6438599B1CA727CD00BE70FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		643859A61CA727CD00BE70FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6438597C1CA727CD00BE70FF = {
+			isa = PBXGroup;
+			children = (
+				643859871CA727CD00BE70FF /* Subtle Subtitles */,
+				643859A11CA727CD00BE70FF /* Subtle SubtitlesTests */,
+				643859AC1CA727CD00BE70FF /* Subtle SubtitlesUITests */,
+				643859861CA727CD00BE70FF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		643859861CA727CD00BE70FF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				643859851CA727CD00BE70FF /* Subtle Subtitles.app */,
+				6438599E1CA727CD00BE70FF /* Subtle SubtitlesTests.xctest */,
+				643859A91CA727CD00BE70FF /* Subtle SubtitlesUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		643859871CA727CD00BE70FF /* Subtle Subtitles */ = {
+			isa = PBXGroup;
+			children = (
+				6438598B1CA727CD00BE70FF /* AppDelegate.h */,
+				6438598C1CA727CD00BE70FF /* AppDelegate.m */,
+				6438598E1CA727CD00BE70FF /* ViewController.h */,
+				6438598F1CA727CD00BE70FF /* ViewController.m */,
+				643859911CA727CD00BE70FF /* Main.storyboard */,
+				643859941CA727CD00BE70FF /* Assets.xcassets */,
+				643859961CA727CD00BE70FF /* LaunchScreen.storyboard */,
+				643859991CA727CD00BE70FF /* Info.plist */,
+				643859881CA727CD00BE70FF /* Supporting Files */,
+			);
+			path = "Subtle Subtitles";
+			sourceTree = "<group>";
+		};
+		643859881CA727CD00BE70FF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				643859891CA727CD00BE70FF /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		643859A11CA727CD00BE70FF /* Subtle SubtitlesTests */ = {
+			isa = PBXGroup;
+			children = (
+				643859A21CA727CD00BE70FF /* Subtle_SubtitlesTests.m */,
+				643859A41CA727CD00BE70FF /* Info.plist */,
+			);
+			path = "Subtle SubtitlesTests";
+			sourceTree = "<group>";
+		};
+		643859AC1CA727CD00BE70FF /* Subtle SubtitlesUITests */ = {
+			isa = PBXGroup;
+			children = (
+				643859AD1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m */,
+				643859AF1CA727CD00BE70FF /* Info.plist */,
+			);
+			path = "Subtle SubtitlesUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		643859841CA727CD00BE70FF /* Subtle Subtitles */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 643859B21CA727CD00BE70FF /* Build configuration list for PBXNativeTarget "Subtle Subtitles" */;
+			buildPhases = (
+				643859811CA727CD00BE70FF /* Sources */,
+				643859821CA727CD00BE70FF /* Frameworks */,
+				643859831CA727CD00BE70FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Subtle Subtitles";
+			productName = "Subtle Subtitles";
+			productReference = 643859851CA727CD00BE70FF /* Subtle Subtitles.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6438599D1CA727CD00BE70FF /* Subtle SubtitlesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 643859B51CA727CD00BE70FF /* Build configuration list for PBXNativeTarget "Subtle SubtitlesTests" */;
+			buildPhases = (
+				6438599A1CA727CD00BE70FF /* Sources */,
+				6438599B1CA727CD00BE70FF /* Frameworks */,
+				6438599C1CA727CD00BE70FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				643859A01CA727CD00BE70FF /* PBXTargetDependency */,
+			);
+			name = "Subtle SubtitlesTests";
+			productName = "Subtle SubtitlesTests";
+			productReference = 6438599E1CA727CD00BE70FF /* Subtle SubtitlesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		643859A81CA727CD00BE70FF /* Subtle SubtitlesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 643859B81CA727CD00BE70FF /* Build configuration list for PBXNativeTarget "Subtle SubtitlesUITests" */;
+			buildPhases = (
+				643859A51CA727CD00BE70FF /* Sources */,
+				643859A61CA727CD00BE70FF /* Frameworks */,
+				643859A71CA727CD00BE70FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				643859AB1CA727CD00BE70FF /* PBXTargetDependency */,
+			);
+			name = "Subtle SubtitlesUITests";
+			productName = "Subtle SubtitlesUITests";
+			productReference = 643859A91CA727CD00BE70FF /* Subtle SubtitlesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6438597D1CA727CD00BE70FF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Tomn;
+				TargetAttributes = {
+					643859841CA727CD00BE70FF = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					6438599D1CA727CD00BE70FF = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 643859841CA727CD00BE70FF;
+					};
+					643859A81CA727CD00BE70FF = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 643859841CA727CD00BE70FF;
+					};
+				};
+			};
+			buildConfigurationList = 643859801CA727CD00BE70FF /* Build configuration list for PBXProject "Subtle Subtitles" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6438597C1CA727CD00BE70FF;
+			productRefGroup = 643859861CA727CD00BE70FF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				643859841CA727CD00BE70FF /* Subtle Subtitles */,
+				6438599D1CA727CD00BE70FF /* Subtle SubtitlesTests */,
+				643859A81CA727CD00BE70FF /* Subtle SubtitlesUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		643859831CA727CD00BE70FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				643859981CA727CD00BE70FF /* LaunchScreen.storyboard in Resources */,
+				643859951CA727CD00BE70FF /* Assets.xcassets in Resources */,
+				643859931CA727CD00BE70FF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6438599C1CA727CD00BE70FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		643859A71CA727CD00BE70FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		643859811CA727CD00BE70FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				643859901CA727CD00BE70FF /* ViewController.m in Sources */,
+				6438598D1CA727CD00BE70FF /* AppDelegate.m in Sources */,
+				6438598A1CA727CD00BE70FF /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6438599A1CA727CD00BE70FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				643859A31CA727CD00BE70FF /* Subtle_SubtitlesTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		643859A51CA727CD00BE70FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				643859AE1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		643859A01CA727CD00BE70FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 643859841CA727CD00BE70FF /* Subtle Subtitles */;
+			targetProxy = 6438599F1CA727CD00BE70FF /* PBXContainerItemProxy */;
+		};
+		643859AB1CA727CD00BE70FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 643859841CA727CD00BE70FF /* Subtle Subtitles */;
+			targetProxy = 643859AA1CA727CD00BE70FF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		643859911CA727CD00BE70FF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				643859921CA727CD00BE70FF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		643859961CA727CD00BE70FF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				643859971CA727CD00BE70FF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		643859B01CA727CD00BE70FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		643859B11CA727CD00BE70FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		643859B31CA727CD00BE70FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Subtle Subtitles/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tramigoapp.tomn.Subtle-Subtitles";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		643859B41CA727CD00BE70FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Subtle Subtitles/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tramigoapp.tomn.Subtle-Subtitles";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		643859B61CA727CD00BE70FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Subtle SubtitlesTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tramigoapp.tomn.Subtle-SubtitlesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Subtle Subtitles.app/Subtle Subtitles";
+			};
+			name = Debug;
+		};
+		643859B71CA727CD00BE70FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "Subtle SubtitlesTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tramigoapp.tomn.Subtle-SubtitlesTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Subtle Subtitles.app/Subtle Subtitles";
+			};
+			name = Release;
+		};
+		643859B91CA727CD00BE70FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Subtle SubtitlesUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tramigoapp.tomn.Subtle-SubtitlesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Subtle Subtitles";
+			};
+			name = Debug;
+		};
+		643859BA1CA727CD00BE70FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Subtle SubtitlesUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tramigoapp.tomn.Subtle-SubtitlesUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "Subtle Subtitles";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		643859801CA727CD00BE70FF /* Build configuration list for PBXProject "Subtle Subtitles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				643859B01CA727CD00BE70FF /* Debug */,
+				643859B11CA727CD00BE70FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		643859B21CA727CD00BE70FF /* Build configuration list for PBXNativeTarget "Subtle Subtitles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				643859B31CA727CD00BE70FF /* Debug */,
+				643859B41CA727CD00BE70FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		643859B51CA727CD00BE70FF /* Build configuration list for PBXNativeTarget "Subtle SubtitlesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				643859B61CA727CD00BE70FF /* Debug */,
+				643859B71CA727CD00BE70FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		643859B81CA727CD00BE70FF /* Build configuration list for PBXNativeTarget "Subtle SubtitlesUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				643859B91CA727CD00BE70FF /* Debug */,
+				643859BA1CA727CD00BE70FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6438597D1CA727CD00BE70FF /* Project object */;
+}
