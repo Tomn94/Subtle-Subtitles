@@ -125,23 +125,34 @@
                                     <action selector="scrub:" destination="KXK-aY-shy" eventType="valueChanged" id="vSf-mv-sNm"/>
                                 </connections>
                             </slider>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumValue="-10000" maximumValue="10000" translatesAutoresizingMaskIntoConstraints="NO" id="k79-b1-1bH">
+                                <rect key="frame" x="486" y="99" width="94" height="29"/>
+                                <color key="tintColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="delay:" destination="KXK-aY-shy" eventType="valueChanged" id="7ff-qp-Epr"/>
+                                </connections>
+                            </stepper>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 s" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMd-tB-Usv">
+                                <rect key="frame" x="457" y="106" width="19" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="x5C-4y-UJQ" firstAttribute="top" secondItem="Pnc-aP-2ui" secondAttribute="bottom" constant="5" id="4V1-ng-6Wz"/>
                             <constraint firstItem="x5C-4y-UJQ" firstAttribute="leading" secondItem="7qe-U1-SUK" secondAttribute="leading" constant="10" id="Doa-ds-9cF"/>
+                            <constraint firstItem="k79-b1-1bH" firstAttribute="centerY" secondItem="LMd-tB-Usv" secondAttribute="centerY" id="H0Y-a8-i8b"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gMS-YV-O2Q" secondAttribute="trailing" constant="10" id="JMk-Bc-Wcw"/>
+                            <constraint firstItem="k79-b1-1bH" firstAttribute="top" secondItem="x5C-4y-UJQ" secondAttribute="bottom" id="KFj-sb-cug"/>
                             <constraint firstAttribute="trailing" secondItem="x5C-4y-UJQ" secondAttribute="trailing" constant="10" id="M1E-YE-YUw"/>
                             <constraint firstItem="gMS-YV-O2Q" firstAttribute="leading" secondItem="7qe-U1-SUK" secondAttribute="leadingMargin" constant="10" id="NRs-g8-ehV"/>
-                            <constraint firstItem="x5C-4y-UJQ" firstAttribute="top" secondItem="7qe-U1-SUK" secondAttribute="top" constant="64" id="PIO-ho-aGM"/>
                             <constraint firstItem="gMS-YV-O2Q" firstAttribute="top" secondItem="Pnc-aP-2ui" secondAttribute="bottom" constant="10" id="b8a-ap-zxY"/>
+                            <constraint firstItem="k79-b1-1bH" firstAttribute="leading" secondItem="LMd-tB-Usv" secondAttribute="trailing" constant="10" id="ias-QL-a6h"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="k79-b1-1bH" secondAttribute="trailing" id="pSF-lE-zoE"/>
                             <constraint firstItem="4jf-Qj-feu" firstAttribute="top" secondItem="gMS-YV-O2Q" secondAttribute="bottom" constant="10" id="ubs-rH-jfd"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="PIO-ho-aGM"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="mkk-Iq-cey">
                         <barButtonItem key="rightBarButtonItem" systemItem="pause" id="ySy-dy-ZDN">
@@ -152,6 +163,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="slider" destination="x5C-4y-UJQ" id="LVO-Jb-72x"/>
+                        <outlet property="stepper" destination="k79-b1-1bH" id="at5-V9-T7V"/>
+                        <outlet property="stepperValue" destination="LMd-tB-Usv" id="QM7-W0-e6Q"/>
                         <outlet property="subLabel" destination="gMS-YV-O2Q" id="hS0-Lg-93k"/>
                     </connections>
                 </viewController>

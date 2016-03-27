@@ -15,14 +15,19 @@
     [super viewDidLoad];
     
     time = .0f;
+    delay = .0f;
     curIndex = -1;
     playing = NO;
     srt = nil;
     [self.slider setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateNormal];
     
-    NSError *error = nil;
-    NSString *htmlString = [NSString stringWithContentsOfFile:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:@"/sub.srt"] encoding:NSUTF8StringEncoding error:&error];
-    if (error == nil)
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:@"/sub.srt"];
+    NSString *htmlString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    if (htmlString == nil)
+        htmlString = [NSString stringWithContentsOfFile:path encoding:NSISOLatin1StringEncoding error:nil];
+    if (htmlString == nil)
+        htmlString = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+    if (htmlString != nil)
     {
         self.subLabel.text = @"";
         
@@ -40,13 +45,13 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.navigationController.hidesBarsOnTap = YES;
+    self.navigationController.hidesBarsOnSwipe = YES;
 }
 
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.navigationController.hidesBarsOnTap = NO;
+    self.navigationController.hidesBarsOnSwipe = NO;
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
     [timer invalidate];
 }
@@ -94,7 +99,7 @@
 
 - (void) updateText
 {
-    if (srt == nil || time >= self.slider.maximumValue)
+    if (srt == nil || time >= self.slider.maximumValue + delay)
     {
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay
                                                                               target:self
@@ -111,7 +116,7 @@
     for (NSInteger i = (curIndex < 0 ) ? 0 : curIndex ; i < srtc ; ++i)
     {
         NSDictionary *infos = srt[i];
-        if (time >= [infos[@"from"] doubleValue] && time <= [infos[@"to"] doubleValue])
+        if (time >= [infos[@"from"] doubleValue] + delay && time <= [infos[@"to"] doubleValue] + delay)
             found = i;
     }
     
@@ -178,6 +183,12 @@
     }
     
     return [NSArray arrayWithArray:parts];
+}
+
+- (IBAction) delay:(id)sender
+{
+    delay = self.stepper.value / 10;
+    self.stepperValue.text = [NSString stringWithFormat:@"%.1f s", delay];
 }
 
 @end
