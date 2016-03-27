@@ -28,6 +28,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UISlider *slider;
 @property (weak, nonatomic) IBOutlet UIStepper *stepper;
 @property (weak, nonatomic) IBOutlet UILabel *stepperValue;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 
 - (IBAction) playTapped:(id)sender;
 - (IBAction) scrub:(id)sender;

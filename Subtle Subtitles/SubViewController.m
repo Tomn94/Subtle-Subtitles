@@ -39,7 +39,7 @@
         timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timer) userInfo:nil repeats:YES];
     }
     else
-        [self.navigationItem setRightBarButtonItem:nil animated:YES];
+        [self.navigationItem setRightBarButtonItems:nil animated:YES];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -80,7 +80,7 @@
                                                                                            : UIBarButtonSystemItemPlay
                                                                           target:self
                                                                           action:@selector(playTapped:)];
-    [self.navigationItem setRightBarButtonItem:item animated:YES];
+    [self.navigationItem setRightBarButtonItems:@[_shareButton, item] animated:YES];
 }
 
 - (IBAction) scrub:(id)sender
@@ -104,7 +104,7 @@
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay
                                                                               target:self
                                                                               action:@selector(playTapped:)];
-        [self.navigationItem setRightBarButtonItem:item animated:YES];
+        [self.navigationItem setRightBarButtonItems:@[_shareButton, item] animated:YES];
         [timer invalidate];
         playing = NO;
         [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
