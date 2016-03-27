@@ -14,7 +14,6 @@
 {
     [super viewDidLoad];
     
-    networkCount  = 0;
     searchResults = [NSArray array];
     
     UIView *backView = [UIView new];
@@ -29,16 +28,25 @@
     search.dimsBackgroundDuringPresentation = NO;
     search.searchBar.delegate = self;
     search.searchBar.placeholder = @"Search movies or series";
-    search.searchBar.scopeButtonTitles = @[@"English"];
+    search.searchBar.scopeButtonTitles = @[ @"English", [[NSUserDefaults standardUserDefaults] stringForKey:@"langName"] ];
     search.searchBar.barStyle = UIBarStyleBlack;
     search.searchBar.tintColor = [UIColor lightGrayColor];
     search.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
     [search.searchBar sizeToFit];
     self.tableView.tableHeaderView = search.searchBar;
-    search.searchBar.hidden = YES;
     
     down = [[OROpenSubtitleDownloader alloc] initWithUserAgent:@"OSTestUserAgent"];
     down.delegate = self;
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    search.searchBar.scopeButtonTitles = @[ @"English", [defaults stringForKey:@"langName"] ];
+    search.searchBar.selectedScopeButtonIndex = [defaults integerForKey:@"langIndex"];
+    [search.searchBar sizeToFit];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle
@@ -50,38 +58,32 @@
 
 - (void) openSubtitlerDidLogIn:(OROpenSubtitleDownloader *)downloader
 {
-    search.searchBar.hidden = NO;
-    networkCount++;
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:networkCount];
-    [downloader supportedLanguagesList:^(NSArray *languages, NSError *error) {
-        search.active = NO;
+    [[Data sharedData] updateNetwork:1];
+    [down supportedLanguagesList:^(NSArray *languages, NSError *error) {
         if (error == nil)
         {
             NSMutableArray *langues  = [NSMutableArray array];
             NSMutableArray *langues2 = [NSMutableArray array];
             for (OpenSubtitleLanguageResult *res in languages)
             {
-                if ([res.subLanguageID isEqualToString:@"eng"] ||
-                    [res.subLanguageID isEqualToString:@"fre"])
+                if (![res.subLanguageID isEqualToString:@"eng"])
                 {
                     [langues  addObject:res.localizedLanguageName];
                     [langues2 addObject:res.subLanguageID];
                 }
             }
-            languageResults = [NSArray arrayWithArray:langues2];
-            search.searchBar.scopeButtonTitles = langues;
-            [search.searchBar sizeToFit];
+            [Data sharedData].langNames = [NSArray arrayWithArray:langues];
+            [Data sharedData].langIDs   = [NSArray arrayWithArray:langues2];
         }
         else
         {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error when fetching available languages"
-                                                                           message:[error localizedDescription]
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Unable to fetch available languages"
+                                                                           message:error.localizedDescription
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
         }
-        networkCount--;
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:networkCount];
+        [[Data sharedData] updateNetwork:-1];
     }];
 }
 
@@ -89,9 +91,8 @@
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    networkCount++;
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:networkCount];
-    down.languageString = languageResults[searchBar.selectedScopeButtonIndex];
+    [[Data sharedData] updateNetwork:+1];
+    down.languageString = search.searchBar.selectedScopeButtonIndex ? [[NSUserDefaults standardUserDefaults] stringForKey:@"langID"] : @"eng";
     [down searchForSubtitlesWithQuery:searchBar.text :^(NSArray *subtitles, NSError *error) {
         search.active = NO;
         if (error == nil)
@@ -104,7 +105,7 @@
             else
             {
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No results"
-                                                                               message:@"So sad"
+                                                                               message:@"¯\\_(ツ)_/¯"
                                                                         preferredStyle:UIAlertControllerStyleAlert];
                 [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
                 [self presentViewController:alert animated:YES completion:nil];
@@ -118,9 +119,16 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
         }
-        networkCount--;
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:networkCount];
+        [[Data sharedData] updateNetwork:-1];
     }];
+}
+
+- (void)                searchBar:(UISearchBar *)searchBar
+selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:@(selectedScope) forKey:@"langIndex"];
+    [defaults synchronize];
 }
 
 #pragma mark - Table view data source
@@ -156,8 +164,7 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     search.active = NO;
-    networkCount++;
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:networkCount];
+    [[Data sharedData] updateNetwork:1];
     [down downloadSubtitlesForResult:searchResults[indexPath.row]
                               toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:@"/sub.srt"] :^(NSString *path, NSError *error) {
                                   if (error == nil)
@@ -170,8 +177,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                       [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
                                       [self presentViewController:alert animated:YES completion:nil];
                                   }
-                                  networkCount--;
-                                  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:networkCount];
+                                  [[Data sharedData] updateNetwork:-1];
                               }];
 }
 

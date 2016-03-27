@@ -60,10 +60,10 @@
             </objects>
             <point key="canvasLocation" x="248" y="279"/>
         </scene>
-        <!--Language-->
+        <!--Second Language-->
         <scene sceneID="BIY-g7-2so">
             <objects>
-                <tableViewController title="Language" id="FvB-en-hfb" sceneMemberID="viewController">
+                <tableViewController title="Second Language" id="FvB-en-hfb" customClass="LanguageTable" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="EcG-Uh-Vze">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

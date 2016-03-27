@@ -17,6 +17,8 @@
 		643859AE1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 643859AD1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m */; };
 		64D8FBD71CA735F00082ADA8 /* SearchTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBD61CA735F00082ADA8 /* SearchTable.m */; };
 		64D8FBDA1CA74BBC0082ADA8 /* SubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBD91CA74BBC0082ADA8 /* SubViewController.m */; };
+		64D8FBDD1CA7797C0082ADA8 /* LanguageTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBDC1CA7797C0082ADA8 /* LanguageTable.m */; };
+		64D8FBE01CA77B790082ADA8 /* Data.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBDF1CA77B790082ADA8 /* Data.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,10 @@
 		64D8FBD61CA735F00082ADA8 /* SearchTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTable.m; sourceTree = "<group>"; };
 		64D8FBD81CA74BBC0082ADA8 /* SubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubViewController.h; sourceTree = "<group>"; };
 		64D8FBD91CA74BBC0082ADA8 /* SubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubViewController.m; sourceTree = "<group>"; };
+		64D8FBDB1CA7797C0082ADA8 /* LanguageTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageTable.h; sourceTree = "<group>"; };
+		64D8FBDC1CA7797C0082ADA8 /* LanguageTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageTable.m; sourceTree = "<group>"; };
+		64D8FBDE1CA77B790082ADA8 /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
+		64D8FBDF1CA77B790082ADA8 /* Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Data.m; sourceTree = "<group>"; };
 		DA171D11328EBC39F9D07E5F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E939A2E308D74BFEA0DAD35A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,10 +128,14 @@
 			children = (
 				6438598B1CA727CD00BE70FF /* AppDelegate.h */,
 				6438598C1CA727CD00BE70FF /* AppDelegate.m */,
+				64D8FBDE1CA77B790082ADA8 /* Data.h */,
+				64D8FBDF1CA77B790082ADA8 /* Data.m */,
 				64D8FBD51CA735F00082ADA8 /* SearchTable.h */,
 				64D8FBD61CA735F00082ADA8 /* SearchTable.m */,
 				64D8FBD81CA74BBC0082ADA8 /* SubViewController.h */,
 				64D8FBD91CA74BBC0082ADA8 /* SubViewController.m */,
+				64D8FBDB1CA7797C0082ADA8 /* LanguageTable.h */,
+				64D8FBDC1CA7797C0082ADA8 /* LanguageTable.m */,
 				643859911CA727CD00BE70FF /* Main.storyboard */,
 				643859941CA727CD00BE70FF /* Assets.xcassets */,
 				643859961CA727CD00BE70FF /* LaunchScreen.storyboard */,
@@ -352,8 +362,10 @@
 			files = (
 				6438598D1CA727CD00BE70FF /* AppDelegate.m in Sources */,
 				64D8FBD71CA735F00082ADA8 /* SearchTable.m in Sources */,
+				64D8FBDD1CA7797C0082ADA8 /* LanguageTable.m in Sources */,
 				6438598A1CA727CD00BE70FF /* main.m in Sources */,
 				64D8FBDA1CA74BBC0082ADA8 /* SubViewController.m in Sources */,
+				64D8FBE01CA77B790082ADA8 /* Data.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
