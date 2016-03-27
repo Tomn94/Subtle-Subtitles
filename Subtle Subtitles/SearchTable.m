@@ -181,4 +181,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                               }];
 }
 
+- (IBAction) infos:(id)sender
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Subtle Subtitles"
+                                                                   message:@"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 @end

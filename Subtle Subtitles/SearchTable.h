@@ -18,4 +18,6 @@
     OROpenSubtitleDownloader *down;
 }
 
+- (IBAction) infos:(id)sender;
+
 @end

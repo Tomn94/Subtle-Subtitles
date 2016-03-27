@@ -55,6 +55,15 @@
                                 <segue destination="FvB-en-hfb" kind="show" id="8hd-Nr-kBb"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" id="kRy-uV-qiP">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="CvB-PP-ek0">
+                                <rect key="frame" x="558" y="11" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="infos:" destination="SXE-ck-pzQ" eventType="touchUpInside" id="EQw-nm-3bG"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1DX-R6-7xH" userLabel="First Responder" sceneMemberID="firstResponder"/>

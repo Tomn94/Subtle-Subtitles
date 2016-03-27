@@ -35,9 +35,17 @@
                             <outlet property="delegate" destination="i4Q-aB-McR" id="jh5-5o-4Ws"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Subtle Subtitles" id="maL-5P-2ld">
                         <barButtonItem key="leftBarButtonItem" image="flag" id="ZH9-gV-OCg"/>
+                        <barButtonItem key="rightBarButtonItem" id="9iW-Sh-p1m">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Rww-dn-Izk">
+                                <rect key="frame" x="558" y="11" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="guF-y7-qV7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
