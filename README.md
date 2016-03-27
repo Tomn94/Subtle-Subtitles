@@ -4,6 +4,7 @@ Repository for my simple iPhone app suiting my needs about movie/series subtitle
 * Search through OpenSubtitles.org database
 * Choose a SRT file and play it right from the app
 * Modify the delay or the current time, play, pause
+* Swipe up to go fullscreen
 * Change your preferred SRT languages
 * Export the SRT file to another app
 
