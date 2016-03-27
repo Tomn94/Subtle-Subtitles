@@ -13,6 +13,171 @@
 - (void) viewDidLoad
 {
     [super viewDidLoad];
+    
+    time = .0f;
+    curIndex = -1;
+    playing = NO;
+    srt = nil;
+    [self.slider setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateNormal];
+    
+    NSError *error = nil;
+    NSString *htmlString = [NSString stringWithContentsOfFile:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:@"/sub.srt"] encoding:NSUTF8StringEncoding error:&error];
+    if (error == nil)
+    {
+        self.subLabel.text = @"";
+        
+        srt = [self parse:htmlString];
+        self.slider.maximumValue = [[srt lastObject][@"to"] doubleValue];
+        
+        playing = YES;
+        [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+        timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timer) userInfo:nil repeats:YES];
+    }
+    else
+        [self.navigationItem setRightBarButtonItem:nil animated:YES];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.navigationController.hidesBarsOnTap = YES;
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.navigationController.hidesBarsOnTap = NO;
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    [timer invalidate];
+}
+
+#pragma mark - Actions
+
+- (void) playTapped:(id)sender
+{
+    playing = !playing;
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:playing];
+    if (playing)
+    {
+        if (time >= self.slider.maximumValue)
+        {
+            time = 0;
+            curIndex = 0;
+            self.slider.value = 0;
+        }
+        timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timer) userInfo:nil repeats:YES];
+    }
+    else
+        [timer invalidate];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(playing) ? UIBarButtonSystemItemPause
+                                                                                           : UIBarButtonSystemItemPlay
+                                                                          target:self
+                                                                          action:@selector(playTapped:)];
+    [self.navigationItem setRightBarButtonItem:item animated:YES];
+}
+
+- (IBAction) scrub:(id)sender
+{
+    time = self.slider.value;
+    curIndex = 0;
+    [self updateText];
+}
+
+- (void) timer
+{
+    time += 0.1;
+    self.slider.value = time;
+    [self updateText];
+}
+
+- (void) updateText
+{
+    if (srt == nil || time >= self.slider.maximumValue)
+    {
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay
+                                                                              target:self
+                                                                              action:@selector(playTapped:)];
+        [self.navigationItem setRightBarButtonItem:item animated:YES];
+        [timer invalidate];
+        playing = NO;
+        [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+        return;
+    }
+    
+    NSInteger srtc = [srt count];
+    NSInteger found = -1;
+    for (NSInteger i = (curIndex < 0 ) ? 0 : curIndex ; i < srtc ; ++i)
+    {
+        NSDictionary *infos = srt[i];
+        if (time >= [infos[@"from"] doubleValue] && time <= [infos[@"to"] doubleValue])
+            found = i;
+    }
+    
+    if (found != -1)
+    {
+        curIndex = found;
+        self.subLabel.text = srt[curIndex][@"text"];
+    }
+    else
+        self.subLabel.text = @"";
+}
+
+- (NSArray *) parse:(NSString *)srtData
+{
+    NSMutableArray *parts = [NSMutableArray array];
+    
+    srtData = [srtData stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"];
+    srtData = [srtData stringByReplacingOccurrencesOfString:@"\r" withString:@"\n"];
+    NSArray *lines = [srtData componentsSeparatedByString:@"\n"];
+    kSRTState state = kNUMBER;
+    NSString *curTime = @"";
+    NSString *curText = @"";
+    
+    for (NSString *line in lines)
+    {
+        NSString *tLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        switch (state)
+        {
+            case kNUMBER:
+                state = kTIME;
+                curText = @"";
+                break;
+                
+            case kTIME:
+                curTime = tLine;
+                state = kTEXT;
+                break;
+                
+            case kTEXT:
+            {
+                if ([tLine isEqualToString:@""])
+                {
+                    NSArray *times   = [curTime componentsSeparatedByString:@"-->"];
+                    NSString *debutS = [times[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                    NSString *finS   = [times[1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                    
+                    NSArray *t = [debutS componentsSeparatedByString:@":"];
+                    NSArray *s = [t[2]   componentsSeparatedByString:@","];
+                    NSTimeInterval debut = ([t[0] intValue] * 3600) + ([t[1] intValue] * 60) + [s[0] intValue] + ([s[1] intValue] / 1000);
+                    t = [finS componentsSeparatedByString:@":"];
+                    s = [t[2] componentsSeparatedByString:@","];
+                    NSTimeInterval fin = ([t[0] intValue] * 3600) + ([t[1] intValue] * 60) + [s[0] intValue] + ([s[1] intValue] / 1000);
+                    
+                    [parts addObject:@{ @"from": @(debut),
+                                        @"to"  : @(fin),
+                                        @"text": curText }];
+                    state = kNUMBER;
+                }
+                else
+                    curText = [NSString stringWithFormat:@"%@ %@", curText, tLine];
+                break;
+            }
+        }
+    }
+    
+    return [NSArray arrayWithArray:parts];
 }
 
 @end

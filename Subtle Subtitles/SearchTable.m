@@ -14,11 +14,16 @@
 {
     [super viewDidLoad];
     
+    networkCount  = 0;
     searchResults = [NSArray array];
     
     UIView *backView = [UIView new];
     [backView setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
     [self.tableView setBackgroundView:backView];
+    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:nil action:nil];
     
     search = [[UISearchController alloc] initWithSearchResultsController:nil];
     search.dimsBackgroundDuringPresentation = NO;
@@ -27,6 +32,7 @@
     search.searchBar.scopeButtonTitles = @[@"English"];
     search.searchBar.barStyle = UIBarStyleBlack;
     search.searchBar.tintColor = [UIColor lightGrayColor];
+    search.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
     [search.searchBar sizeToFit];
     self.tableView.tableHeaderView = search.searchBar;
     search.searchBar.hidden = YES;
@@ -45,7 +51,10 @@
 - (void) openSubtitlerDidLogIn:(OROpenSubtitleDownloader *)downloader
 {
     search.searchBar.hidden = NO;
+    networkCount++;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:networkCount];
     [downloader supportedLanguagesList:^(NSArray *languages, NSError *error) {
+        search.active = NO;
         if (error == nil)
         {
             NSMutableArray *langues  = [NSMutableArray array];
@@ -65,12 +74,14 @@
         }
         else
         {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Erreur lors de la récupération des langues"
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error when fetching available languages"
                                                                            message:[error localizedDescription]
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
         }
+        networkCount--;
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:networkCount];
     }];
 }
 
@@ -78,20 +89,37 @@
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    networkCount++;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:networkCount];
     down.languageString = languageResults[searchBar.selectedScopeButtonIndex];
     [down searchForSubtitlesWithQuery:searchBar.text :^(NSArray *subtitles, NSError *error) {
+        search.active = NO;
         if (error == nil)
-            searchResults = subtitles;
+        {
+            if ([subtitles count])
+            {
+                searchResults = subtitles;
+                [self.tableView reloadData];
+            }
+            else
+            {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No results"
+                                                                               message:@"So sad"
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }
         else
         {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Erreur lors de la recherche"
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Search error"
                                                                            message:[error localizedDescription]
                                                                     preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
         }
-        [self.tableView reloadData];
-        search.active = NO;
+        networkCount--;
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:networkCount];
     }];
 }
 
@@ -118,26 +146,32 @@
     cell.textLabel.text       = result.subtitleName;
     cell.detailTextLabel.text = result.movieYear;
     
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.bounds];
+    cell.selectedBackgroundView.backgroundColor = [UIColor darkGrayColor];
+    
     return cell;
 }
 
 - (void)      tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    search.active = NO;
+    networkCount++;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:networkCount];
     [down downloadSubtitlesForResult:searchResults[indexPath.row]
-                              toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:@"/sub"] :^(NSString *path, NSError *error) {
+                              toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:@"/sub.srt"] :^(NSString *path, NSError *error) {
                                   if (error == nil)
-                                  {
-                                      NSLog(@"%@", path);
-                                  }
+                                      [self.navigationController performSegueWithIdentifier:@"detailSegue" sender:self];
                                   else
                                   {
-                                      UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Erreur lors de la récupération"
+                                      UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error when downloading SRT file"
                                                                                                      message:[error localizedDescription]
                                                                                               preferredStyle:UIAlertControllerStyleAlert];
                                       [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
                                       [self presentViewController:alert animated:YES completion:nil];
                                   }
+                                  networkCount--;
+                                  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:networkCount];
                               }];
 }
 

@@ -35,7 +35,9 @@
                             <outlet property="delegate" destination="i4Q-aB-McR" id="jh5-5o-4Ws"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Subtle Subtitles" id="maL-5P-2ld"/>
+                    <navigationItem key="navigationItem" title="Subtle Subtitles" id="maL-5P-2ld">
+                        <barButtonItem key="leftBarButtonItem" image="flag" id="ZH9-gV-OCg"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="guF-y7-qV7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -49,6 +51,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="M0F-ho-ugU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -61,4 +64,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="flag" width="22" height="22"/>
+    </resources>
 </document>

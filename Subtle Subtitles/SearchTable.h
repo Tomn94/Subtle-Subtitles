@@ -8,6 +8,7 @@
 
 @import UIKit;
 #import <OROpenSubtitleDownloader/OROpenSubtitleDownloader.h>
+#import "SubViewController.h"
 
 @interface SearchTable : UITableViewController <OROpenSubtitleDownloaderDelegate, UISearchBarDelegate>
 {
@@ -15,6 +16,7 @@
     OROpenSubtitleDownloader *down;
     NSArray *languageResults;
     NSArray *searchResults;
+    NSInteger networkCount;
 }
 
 @end
