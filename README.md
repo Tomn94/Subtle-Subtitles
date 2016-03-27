@@ -1,4 +1,4 @@
-# Subtle-Subtitles
+# Subtle Subtitles
 Repository for my simple iPhone app suiting my needs about movie/series subtitles
 
 * Search through OpenSubtitles.org database
