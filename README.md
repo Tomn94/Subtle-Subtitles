@@ -1,7 +1,7 @@
 # Subtle Subtitles
 Repository for my simple iOS app suiting my needs about movie/series subtitles
 
-* Search through https://OpenSubtitles.org database
+* Search through http://OpenSubtitles.org database
 * Choose a SRT file and play it right from the app
 * Modify the delay or the current time, play, pause
 * Swipe up to go fullscreen
