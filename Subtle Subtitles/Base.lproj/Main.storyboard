@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Subtle Subtitles-->
@@ -155,11 +156,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mkk-Iq-cey">
-                        <barButtonItem key="rightBarButtonItem" systemItem="pause" id="ySy-dy-ZDN">
-                            <connections>
-                                <action selector="playTapped:" destination="KXK-aY-shy" id="ffD-xB-a97"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="action" id="jle-r0-ejQ">
+                                <connections>
+                                    <action selector="share:" destination="KXK-aY-shy" id="mBo-Fe-R2c"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="pause" id="ySy-dy-ZDN">
+                                <connections>
+                                    <action selector="playTapped:" destination="KXK-aY-shy" id="ffD-xB-a97"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="slider" destination="x5C-4y-UJQ" id="LVO-Jb-72x"/>

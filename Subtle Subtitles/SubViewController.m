@@ -191,4 +191,11 @@
     self.stepperValue.text = [NSString stringWithFormat:@"%.1f s", delay];
 }
 
+- (IBAction) share:(id)sender
+{
+    UIDocumentInteractionController *doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:@"/sub.srt"]]];
+    if (![doc presentOpenInMenuFromRect:self.view.frame inView:self.view animated:YES])
+        [doc presentOptionsMenuFromRect:self.view.frame inView:self.view animated:YES];
+}
+
 @end

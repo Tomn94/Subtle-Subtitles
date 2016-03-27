@@ -34,6 +34,7 @@ typedef enum : NSUInteger {
 - (void) timer;
 - (void) updateText;
 - (NSArray *) parse:(NSString *)srtData;
-- (IBAction)delay:(id)sender;
+- (IBAction) delay:(id)sender;
+- (IBAction) share:(id)sender;
 
 @end
