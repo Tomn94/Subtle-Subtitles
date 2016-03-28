@@ -35,7 +35,7 @@
     [search.searchBar sizeToFit];
     self.tableView.tableHeaderView = search.searchBar;
     
-    down = [[OROpenSubtitleDownloader alloc] initWithUserAgent:@"OSTestUserAgent"];
+    down = [[OROpenSubtitleDownloader alloc] initWithUserAgent:@"subtle subtitles"];
     down.delegate = self;
 }
 
