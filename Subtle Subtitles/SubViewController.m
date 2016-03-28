@@ -146,9 +146,14 @@
         switch (state)
         {
             case kNUMBER:
-                state = kTIME;
-                curText = @"";
+            {
+                if (![tLine isEqualToString:@""])
+                {
+                    state = kTIME;
+                    curText = @"";
+                }
                 break;
+            }
                 
             case kTIME:
                 curTime = tLine;

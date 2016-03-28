@@ -249,6 +249,7 @@
 				TargetAttributes = {
 					643859841CA727CD00BE70FF = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 7HW87TV8LC;
 					};
 					6438599D1CA727CD00BE70FF = {
 						CreatedOnToolsVersion = 7.3;
@@ -509,6 +510,7 @@
 			baseConfigurationReference = DA171D11328EBC39F9D07E5F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Subtle Subtitles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -522,6 +524,7 @@
 			baseConfigurationReference = E939A2E308D74BFEA0DAD35A /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Subtle Subtitles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
