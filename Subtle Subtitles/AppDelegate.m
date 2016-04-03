@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "CJPAdController.h"
 
 @implementation AppDelegate
 
@@ -14,6 +15,18 @@
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [[Data sharedData] updateNetwork:0];
+    
+    [CJPAdController sharedInstance].adNetworks = @[@(CJPAdNetworkAdMob)];
+    [CJPAdController sharedInstance].adPosition = CJPAdPositionBottom;
+    [CJPAdController sharedInstance].initialDelay = 2.0;
+    [CJPAdController sharedInstance].adMobUnitID = @"";
+    [[CJPAdController sharedInstance] setTestDeviceIDs:@[@""]];
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UINavigationController *navController = (UINavigationController*)[storyboard instantiateInitialViewController];
+    [[CJPAdController sharedInstance] startWithViewController:navController];
+    self.window.rootViewController = [CJPAdController sharedInstance];
+    
     return YES;
 }
 

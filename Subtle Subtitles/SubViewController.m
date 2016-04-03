@@ -56,6 +56,11 @@
     [timer invalidate];
 }
 
+- (UIStatusBarStyle) preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - Actions
 
 - (void) playTapped:(id)sender

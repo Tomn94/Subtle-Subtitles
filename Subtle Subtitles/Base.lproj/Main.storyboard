@@ -122,8 +122,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Erreur" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMS-YV-O2Q">
-                                <rect key="frame" x="30" y="74" width="540" height="516"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Erreur" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMS-YV-O2Q">
+                                <rect key="frame" x="30" y="74" width="540" height="476"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -161,8 +161,14 @@
                             <constraint firstItem="gMS-YV-O2Q" firstAttribute="top" secondItem="Pnc-aP-2ui" secondAttribute="bottom" constant="10" id="b8a-ap-zxY"/>
                             <constraint firstItem="k79-b1-1bH" firstAttribute="leading" secondItem="LMd-tB-Usv" secondAttribute="trailing" constant="10" id="ias-QL-a6h"/>
                             <constraint firstAttribute="trailingMargin" secondItem="k79-b1-1bH" secondAttribute="trailing" id="pSF-lE-zoE"/>
+                            <constraint firstItem="4jf-Qj-feu" firstAttribute="top" secondItem="gMS-YV-O2Q" secondAttribute="bottom" constant="10" id="ubW-Wd-ZHc"/>
                             <constraint firstItem="4jf-Qj-feu" firstAttribute="top" secondItem="gMS-YV-O2Q" secondAttribute="bottom" constant="10" id="ubs-rH-jfd"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ubs-rH-jfd"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="mkk-Iq-cey">
                         <rightBarButtonItems>
