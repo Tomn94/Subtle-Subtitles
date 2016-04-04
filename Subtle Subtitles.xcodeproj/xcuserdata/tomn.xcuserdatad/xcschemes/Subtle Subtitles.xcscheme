@@ -48,6 +48,16 @@
                ReferencedContainer = "container:Subtle Subtitles.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "641DD3A41CB1F3B20012E812"
+               BuildableName = "Subtle Subtitles UI Tests.xctest"
+               BlueprintName = "Subtle Subtitles UI Tests"
+               ReferencedContainer = "container:Subtle Subtitles.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

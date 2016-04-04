@@ -190,6 +190,7 @@ selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
     cell.textLabel.text       = result.subtitleName;
     cell.detailTextLabel.text = result.movieYear;
     
+    cell.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1];
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.bounds];
     cell.selectedBackgroundView.backgroundColor = [UIColor darkGrayColor];
     

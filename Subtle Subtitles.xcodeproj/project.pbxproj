@@ -560,10 +560,13 @@
 		643859B91CA727CD00BE70FF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Subtle SubtitlesUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tramigoapp.tomn.Subtle-SubtitlesUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Subtle SubtitlesTests/Subtle SubtitlesUITests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_TARGET_NAME = "Subtle Subtitles";
 			};
 			name = Debug;
@@ -571,10 +574,12 @@
 		643859BA1CA727CD00BE70FF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Subtle SubtitlesUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tramigoapp.tomn.Subtle-SubtitlesUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Subtle SubtitlesTests/Subtle SubtitlesUITests-Bridging-Header.h";
 				TEST_TARGET_NAME = "Subtle Subtitles";
 			};
 			name = Release;
