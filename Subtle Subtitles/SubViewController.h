@@ -31,6 +31,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 
 - (IBAction) playTapped:(id)sender;
+- (void) stop;
 - (IBAction) scrub:(id)sender;
 - (void) timer;
 - (void) updateText;

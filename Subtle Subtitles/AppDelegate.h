@@ -8,6 +8,7 @@
 
 @import UIKit;
 #import "Data.h"
+#import "CJPAdController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

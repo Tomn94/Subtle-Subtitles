@@ -37,4 +37,116 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:_networkCount];
 }
 
+- (void) startPurchase
+{
+    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:ADS_ID]];
+    request.delegate = self;
+    [request start];
+    [self updateNetwork:1];
+}
+
+#pragma mark - In-App Purchase
+
+- (void) restorePurchase
+{
+    [self updateNetwork:1];
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+}
+
+- (void) productsRequest:(SKProductsRequest *)request
+      didReceiveResponse:(SKProductsResponse *)response
+{
+    SKProduct *validProduct = nil;
+    NSUInteger count = [response.products count];
+    
+    if (count > 0)
+    {
+        validProduct = [response.products firstObject];
+        
+        SKPayment *payment = [SKPayment paymentWithProduct:validProduct];
+        [[SKPaymentQueue defaultQueue]  addTransactionObserver:self];
+        [[SKPaymentQueue defaultQueue]  addPayment:payment];
+    }
+    else
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"This purchase can't be bought"
+                                                                       message:@"No purchase are currently available for sale."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+        [self updateNetwork:-1];
+    }
+}
+
+- (void) paymentQueue:(SKPaymentQueue *)queue
+  updatedTransactions:(NSArray *)transactions
+{
+    for (SKPaymentTransaction *transaction in transactions)
+    {
+        switch (transaction.transactionState)
+        {
+            case SKPaymentTransactionStatePurchased:
+            {
+                [self updateNetwork:-1];
+                [[CJPAdController sharedInstance] removeAdsAndMakePermanent:YES andRemember:YES];
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Thanks !"
+                                                                               message:@"Ads won't appear anymore on your devices."
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"Great" style:UIAlertActionStyleCancel handler:nil]];
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+                break;
+            }
+            case SKPaymentTransactionStateRestored:
+            {
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                [self updateNetwork:-1];
+                [[CJPAdController sharedInstance] removeAdsAndMakePermanent:YES andRemember:YES];
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ads have been removed!"
+                                                                               message:@"Your previous purchase has been restored."
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"Great" style:UIAlertActionStyleCancel handler:nil]];
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+                break;
+            }
+            case SKPaymentTransactionStateFailed:
+                break;
+            case SKPaymentTransactionStatePurchasing:
+                break;
+            case SKPaymentTransactionStateDeferred:
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+- (void) request:(SKRequest *)request
+didFailWithError:(NSError *)error
+{
+    [self updateNetwork:-1];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Can't complete the purchase"
+                                                                   message:error.localizedDescription
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+}
+
+- (void) paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
+{
+}
+
+- (void)                       paymentQueue:(SKPaymentQueue *)queue
+restoreCompletedTransactionsFailedWithError:(NSError *)error
+{
+    [self updateNetwork:-1];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Can't restore the purchase"
+                                                                   message:error.localizedDescription
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+}
+
 @end

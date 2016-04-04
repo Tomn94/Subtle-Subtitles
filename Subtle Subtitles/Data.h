@@ -8,8 +8,12 @@
 
 @import Foundation;
 @import UIKit;
+@import StoreKit;
+#import "CJPAdController.h"
 
-@interface Data : NSObject
+#define ADS_ID @"com.tomn.Subtle-Subtitles.ads"
+
+@interface Data : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
 + (Data *) sharedData;
 
@@ -18,5 +22,7 @@
 @property (assign, nonatomic) NSInteger networkCount;
 
 - (void) updateNetwork:(int)diff;
+- (void) startPurchase;
+- (void) restorePurchase;
 
 @end

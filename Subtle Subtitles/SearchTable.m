@@ -6,6 +6,7 @@
 //  Copyright © 2016 Tomn. All rights reserved.
 //
 
+@import StoreKit;
 #import "SearchTable.h"
 
 @implementation SearchTable
@@ -43,9 +44,13 @@
 {
     [super viewWillAppear:animated];
     
+    // Smooth animation when swiping back
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    search.searchBar.scopeButtonTitles = @[ @"English", [defaults stringForKey:@"langName"] ];
+    search.searchBar.scopeButtonTitles = @[ @"English", [defaults stringForKey:@"langName"], @"S+1", @"E+1" ];
     search.searchBar.selectedScopeButtonIndex = [defaults integerForKey:@"langIndex"];
+    currentScope = [defaults integerForKey:@"langIndex"];
     [search.searchBar sizeToFit];
 }
 
@@ -94,7 +99,9 @@
     [[Data sharedData] updateNetwork:+1];
     down.languageString = search.searchBar.selectedScopeButtonIndex ? [[NSUserDefaults standardUserDefaults] stringForKey:@"langID"] : @"eng";
     [down searchForSubtitlesWithQuery:searchBar.text :^(NSArray *subtitles, NSError *error) {
+        NSString *str = searchBar.text;
         search.active = NO;
+        searchBar.text = str;
         if (error == nil)
         {
             if ([subtitles count])
@@ -104,7 +111,7 @@
             }
             else
             {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No results"
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"No results for “%@”", str]
                                                                                message:@"¯\\_(ツ)_/¯"
                                                                         preferredStyle:UIAlertControllerStyleAlert];
                 [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
@@ -126,6 +133,35 @@
 - (void)                searchBar:(UISearchBar *)searchBar
 selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
+    if (selectedScope > 1)
+    {
+        searchBar.selectedScopeButtonIndex = currentScope;
+        NSString *query = searchBar.text;
+        
+        NSError *error = nil;
+        NSRegularExpression *regex;
+        if (selectedScope > 2)
+            regex = [NSRegularExpression regularExpressionWithPattern:@"E[0-9]{1,2}"
+                                                              options:NSRegularExpressionCaseInsensitive
+                                                                error:&error];
+        else
+            regex = [NSRegularExpression regularExpressionWithPattern:@"S[0-9]{1,2}"
+                                                              options:NSRegularExpressionCaseInsensitive
+                                                                error:&error];
+        NSRange range = [regex rangeOfFirstMatchInString:query options:0 range:NSMakeRange(0, query.length)];
+        if (range.location == NSNotFound && range.location + 1 >= query.length)
+            return;
+        
+        NSString *result = [query substringWithRange:NSMakeRange(range.location + 1, range.length - 1)];
+        int intVal = [result intValue] + 1;
+        
+        NSString *modifiedString = [regex stringByReplacingMatchesInString:query options:0 range:NSMakeRange(0, [query length])
+                                                              withTemplate:[NSString stringWithFormat:@"%@%02d", (selectedScope > 2) ? @"E" : @"S", intVal]];
+        searchBar.text = modifiedString;
+        return;
+    }
+    
+    currentScope = selectedScope;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:@(selectedScope) forKey:@"langIndex"];
     [defaults synchronize];
@@ -163,9 +199,23 @@ selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 - (void)      tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSString *str = search.searchBar.text;
     search.active = NO;
+    search.searchBar.text = str;
+    
+    OpenSubtitleSearchResult *result = searchResults[indexPath.row];
+    if ([result.subtitleName hasSuffix:@".sub"])
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"SUB files are not supported"
+                                                                       message:@"Sorry, search for SRT files, please."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    
     [[Data sharedData] updateNetwork:1];
-    [down downloadSubtitlesForResult:searchResults[indexPath.row]
+    [down downloadSubtitlesForResult:result
                               toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:@"/sub.srt"] :^(NSString *path, NSError *error) {
                                   if (error == nil)
                                       [self.navigationController performSegueWithIdentifier:@"detailSegue" sender:self];
@@ -184,9 +234,31 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (IBAction) infos:(id)sender
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Subtle Subtitles"
-                                                                   message:@"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework"
+                                                                   message:@"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nContact: @tomn94"
                                                             preferredStyle:UIAlertControllerStyleAlert];
+    
+    if ([SKPaymentQueue canMakePayments])
+    {
+        [alert addAction:[UIAlertAction actionWithTitle:@"Remove Ads"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"Remove ads for a small amount"
+                                                                            message:@"The developer will be so happy for your donation especially knowing that you won't have to bear ads anymore!"
+                                                                     preferredStyle:UIAlertControllerStyleAlert];
+            [alert2 addAction:[UIAlertAction actionWithTitle:@"Please, remove them" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[Data sharedData] startPurchase];
+            }]];
+            [alert2 addAction:[UIAlertAction actionWithTitle:@"Restore purchase" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[Data sharedData] restorePurchase];
+            }]];
+            [alert2 addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+            
+            [self presentViewController:alert2 animated:YES completion:nil];
+        }]];
+    }
+    
     [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    
     [self presentViewController:alert animated:YES completion:nil];
 }
 @end

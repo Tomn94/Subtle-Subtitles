@@ -16,6 +16,7 @@
     UISearchController *search;
     NSArray *searchResults;
     OROpenSubtitleDownloader *down;
+    NSInteger currentScope;
 }
 
 - (IBAction) infos:(id)sender;

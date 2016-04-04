@@ -40,6 +40,8 @@
     }
     else
         [self.navigationItem setRightBarButtonItems:nil animated:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stop) name:@"stopTimerSub" object:nil];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -52,8 +54,7 @@
 {
     [super viewWillDisappear:animated];
     self.navigationController.hidesBarsOnSwipe = NO;
-    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-    [timer invalidate];
+    [self stop];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle
@@ -83,6 +84,17 @@
     
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(playing) ? UIBarButtonSystemItemPause
                                                                                            : UIBarButtonSystemItemPlay
+                                                                          target:self
+                                                                          action:@selector(playTapped:)];
+    [self.navigationItem setRightBarButtonItems:@[_shareButton, item] animated:YES];
+}
+
+- (void) stop
+{
+    playing = NO;
+    [timer invalidate];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay
                                                                           target:self
                                                                           action:@selector(playTapped:)];
     [self.navigationItem setRightBarButtonItems:@[_shareButton, item] animated:YES];
