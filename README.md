@@ -5,7 +5,6 @@ Repository for my simple iOS app suiting my needs about movie/series subtitles
 
 Coded in few hours so be clement! (✿◠‿◠) 
 
-<br>
 > Super simple Subtitle player: Search & Play!
 > 
 > #### SEARCH
