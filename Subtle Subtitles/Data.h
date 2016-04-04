@@ -11,7 +11,7 @@
 @import StoreKit;
 #import "CJPAdController.h"
 
-#define ADS_ID @"com.tomn.Subtle-Subtitles.ads"
+#define ADS_ID @"com.tomn.SubtleSubtitles.ads"
 
 @interface Data : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
