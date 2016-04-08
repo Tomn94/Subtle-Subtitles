@@ -1,7 +1,7 @@
 # Subtle Subtitles
 Repository for my simple iOS app suiting my needs about movie/series subtitles
 
-[View and download for iPhone/iPad on the App Store](https://itunes.apple.com/app/subtle-subtitles/id1099663304?l=fr&ls=1&mt=8)
+[View and download for iPhone/iPad on the App Store](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
 
 Coded in few hours so be clement! (✿◠‿◠) 
 
