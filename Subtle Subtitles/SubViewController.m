@@ -19,9 +19,12 @@
     curIndex = -1;
     playing = NO;
     srt = nil;
+    fileName = [NSString stringWithFormat:@"/%@", [[Data sharedData] currentFileName]];
+    if (fileName == nil || [fileName isEqualToString:@""] || [fileName isEqualToString:@"/"])
+        fileName = @"/sub.srt";
     [self.slider setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateNormal];
     
-    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:@"/sub.srt"];
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:fileName];
     NSString *htmlString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     if (htmlString == nil)
         htmlString = [NSString stringWithContentsOfFile:path encoding:NSISOLatin1StringEncoding error:nil];
@@ -86,7 +89,8 @@
                                                                                            : UIBarButtonSystemItemPlay
                                                                           target:self
                                                                           action:@selector(playTapped:)];
-    [self.navigationItem setRightBarButtonItems:@[_shareButton, item] animated:YES];
+    if (_shareButton != nil)
+        [self.navigationItem setRightBarButtonItems:@[_shareButton, item] animated:YES];
 }
 
 - (void) stop
@@ -97,7 +101,8 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay
                                                                           target:self
                                                                           action:@selector(playTapped:)];
-    [self.navigationItem setRightBarButtonItems:@[_shareButton, item] animated:YES];
+    if (_shareButton != nil)
+        [self.navigationItem setRightBarButtonItems:@[_shareButton, item] animated:YES];
 }
 
 - (IBAction) scrub:(id)sender
@@ -215,7 +220,7 @@
 
 - (IBAction) share:(id)sender
 {
-    UIDocumentInteractionController *doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:@"/sub.srt"]]];
+    doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:fileName]]];
     if (![doc presentOpenInMenuFromRect:self.view.frame inView:self.view animated:YES])
         [doc presentOptionsMenuFromRect:self.view.frame inView:self.view animated:YES];
 }

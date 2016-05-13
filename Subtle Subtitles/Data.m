@@ -26,6 +26,19 @@
                                       @"langIndex": @0 }];
         [defaults synchronize];
         
+        // Nettoyage des données précédentes
+        NSString *extension = @"srt";
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+        
+        NSArray *contents = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:NULL];
+        NSEnumerator *e = [contents objectEnumerator];
+        NSString *filename;
+        while ((filename = [e nextObject])) {
+            if ([[filename pathExtension] isEqualToString:extension])
+                [fileManager removeItemAtPath:[documentsDirectory stringByAppendingPathComponent:filename] error:NULL];
+        }
+        
         instance.networkCount = 0;
     }
     return instance;

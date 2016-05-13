@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSArray *langNames;
 @property (strong, nonatomic) NSArray *langIDs;
 @property (assign, nonatomic) NSInteger networkCount;
+@property (strong, nonatomic) NSString *currentFileName;
 
 - (void) updateNetwork:(int)diff;
 - (void) startPurchase;

@@ -217,9 +217,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     
     [[Data sharedData] updateNetwork:1];
     [down downloadSubtitlesForResult:result
-                              toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:@"/sub.srt"] :^(NSString *path, NSError *error) {
+                              toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@", result.subtitleName]] :^(NSString *path, NSError *error) {
                                   if (error == nil)
+                                  {
+                                      [[Data sharedData] setCurrentFileName:result.subtitleName];
                                       [self.navigationController performSegueWithIdentifier:@"detailSegue" sender:self];
+                                  }
                                   else
                                   {
                                       UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error when downloading SRT file"

@@ -7,6 +7,7 @@
 //
 
 @import UIKit;
+#import "Data.h"
 
 typedef enum : NSUInteger {
     kNUMBER,
@@ -22,6 +23,8 @@ typedef enum : NSUInteger {
     NSArray *srt;
     NSInteger curIndex;
     NSTimeInterval delay;
+    NSString *fileName;
+    UIDocumentInteractionController *doc;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *subLabel;
