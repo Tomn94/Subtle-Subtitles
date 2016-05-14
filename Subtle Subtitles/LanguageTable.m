@@ -32,6 +32,17 @@
     return UIStatusBarStyleLightContent;
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    NSUInteger pos = [langIDs indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"langID"]];
+    if (pos != NSNotFound)
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:pos inSection:0]
+                              atScrollPosition:UITableViewScrollPositionTop
+                                      animated:YES];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView

@@ -33,6 +33,7 @@
     search.searchBar.barStyle = UIBarStyleBlack;
     search.searchBar.tintColor = [UIColor lightGrayColor];
     search.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
+    search.searchBar.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"lastSearch"];
     [search.searchBar sizeToFit];
     self.tableView.tableHeaderView = search.searchBar;
     
@@ -52,6 +53,12 @@
     search.searchBar.selectedScopeButtonIndex = [defaults integerForKey:@"langIndex"];
     currentScope = [defaults integerForKey:@"langIndex"];
     [search.searchBar sizeToFit];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.navigationController.hidesBarsOnSwipe = NO;
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle
@@ -96,9 +103,13 @@
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    NSString *query = searchBar.text;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:searchBar.text forKey:@"lastSearch"];
+    
     [[Data sharedData] updateNetwork:+1];
-    down.languageString = search.searchBar.selectedScopeButtonIndex ? [[NSUserDefaults standardUserDefaults] stringForKey:@"langID"] : @"eng";
-    [down searchForSubtitlesWithQuery:searchBar.text :^(NSArray *subtitles, NSError *error) {
+    down.languageString = search.searchBar.selectedScopeButtonIndex ? [defaults stringForKey:@"langID"] : @"eng";
+    [down searchForSubtitlesWithQuery:query :^(NSArray *subtitles, NSError *error) {
         NSString *str = searchBar.text;
         search.active = NO;
         searchBar.text = str;

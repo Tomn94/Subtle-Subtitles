@@ -15,6 +15,9 @@ typedef enum : NSUInteger {
     kTEXT
 } kSRTState;
 
+@interface ShowControlsView : UIView
+@end
+
 @interface SubViewController : UIViewController
 {
     NSTimeInterval time;
@@ -25,6 +28,7 @@ typedef enum : NSUInteger {
     NSTimeInterval delay;
     NSString *fileName;
     UIDocumentInteractionController *doc;
+    NSTimer *autohideTimer;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *subLabel;
@@ -41,5 +45,6 @@ typedef enum : NSUInteger {
 - (NSArray *) parse:(NSString *)srtData;
 - (IBAction) delay:(id)sender;
 - (IBAction) share:(id)sender;
+- (void) showControls;
 
 @end

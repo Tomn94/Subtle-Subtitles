@@ -8,6 +8,21 @@
 
 #import "SubViewController.h"
 
+@implementation ShowControlsView
+
+- (void) touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"showControls" object:nil];
+}
+
+- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"showControls" object:nil];
+}
+
+@end
+
+
 @implementation SubViewController
 
 - (void) viewDidLoad
@@ -42,18 +57,21 @@
         timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timer) userInfo:nil repeats:YES];
     }
     else
-        [self.navigationItem setRightBarButtonItems:nil animated:YES];
+        self.navigationItem.rightBarButtonItems = nil;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stop) name:@"stopTimerSub" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showControls) name:@"showControls" object:nil];
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     self.navigationController.hidesBarsOnSwipe = YES;
+    autohideTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(hideControls) userInfo:nil repeats:NO];
+    [self showControls];
 }
 
-- (void) viewWillDisappear:(BOOL)animated
+- (void) viewDidDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     self.navigationController.hidesBarsOnSwipe = NO;
@@ -90,7 +108,7 @@
                                                                           target:self
                                                                           action:@selector(playTapped:)];
     if (_shareButton != nil)
-        [self.navigationItem setRightBarButtonItems:@[_shareButton, item] animated:YES];
+        self.navigationItem.rightBarButtonItems = @[_shareButton, item];
 }
 
 - (void) stop
@@ -102,7 +120,7 @@
                                                                           target:self
                                                                           action:@selector(playTapped:)];
     if (_shareButton != nil)
-        [self.navigationItem setRightBarButtonItems:@[_shareButton, item] animated:YES];
+        self.navigationItem.rightBarButtonItems = @[_shareButton, item];
 }
 
 - (IBAction) scrub:(id)sender
@@ -110,6 +128,7 @@
     time = self.slider.value;
     curIndex = 0;
     [self updateText];
+    [self showControls];
 }
 
 - (void) timer
@@ -126,7 +145,7 @@
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay
                                                                               target:self
                                                                               action:@selector(playTapped:)];
-        [self.navigationItem setRightBarButtonItems:@[_shareButton, item] animated:YES];
+        self.navigationItem.rightBarButtonItems = @[_shareButton, item];
         [timer invalidate];
         playing = NO;
         [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
@@ -187,20 +206,23 @@
                 if ([tLine isEqualToString:@""])
                 {
                     NSArray *times   = [curTime componentsSeparatedByString:@"-->"];
-                    NSString *debutS = [times[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                    NSString *finS   = [times[1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                    
-                    NSArray *t = [debutS componentsSeparatedByString:@":"];
-                    NSArray *s = [t[2]   componentsSeparatedByString:@","];
-                    NSTimeInterval debut = ([t[0] intValue] * 3600) + ([t[1] intValue] * 60) + [s[0] intValue] + ([s[1] intValue] / 1000);
-                    t = [finS componentsSeparatedByString:@":"];
-                    s = [t[2] componentsSeparatedByString:@","];
-                    NSTimeInterval fin = ([t[0] intValue] * 3600) + ([t[1] intValue] * 60) + [s[0] intValue] + ([s[1] intValue] / 1000);
-                    
-                    [parts addObject:@{ @"from": @(debut),
-                                        @"to"  : @(fin),
-                                        @"text": curText }];
-                    state = kNUMBER;
+                    if (times.count > 1)
+                    {
+                        NSString *debutS = [times[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                        NSString *finS   = [times[1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                        
+                        NSArray *t = [debutS componentsSeparatedByString:@":"];
+                        NSArray *s = [t[2]   componentsSeparatedByString:@","];
+                        NSTimeInterval debut = ([t[0] intValue] * 3600) + ([t[1] intValue] * 60) + [s[0] intValue] + ([s[1] intValue] / 1000);
+                        t = [finS componentsSeparatedByString:@":"];
+                        s = [t[2] componentsSeparatedByString:@","];
+                        NSTimeInterval fin = ([t[0] intValue] * 3600) + ([t[1] intValue] * 60) + [s[0] intValue] + ([s[1] intValue] / 1000);
+                        
+                        [parts addObject:@{ @"from": @(debut),
+                                            @"to"  : @(fin),
+                                            @"text": curText }];
+                        state = kNUMBER;
+                    }
                 }
                 else
                     curText = [NSString stringWithFormat:@"%@ %@", curText, tLine];
@@ -216,6 +238,7 @@
 {
     delay = self.stepper.value / 10;
     self.stepperValue.text = [NSString stringWithFormat:@"%.1f s", delay];
+    [self showControls];
 }
 
 - (IBAction) share:(id)sender
@@ -223,6 +246,29 @@
     doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:fileName]]];
     if (![doc presentOpenInMenuFromRect:self.view.frame inView:self.view animated:YES])
         [doc presentOptionsMenuFromRect:self.view.frame inView:self.view animated:YES];
+}
+
+- (void) hideControls
+{
+    [UIView animateWithDuration:0.7
+                     animations:^{
+                         _slider.alpha = 0;
+                         _stepper.alpha = 0;
+                         _stepperValue.alpha = 0;
+                     }];
+}
+
+- (void) showControls
+{
+    [autohideTimer invalidate];
+    autohideTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(hideControls) userInfo:nil repeats:NO];
+    
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         _slider.alpha = 1;
+                         _stepper.alpha = 1;
+                         _stepperValue.alpha = 1;
+                     }];
 }
 
 @end

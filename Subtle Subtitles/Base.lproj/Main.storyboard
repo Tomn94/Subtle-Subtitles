@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s7x-3s-qtS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s7x-3s-qtS">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -118,55 +118,61 @@
                         <viewControllerLayoutGuide type="top" id="Pnc-aP-2ui"/>
                         <viewControllerLayoutGuide type="bottom" id="4jf-Qj-feu"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7qe-U1-SUK">
+                    <view key="view" contentMode="scaleToFill" id="7qe-U1-SUK" customClass="ShowControlsView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Erreur" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMS-YV-O2Q">
-                                <rect key="frame" x="30" y="74" width="540" height="476"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Erreur" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMS-YV-O2Q">
+                                <rect key="frame" x="30" y="74" width="540" height="516"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="x5C-4y-UJQ">
-                                <rect key="frame" x="8" y="69" width="584" height="31"/>
+                                <rect key="frame" x="43" y="550" width="514" height="31"/>
                                 <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="scrub:" destination="KXK-aY-shy" eventType="valueChanged" id="vSf-mv-sNm"/>
                                 </connections>
                             </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 s" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMd-tB-Usv">
+                                <rect key="frame" x="432" y="518" width="19" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumValue="-10000" maximumValue="10000" translatesAutoresizingMaskIntoConstraints="NO" id="k79-b1-1bH">
-                                <rect key="frame" x="486" y="99" width="94" height="29"/>
+                                <rect key="frame" x="461" y="511" width="94" height="29"/>
                                 <color key="tintColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="delay:" destination="KXK-aY-shy" eventType="valueChanged" id="7ff-qp-Epr"/>
                                 </connections>
                             </stepper>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 s" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMd-tB-Usv">
-                                <rect key="frame" x="457" y="106" width="19" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="x5C-4y-UJQ" firstAttribute="top" secondItem="Pnc-aP-2ui" secondAttribute="bottom" constant="5" id="4V1-ng-6Wz"/>
-                            <constraint firstItem="x5C-4y-UJQ" firstAttribute="leading" secondItem="7qe-U1-SUK" secondAttribute="leading" constant="10" id="Doa-ds-9cF"/>
+                            <constraint firstItem="x5C-4y-UJQ" firstAttribute="top" secondItem="Pnc-aP-2ui" secondAttribute="bottom" constant="20" id="4V1-ng-6Wz"/>
+                            <constraint firstItem="x5C-4y-UJQ" firstAttribute="leading" secondItem="7qe-U1-SUK" secondAttribute="leading" constant="45" id="Doa-ds-9cF"/>
                             <constraint firstItem="k79-b1-1bH" firstAttribute="centerY" secondItem="LMd-tB-Usv" secondAttribute="centerY" id="H0Y-a8-i8b"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gMS-YV-O2Q" secondAttribute="trailing" constant="10" id="JMk-Bc-Wcw"/>
-                            <constraint firstItem="k79-b1-1bH" firstAttribute="top" secondItem="x5C-4y-UJQ" secondAttribute="bottom" id="KFj-sb-cug"/>
-                            <constraint firstAttribute="trailing" secondItem="x5C-4y-UJQ" secondAttribute="trailing" constant="10" id="M1E-YE-YUw"/>
+                            <constraint firstItem="k79-b1-1bH" firstAttribute="top" secondItem="x5C-4y-UJQ" secondAttribute="bottom" constant="10" id="KFj-sb-cug"/>
+                            <constraint firstItem="x5C-4y-UJQ" firstAttribute="top" secondItem="k79-b1-1bH" secondAttribute="bottom" constant="10" id="Kes-zE-dET"/>
+                            <constraint firstAttribute="trailing" secondItem="x5C-4y-UJQ" secondAttribute="trailing" constant="45" id="M1E-YE-YUw"/>
                             <constraint firstItem="gMS-YV-O2Q" firstAttribute="leading" secondItem="7qe-U1-SUK" secondAttribute="leadingMargin" constant="10" id="NRs-g8-ehV"/>
+                            <constraint firstItem="4jf-Qj-feu" firstAttribute="top" secondItem="x5C-4y-UJQ" secondAttribute="bottom" constant="20" id="TqV-hw-fd0"/>
                             <constraint firstItem="gMS-YV-O2Q" firstAttribute="top" secondItem="Pnc-aP-2ui" secondAttribute="bottom" constant="10" id="b8a-ap-zxY"/>
                             <constraint firstItem="k79-b1-1bH" firstAttribute="leading" secondItem="LMd-tB-Usv" secondAttribute="trailing" constant="10" id="ias-QL-a6h"/>
+                            <constraint firstItem="k79-b1-1bH" firstAttribute="trailing" secondItem="x5C-4y-UJQ" secondAttribute="trailing" id="krt-OB-KFA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="k79-b1-1bH" secondAttribute="trailing" id="pSF-lE-zoE"/>
                             <constraint firstItem="4jf-Qj-feu" firstAttribute="top" secondItem="gMS-YV-O2Q" secondAttribute="bottom" constant="10" id="ubW-Wd-ZHc"/>
                             <constraint firstItem="4jf-Qj-feu" firstAttribute="top" secondItem="gMS-YV-O2Q" secondAttribute="bottom" constant="10" id="ubs-rH-jfd"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="4V1-ng-6Wz"/>
                                 <exclude reference="ubs-rH-jfd"/>
+                                <exclude reference="KFj-sb-cug"/>
+                                <exclude reference="pSF-lE-zoE"/>
                             </mask>
                         </variation>
                     </view>
