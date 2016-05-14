@@ -30,3 +30,25 @@ Coded in few hours so be clement! (✿◠‿◠)
 <br>
 <img src="https://pbs.twimg.com/media/Ceh0TjCXIAEVyBD.jpg:large" width="400" />
 ![Screenshot Player](https://pbs.twimg.com/media/Ceh0TtbW8AADHFg.jpg:large)
+
+
+<br>
+### Release notes
+#####v1.2 - 1?/05/2016
+> Subtle Subtitles has found many users, thank you all!
+>
+> - Enhanced auto-hiding player controls
+> - Remembers last search query at launch, useful when binge-watching
+> - Scrolls to the selected setting for the 2nd search language
+> - Fixed a crash when parsing bad SRT files
+> 
+> Feel free to contact me on Twitter if you have some other ideas: @tomn94
+
+#####v1.1 - 15/05/2016
+> Subtle Subtitles has found many users, thank you all!
+>
+> Some of you made suggestions, here they are:
+> – Exported subtitles now use the original name of the file
+> – Fixed a crash when exporting to some apps such as video players
+> 
+> Feel free to contact me on Twitter if you have some ideas too: @tomn94
