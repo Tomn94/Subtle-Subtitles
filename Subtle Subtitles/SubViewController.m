@@ -10,11 +10,6 @@
 
 @implementation ShowControlsView
 
-- (void) touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"showControls" object:nil];
-}
-
 - (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"showControls" object:nil];
@@ -34,30 +29,50 @@
     curIndex = -1;
     playing = NO;
     srt = nil;
+    htmlForSub = [NSString stringWithFormat:@"<p style=\"color: white; text-align: center; font-family: '-apple-system', HelveticaNeue; font-size: %fpx\">", _subLabel.font.pointSize];
+    maxTimeLabel = @"00:00";
+    _stepperValue.font = [UIFont monospacedDigitSystemFontOfSize:_stepperValue.font.pointSize
+                                                          weight:UIFontWeightRegular];
+    _timeLabel.font = [UIFont monospacedDigitSystemFontOfSize:_timeLabel.font.pointSize
+                                                       weight:UIFontWeightRegular];
     fileName = [NSString stringWithFormat:@"/%@", [[Data sharedData] currentFileName]];
     if (fileName == nil || [fileName isEqualToString:@""] || [fileName isEqualToString:@"/"])
         fileName = @"/sub.srt";
     [self.slider setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateNormal];
     
     NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:fileName];
-    NSString *htmlString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    encoding = NSUTF8StringEncoding;
+    NSString *htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
     if (htmlString == nil)
-        htmlString = [NSString stringWithContentsOfFile:path encoding:NSISOLatin1StringEncoding error:nil];
+    {
+        encoding = NSISOLatin1StringEncoding;
+        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
+    }
     if (htmlString == nil)
-        htmlString = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+    {
+        encoding = NSASCIIStringEncoding;
+        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
+    }
     if (htmlString != nil)
     {
         self.subLabel.text = @"";
         
         srt = [self parse:htmlString];
-        self.slider.maximumValue = [[srt lastObject][@"to"] doubleValue];
+        NSUInteger maxTime = [[srt lastObject][@"to"] integerValue];
+        self.slider.maximumValue = maxTime;
         
         playing = YES;
         [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+        if (maxTime >= 3600)
+            _timeLabel.text = [NSString stringWithFormat:@"00:00/%lu:%02lu:%02lu",
+                               maxTime / 3600, maxTime % 3600 / 60, maxTime % 3600 % 60];
+        else
+            _timeLabel.text = [NSString stringWithFormat:@"00:00/%02lu:%02lu", maxTime / 60, maxTime % 60];
+        maxTimeLabel = [_timeLabel.text componentsSeparatedByString:@"/"][1];
         timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timer) userInfo:nil repeats:YES];
     }
     else
-        self.navigationItem.rightBarButtonItems = nil;
+        self.navigationItem.rightBarButtonItem = nil;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stop) name:@"stopTimerSub" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showControls) name:@"showControls" object:nil];
@@ -66,15 +81,14 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.navigationController.hidesBarsOnSwipe = YES;
-    autohideTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(hideControls) userInfo:nil repeats:NO];
+    autohideTimer = [NSTimer scheduledTimerWithTimeInterval:6 target:self selector:@selector(hideControls) userInfo:nil repeats:NO];
+    forceShowControls = YES;
     [self showControls];
 }
 
 - (void) viewDidDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.navigationController.hidesBarsOnSwipe = NO;
     [self stop];
 }
 
@@ -103,12 +117,7 @@
     else
         [timer invalidate];
     
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:(playing) ? UIBarButtonSystemItemPause
-                                                                                           : UIBarButtonSystemItemPlay
-                                                                          target:self
-                                                                          action:@selector(playTapped:)];
-    if (_shareButton != nil)
-        self.navigationItem.rightBarButtonItems = @[_shareButton, item];
+    [_playButton setImage:[UIImage imageNamed:(!playing) ? @"play" : @"pause"] forState:UIControlStateNormal];
 }
 
 - (void) stop
@@ -116,11 +125,7 @@
     playing = NO;
     [timer invalidate];
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay
-                                                                          target:self
-                                                                          action:@selector(playTapped:)];
-    if (_shareButton != nil)
-        self.navigationItem.rightBarButtonItems = @[_shareButton, item];
+    [_playButton setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
 }
 
 - (IBAction) scrub:(id)sender
@@ -128,6 +133,8 @@
     time = self.slider.value;
     curIndex = 0;
     [self updateText];
+    [self updateTime];
+    forceShowControls = YES;
     [self showControls];
 }
 
@@ -136,16 +143,25 @@
     time += 0.1;
     self.slider.value = time;
     [self updateText];
+    [self updateTime];
+}
+
+- (void) updateTime
+{
+    NSUInteger currentTime = time;
+    if (currentTime >= 3600)
+        _timeLabel.text = [NSString stringWithFormat:@"%lu:%02lu:%02lu/%@",
+                           currentTime / 3600, currentTime % 3600 / 60, currentTime % 3600 % 60, maxTimeLabel];
+    else
+        _timeLabel.text = [NSString stringWithFormat:@"%02lu:%02lu/%@", currentTime / 60, currentTime % 60, maxTimeLabel];
 }
 
 - (void) updateText
 {
+    /* Subtitle text */
     if (srt == nil || time >= self.slider.maximumValue + delay)
     {
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay
-                                                                              target:self
-                                                                              action:@selector(playTapped:)];
-        self.navigationItem.rightBarButtonItems = @[_shareButton, item];
+        [_playButton setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
         [timer invalidate];
         playing = NO;
         [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
@@ -164,10 +180,13 @@
     if (found != -1)
     {
         curIndex = found;
-        self.subLabel.text = srt[curIndex][@"text"];
+        NSString *txt = [NSString stringWithFormat:@"%@%@</p>", htmlForSub, srt[curIndex][@"text"]];
+        _subLabel.attributedText = [[NSAttributedString alloc] initWithData:[txt dataUsingEncoding:encoding]
+                                                                    options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                         documentAttributes:nil error:nil];
     }
     else
-        self.subLabel.text = @"";
+        _subLabel.text = @"";
 }
 
 - (NSArray *) parse:(NSString *)srtData
@@ -238,6 +257,7 @@
 {
     delay = self.stepper.value / 10;
     self.stepperValue.text = [NSString stringWithFormat:@"%.1f s", delay];
+    forceShowControls = YES;
     [self showControls];
 }
 
@@ -250,8 +270,11 @@
 
 - (void) hideControls
 {
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [UIView animateWithDuration:0.7
                      animations:^{
+                         _playButton.alpha = 0;
+                         _timeLabel.alpha = 0;
                          _slider.alpha = 0;
                          _stepper.alpha = 0;
                          _stepperValue.alpha = 0;
@@ -261,10 +284,20 @@
 - (void) showControls
 {
     [autohideTimer invalidate];
-    autohideTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(hideControls) userInfo:nil repeats:NO];
+    if (_playButton.alpha == 1 && !forceShowControls)
+    {
+        forceShowControls = NO;
+        [self hideControls];
+        return;
+    }
+    forceShowControls = NO;
+    autohideTimer = [NSTimer scheduledTimerWithTimeInterval:6 target:self selector:@selector(hideControls) userInfo:nil repeats:NO];
     
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [UIView animateWithDuration:0.2
                      animations:^{
+                         _playButton.alpha = 1;
+                         _timeLabel.alpha = 1;
                          _slider.alpha = 1;
                          _stepper.alpha = 1;
                          _stepperValue.alpha = 1;

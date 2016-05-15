@@ -55,12 +55,6 @@
     [search.searchBar sizeToFit];
 }
 
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    self.navigationController.hidesBarsOnSwipe = NO;
-}
-
 - (UIStatusBarStyle) preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
@@ -100,6 +94,13 @@
 }
 
 #pragma mark - Search bar delegate
+
+- (void) searchBar:(UISearchBar *)searchBar
+     textDidChange:(NSString *)searchText
+{
+    if ([searchText isEqualToString:@""])
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastSearch"];
+}
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
@@ -249,7 +250,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (IBAction) infos:(id)sender
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Subtle Subtitles"
-                                                                   message:@"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nContact: @tomn94"
+                                                                   message:@"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\n\nContact: @tomn94"
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
     if ([SKPaymentQueue canMakePayments])

@@ -29,18 +29,24 @@ typedef enum : NSUInteger {
     NSString *fileName;
     UIDocumentInteractionController *doc;
     NSTimer *autohideTimer;
+    NSString *maxTimeLabel;
+    NSString *htmlForSub;
+    NSStringEncoding encoding;
+    BOOL forceShowControls;
 }
 
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UILabel *subLabel;
 @property (weak, nonatomic) IBOutlet UISlider *slider;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIStepper *stepper;
 @property (weak, nonatomic) IBOutlet UILabel *stepperValue;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 
 - (IBAction) playTapped:(id)sender;
 - (void) stop;
 - (IBAction) scrub:(id)sender;
 - (void) timer;
+- (void) updateTime;
 - (void) updateText;
 - (NSArray *) parse:(NSString *)srtData;
 - (IBAction) delay:(id)sender;
