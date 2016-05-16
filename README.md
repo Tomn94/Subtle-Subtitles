@@ -14,11 +14,11 @@ Coded in few hours so be clement! (✿◠‿◠)
 > 
 > #### PLAY!
 > - The subtitle file starts playing right after you choose it in the list
+> - Full-screen experience
 > - Play/Pause button if you need a break
 > - Use the scrub bar to find your favorite scene
 > - Delay or advance in time, so you stay synced with your video
-> - Share subtitles to any other app
-> - Swipe up to go fullscreen and scrub easily
+> - Share subtitles to any other app or friend
 > 
 > #### TIPS
 > - Perfect if you do not want to see the subtitles spoiling the screen on top of your movie/TV series!
@@ -37,7 +37,7 @@ Coded in few hours so be clement! (✿◠‿◠)
 #####v1.2 - 1?/05/2016
 > Subtle Subtitles has found many users, thank you all!
 >
-> - Enhanced UI for player controls, now displaying the current time
+> - Enhanced UI for player controls, now displaying the current time and easier to scrub
 > - The player is also clever: tap the new auto-hiding controls to reveal them
 > - HTML subtitles support (colors, bold, italics, …)
 > - Remembers last search query at launch, useful when binge-watching
