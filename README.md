@@ -37,14 +37,16 @@ Coded in few hours so be clement! (✿◠‿◠)
 #####v1.2 - 1?/05/2016
 > Subtle Subtitles has found many users, thank you all!
 >
-> - Enhanced auto-hiding player controls
+> - Enhanced player controls, now displaying the current time, with a nicer presentation overall
+> - The player is also clever: tap the new auto-hiding controls to reveal them
+> - HTML subtitles support (colors, bold, italics, …)
 > - Remembers last search query at launch, useful when binge-watching
 > - Scrolls to the selected setting for the 2nd search language
 > - Fixed a crash when parsing bad SRT files
 > 
 > Feel free to contact me on Twitter if you have some other ideas: @tomn94
 
-#####v1.1 - 15/05/2016
+#####v1.1 - 16/05/2016
 > Subtle Subtitles has found many users, thank you all!
 >
 > Some of you made suggestions, here they are:
