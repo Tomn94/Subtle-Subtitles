@@ -42,6 +42,7 @@ Coded in few hours so be clement! (✿◠‿◠)
 > - HTML subtitles support (colors, bold, italics, …)
 > - Remembers last search query at launch, useful when binge-watching
 > - Scrolls to the selected setting for the 2nd search language
+> - Fixed Export menu on iPad
 > - Fixed a crash when parsing bad SRT files
 > 
 > Feel free to contact me on Twitter if you have some other ideas: @tomn94
