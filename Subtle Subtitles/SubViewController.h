@@ -50,7 +50,7 @@ typedef enum : NSUInteger {
 - (void) updateText;
 - (NSArray *) parse:(NSString *)srtData;
 - (IBAction) delay:(id)sender;
-- (IBAction) share:(id)sender;
+- (IBAction) share:(UIBarButtonItem *)sender;
 - (void) showControls;
 
 @end

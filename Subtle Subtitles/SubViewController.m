@@ -29,18 +29,22 @@
     curIndex = -1;
     playing = NO;
     srt = nil;
+    
     htmlForSub = [NSString stringWithFormat:@"<p style=\"color: white; text-align: center; font-family: '-apple-system', HelveticaNeue; font-size: %fpx\">", _subLabel.font.pointSize];
     maxTimeLabel = @"00:00";
     _stepperValue.font = [UIFont monospacedDigitSystemFontOfSize:_stepperValue.font.pointSize
                                                           weight:UIFontWeightRegular];
     _timeLabel.font = [UIFont monospacedDigitSystemFontOfSize:_timeLabel.font.pointSize
                                                        weight:UIFontWeightRegular];
+    [self.slider setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateNormal];
+    
     fileName = [NSString stringWithFormat:@"/%@", [[Data sharedData] currentFileName]];
     if (fileName == nil || [fileName isEqualToString:@""] || [fileName isEqualToString:@"/"])
         fileName = @"/sub.srt";
-    [self.slider setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateNormal];
     
     NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:fileName];
+    doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:path]];
+    
     encoding = NSUTF8StringEncoding;
     NSString *htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
     if (htmlString == nil)
@@ -58,7 +62,7 @@
         self.subLabel.text = @"";
         
         srt = [self parse:htmlString];
-        NSUInteger maxTime = [[srt lastObject][@"to"] integerValue];
+        unsigned long maxTime = [[srt lastObject][@"to"] integerValue];
         self.slider.maximumValue = maxTime;
         
         playing = YES;
@@ -148,7 +152,7 @@
 
 - (void) updateTime
 {
-    NSUInteger currentTime = time;
+    unsigned long currentTime = time;
     if (currentTime >= 3600)
         _timeLabel.text = [NSString stringWithFormat:@"%lu:%02lu:%02lu/%@",
                            currentTime / 3600, currentTime % 3600 / 60, currentTime % 3600 % 60, maxTimeLabel];
@@ -261,11 +265,10 @@
     [self showControls];
 }
 
-- (IBAction) share:(id)sender
+- (IBAction) share:(UIBarButtonItem *)sender
 {
-    doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:fileName]]];
-    if (![doc presentOpenInMenuFromRect:self.view.frame inView:self.view animated:YES])
-        [doc presentOptionsMenuFromRect:self.view.frame inView:self.view animated:YES];
+    if (![doc presentOpenInMenuFromBarButtonItem:sender animated:YES])
+        [doc presentOptionsMenuFromBarButtonItem:sender animated:YES];
 }
 
 - (void) hideControls
