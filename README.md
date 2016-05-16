@@ -37,7 +37,7 @@ Coded in few hours so be clement! (✿◠‿◠)
 #####v1.2 - 1?/05/2016
 > Subtle Subtitles has found many users, thank you all!
 >
-> - Enhanced player controls, now displaying the current time, with a nicer presentation overall
+> - Enhanced UI for player controls, now displaying the current time
 > - The player is also clever: tap the new auto-hiding controls to reveal them
 > - HTML subtitles support (colors, bold, italics, …)
 > - Remembers last search query at launch, useful when binge-watching
