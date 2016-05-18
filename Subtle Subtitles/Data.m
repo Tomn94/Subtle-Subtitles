@@ -23,7 +23,8 @@
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults registerDefaults:@{ @"langID": @"fre",
                                       @"langName": @"French",
-                                      @"langIndex": @0 }];
+                                      @"langIndex": @0,
+                                      @"defaultPointSize": @28.0f }];
         [defaults synchronize];
         
         // Nettoyage des données précédentes

@@ -9,6 +9,9 @@
 @import UIKit;
 #import "Data.h"
 
+#define MIN_FONT_SIZE  10
+#define MAX_FONT_SIZE 200
+
 typedef enum : NSUInteger {
     kNUMBER,
     kTIME,
@@ -54,5 +57,6 @@ typedef enum : NSUInteger {
 - (void) back;
 - (void) keyArrow:(UIKeyCommand *)sender;
 - (void) keyArrowCmd:(UIKeyCommand *)sender;
+- (void) zoomText:(UIKeyCommand *)sender;
 
 @end

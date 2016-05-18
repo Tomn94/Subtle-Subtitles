@@ -50,6 +50,8 @@
     if (htmlString != nil)
     {
         self.subLabel.text = @"";
+        CGFloat txtSize = [[NSUserDefaults standardUserDefaults] floatForKey:@"defaultPointSize"];
+        _subLabel.font = [UIFont systemFontOfSize:txtSize * self.view.frame.size.width / 667];
         
         srt = [self parse:htmlString];
         unsigned long maxTime = [[srt lastObject][@"to"] integerValue];
@@ -121,6 +123,15 @@
                                                        action:@selector(keyArrowCmd:)
                                          discoverabilityTitle:@"Fast-Forward: 5s"]];
         
+        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"+"
+                                                modifierFlags:UIKeyModifierCommand
+                                                       action:@selector(zoomText:)
+                                         discoverabilityTitle:@"Enlarge Text Size"]];
+        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"-"
+                                                modifierFlags:UIKeyModifierCommand
+                                                       action:@selector(zoomText:)
+                                         discoverabilityTitle:@"Reduce Text Size"]];
+        
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"i"
                                                 modifierFlags:0
                                                        action:@selector(showControls)
@@ -156,6 +167,14 @@
 {
     [super viewWillDisappear:animated];
     [self stop];
+}
+
+- (void) viewWillTransitionToSize:(CGSize)size
+        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    CGFloat txtSize = [[NSUserDefaults standardUserDefaults] floatForKey:@"defaultPointSize"];
+    _subLabel.font = [UIFont systemFontOfSize:txtSize * size.width / 667];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle
@@ -233,6 +252,8 @@
         [timer invalidate];
         playing = NO;
         [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+        forceShowControls = YES;
+        [self showControls];
         return;
     }
     
@@ -255,7 +276,6 @@
             _subLabel.attributedText = [[NSAttributedString alloc] initWithData:[txt dataUsingEncoding:encoding]
                                                                         options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
                                                              documentAttributes:nil error:nil];
-            [[NSUserDefaults standardUserDefaults] setFloat:_subLabel.font.pointSize forKey:@"defaultPointSize"];
         }
     }
     else
@@ -387,9 +407,12 @@
 - (void) pinch:(UIPinchGestureRecognizer *)g
 {
     CGFloat newSize = _subLabel.font.pointSize * g.scale;
-    if (newSize > 10 && newSize < 200)
+    if (newSize > MIN_FONT_SIZE && newSize < MAX_FONT_SIZE)
         _subLabel.font = [UIFont systemFontOfSize:newSize];
     g.scale = 1;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSUserDefaults standardUserDefaults] setFloat:_subLabel.font.pointSize forKey:@"defaultPointSize"];
+    });
 }
 
 - (void) back
@@ -444,6 +467,16 @@
         self.slider.value += 5;
         [self scrub:nil];
     }
+}
+
+- (void) zoomText:(UIKeyCommand *)sender
+{
+    CGFloat size = _subLabel.font.pointSize;
+    if ([sender.input isEqualToString:@"+"] && size < MAX_FONT_SIZE)
+        _subLabel.font = [UIFont systemFontOfSize:size + 10];
+    else if ([sender.input isEqualToString:@"-"] && size > MIN_FONT_SIZE)
+        _subLabel.font = [UIFont systemFontOfSize:size - 10];
+    [[NSUserDefaults standardUserDefaults] setFloat:_subLabel.font.pointSize forKey:@"defaultPointSize"];
 }
 
 @end
