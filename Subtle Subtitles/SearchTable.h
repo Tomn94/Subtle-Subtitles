@@ -9,6 +9,7 @@
 @import UIKit;
 #import "Data.h"
 #import <OROpenSubtitleDownloader/OROpenSubtitleDownloader.h>
+#import "Subtle_Subtitles-Swift.h"
 #import "SubViewController.h"
 
 @interface SearchTable : UITableViewController <UISearchBarDelegate, OROpenSubtitleDownloaderDelegate>
@@ -19,6 +20,16 @@
     NSInteger currentScope;
 }
 
+- (void) increaseTextNumber:(int)type;
+- (void) updateLanguage;
 - (IBAction) infos:(id)sender;
+
+- (void) openSearch;
+- (void) openLanguage;
+- (void) increaseNumber:(UIKeyCommand *)sender;
+- (void) selectLanguage:(UIKeyCommand *)sender;
+- (void) keyArrow:(UIKeyCommand *)sender;
+- (void) enterKey;
+- (void) escapeKey;
 
 @end

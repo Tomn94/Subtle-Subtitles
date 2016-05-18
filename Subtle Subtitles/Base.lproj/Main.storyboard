@@ -10,7 +10,7 @@
         <scene sceneID="9vq-PS-Zmw">
             <objects>
                 <tableViewController id="SXE-ck-pzQ" customClass="SearchTable" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="TNb-1g-NAL">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="TNb-1g-NAL" customClass="KBTableView" customModule="Subtle_Subtitles" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -49,9 +49,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Subtle Subtitles" id="Bid-r3-r2i">
+                        <barButtonItem key="backBarButtonItem" title="Search" id="4yn-4c-nhx"/>
                         <barButtonItem key="leftBarButtonItem" image="flag" id="HvU-0q-m31">
                             <connections>
-                                <segue destination="FvB-en-hfb" kind="show" id="8hd-Nr-kBb"/>
+                                <segue destination="Zc4-30-BRW" kind="popoverPresentation" identifier="languageSegue" popoverAnchorBarButtonItem="HvU-0q-m31" id="8hd-Nr-kBb">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" id="kRy-uV-qiP">
@@ -73,7 +76,7 @@
         <scene sceneID="BIY-g7-2so">
             <objects>
                 <tableViewController title="Second Search Language" id="FvB-en-hfb" customClass="LanguageTable" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="EcG-Uh-Vze">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="EcG-Uh-Vze" customClass="KBTableView" customModule="Subtle_Subtitles" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.20000000000000001" alpha="1" colorSpace="calibratedWhite"/>
@@ -87,7 +90,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pi1-nJ-XWh">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="English" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pi1-nJ-XWh">
                                             <rect key="frame" x="15" y="0.0" width="570" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -95,6 +98,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.20020104895104895" alpha="1" colorSpace="calibratedWhite"/>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.20020104895104895" alpha="1" colorSpace="calibratedWhite"/>
                             </tableViewCell>
@@ -104,10 +108,18 @@
                             <outlet property="delegate" destination="FvB-en-hfb" id="Ggz-cM-c0j"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Second Search Language" id="vGP-b0-AKn">
+                        <barButtonItem key="backBarButtonItem" title="Search" id="Hyz-lc-1cc"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="UQt-eA-T13">
+                            <connections>
+                                <action selector="close" destination="FvB-en-hfb" id="XBD-bO-awO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BFy-Kt-SOj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="248" y="1025"/>
+            <point key="canvasLocation" x="1060" y="1025"/>
         </scene>
         <!--Sub View Controller-->
         <scene sceneID="U8H-zR-S3i">
@@ -248,6 +260,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JPM-PC-cpy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-572" y="279"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tnV-WQ-RgN">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Zc4-30-BRW" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Xj8-d1-kHk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="FvB-en-hfb" kind="relationship" relationship="rootViewController" id="N8O-75-hvI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xsy-sh-x60" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="248" y="1025"/>
         </scene>
     </scenes>
     <resources>

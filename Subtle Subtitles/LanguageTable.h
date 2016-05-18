@@ -8,6 +8,7 @@
 
 @import UIKit;
 #import "Data.h"
+#import "Subtle_Subtitles-Swift.h"
 
 @interface LanguageTable : UITableViewController
 {
@@ -15,5 +16,9 @@
     NSArray *langIDs;
     NSIndexPath *lastSel;
 }
+
+- (IBAction) close;
+- (void) keyArrow:(UIKeyCommand *)sender;
+- (void) enterKey;
 
 @end

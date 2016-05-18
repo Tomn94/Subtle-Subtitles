@@ -53,4 +53,8 @@ typedef enum : NSUInteger {
 - (IBAction) share:(UIBarButtonItem *)sender;
 - (void) showControls;
 
+- (void) back;
+- (void) keyArrow:(UIKeyCommand *)sender;
+- (void) keyArrowCmd:(UIKeyCommand *)sender;
+
 @end
