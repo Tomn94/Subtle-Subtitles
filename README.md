@@ -34,7 +34,11 @@ Coded in few hours so be clement! (✿◠‿◠)
 
 <br>
 ### Release notes
-#####v1.2 - 1?/05/2016
+#####v1.3 - 2?/05/2016
+> - Pop-over menus and Keyboard Shortcuts on the iPad
+> - UI tweaks
+
+#####v1.2 - 18/05/2016
 > Subtle Subtitles has found many users, thank you all!
 >
 > - Enhanced UI for player controls, now displaying the current time and easier to scrub
