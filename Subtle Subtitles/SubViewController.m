@@ -8,16 +8,6 @@
 
 #import "SubViewController.h"
 
-@implementation ShowControlsView
-
-- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"showControls" object:nil];
-}
-
-@end
-
-
 @implementation SubViewController
 
 - (void) viewDidLoad
@@ -30,7 +20,6 @@
     playing = NO;
     srt = nil;
     
-    htmlForSub = [NSString stringWithFormat:@"<p style=\"color: white; text-align: center; font-family: '-apple-system', HelveticaNeue; font-size: %fpx\">", _subLabel.font.pointSize];
     maxTimeLabel = @"00:00";
     _stepperValue.font = [UIFont monospacedDigitSystemFontOfSize:_stepperValue.font.pointSize
                                                           weight:UIFontWeightRegular];
@@ -78,6 +67,12 @@
     }
     else
         self.navigationItem.rightBarButtonItem = nil;
+    
+    UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
+    [self.view addGestureRecognizer:pinch];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showControls)];
+    [tap requireGestureRecognizerToFail:pinch];
+    [self.view addGestureRecognizer:tap];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stop) name:@"stopTimerSub" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showControls) name:@"showControls" object:nil];
@@ -252,11 +247,16 @@
     
     if (found != -1)
     {
-        curIndex = found;
-        NSString *txt = [NSString stringWithFormat:@"%@%@</p>", htmlForSub, srt[curIndex][@"text"]];
-        _subLabel.attributedText = [[NSAttributedString alloc] initWithData:[txt dataUsingEncoding:encoding]
-                                                                    options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
-                                                         documentAttributes:nil error:nil];
+        if (curIndex != found)
+        {
+            curIndex = found;
+            NSString *htmlForSub = [NSString stringWithFormat:@"<p style=\"color: white; text-align: center; font-family: '-apple-system', HelveticaNeue; font-size: %fpx\">", _subLabel.font.pointSize];
+            NSString *txt = [NSString stringWithFormat:@"%@%@</p>", htmlForSub, srt[curIndex][@"text"]];
+            _subLabel.attributedText = [[NSAttributedString alloc] initWithData:[txt dataUsingEncoding:encoding]
+                                                                        options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
+                                                             documentAttributes:nil error:nil];
+            [[NSUserDefaults standardUserDefaults] setFloat:_subLabel.font.pointSize forKey:@"defaultPointSize"];
+        }
     }
     else
         _subLabel.text = @"";
@@ -382,6 +382,14 @@
                          _stepper.alpha = 1;
                          _stepperValue.alpha = 1;
                      }];
+}
+
+- (void) pinch:(UIPinchGestureRecognizer *)g
+{
+    CGFloat newSize = _subLabel.font.pointSize * g.scale;
+    if (newSize > 10 && newSize < 200)
+        _subLabel.font = [UIFont systemFontOfSize:newSize];
+    g.scale = 1;
 }
 
 - (void) back

@@ -129,7 +129,7 @@
                         <viewControllerLayoutGuide type="top" id="Pnc-aP-2ui"/>
                         <viewControllerLayoutGuide type="bottom" id="4jf-Qj-feu"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7qe-U1-SUK" customClass="ShowControlsView">
+                    <view key="view" contentMode="scaleToFill" id="7qe-U1-SUK">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

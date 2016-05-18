@@ -15,9 +15,6 @@ typedef enum : NSUInteger {
     kTEXT
 } kSRTState;
 
-@interface ShowControlsView : UIView
-@end
-
 @interface SubViewController : UIViewController
 {
     NSTimeInterval time;
@@ -30,7 +27,6 @@ typedef enum : NSUInteger {
     UIDocumentInteractionController *doc;
     NSTimer *autohideTimer;
     NSString *maxTimeLabel;
-    NSString *htmlForSub;
     NSStringEncoding encoding;
     BOOL forceShowControls;
 }
@@ -52,6 +48,8 @@ typedef enum : NSUInteger {
 - (IBAction) delay:(id)sender;
 - (IBAction) share:(UIBarButtonItem *)sender;
 - (void) showControls;
+
+- (void) pinch:(UIPinchGestureRecognizer *)g;
 
 - (void) back;
 - (void) keyArrow:(UIKeyCommand *)sender;
