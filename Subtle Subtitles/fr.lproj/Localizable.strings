@@ -1,0 +1,79 @@
+/* 
+  Localizable.strings
+  Subtle Subtitles
+
+  Created by Tomn on 19/05/2016.
+  Copyright © 2016 Tomn. All rights reserved.
+*/
+
+"OK" = "OK";
+"Cancel" = "Annuler";
+
+
+/* Main */
+"Search movies or series" = "Rechercher des films et séries";
+"English" = "Anglais";
+
+"Search" = "Rechercher";
+"Search English Subtitles" = "Rechercher en anglais";
+"Search using Second Language" = "Rechercher dans la 2nde langue";
+"Increase Season number" = "Augmenter le № de saison";
+"Increase Episode number" = "Augmenter le № d'épisode";
+"Select Previous result" = "Sélectionner le résultat précédent";
+"Select Next result" = "Sélectionner le résultat suivant";
+"Play Selection" = "Lire la sélection";
+"Second Search Language Settings" = "Modifier la 2nde langue de recherche";
+"Tips" = "Infos";
+
+"Unable to fetch available languages" = "Impossible de récupérer les langues disponibles";
+"No results for “%@”" = "Aucun résultat pour « %@ »";
+"Search error" = "Erreur lors de la recherche";
+"SUB files are not supported" = "Les fichiers SUB ne sont pas supportés";
+"Sorry, search for SRT files, please." = "Merci de rechercher des fichiers SRT";
+"Error when downloading SRT file" = "Erreur lors du téléchargement du fichier SRT";
+
+"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip 1: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\nTip 2: Pinch to resize subtitles\n\nContact: @tomn94" =
+"Recherche sur OpenSubtitles.org grâce à OROpenSubtitleDownloader.\n\nAstuce №1 : les boutons S+1 et E+1 permettent de trouver l'épisode suivant si vous tapez quelque chose comme « Archer S03E05 »\nAstuce №2 : zoomez les sous-titres en écartant 2 doigts\n\nContact : @tomn94";
+"Remove Ads" = "Supprimer les publicités";
+"Remove ads for a small amount" = "Retirer les pubs à petit prix";
+"The developer will be so happy for your donation especially knowing that you won't have to bear ads anymore!" =
+"Le développeur sera tellement ravi de votre don, surtout parce qu'il saura que vous n'aurez plus à supporter les pubs !";
+"Please, remove them" = "Oh oui, les supprimer";
+"Restore purchase" = "Restaurer l'achat";
+
+
+/* Player */
+"Play/Pause" = "Lecture/Pause";
+"Add Delay: 0.1s" = "Retarder : 0,1 s";
+"Add Delay: 1s" = "Retarder : 1 s";
+"Reduce Delay: 0.1s" = "Réduire le retard : 0,1 s";
+"Reduce Delay: 1s" = "Réduire le retard : 1 s";
+"Rewind: 1s" = "Rembobiner : 1 s";
+"Rewind: 5s" = "Rembobiner : 5 s";
+"Fast-Forward: 1s" = "Avance rapide : 1 s";
+"Fast-Forward: 5s" = "Avance rapide : 5 s";
+"Enlarge Text Size" = "Grossir le texte";
+"Reduce Text Size" = "Réduire le texte";
+"Show/Hide Controls" = "Afficher/masquer les contrôles";
+"Export Subtitle" = "Exporter";
+"Go back to Search" = "Retour à la recherche";
+"%.1fs" = "%.1f s";
+
+
+/* 2nd Language */
+"Select Previous Language" = "Sélectionner la langue précédente";
+"Select Next Language" = "Sélectionner la langue suivante";
+"Choose Language" = "Appliquer la langue sélectionnée";
+"Dismiss Languages" = "Masquer les langues";
+
+
+/* Purchases */
+"This purchase can't be bought" = "Ce produit ne peut pas être acheté";
+"No purchase are currently available for sale." = "Aucun achat n'est actuellement disponible.";
+"Thanks !" = "Merci !";
+"Ads won't appear anymore on your devices." = "Les publicités n'apparaîtront plus sur vos appareils.";
+"Ads have been removed!" = "Les pubs ont été retirées !";
+"Your previous purchase has been restored." = "Votre précédent achat a bien été restauré.";
+"Great" = "Parfait";
+"Can't complete the purchase" = "Impossible de valider l'achat";
+"Can't restore the purchase" = "Impossible de restaurer l'achat";

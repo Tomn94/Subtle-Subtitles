@@ -28,8 +28,8 @@
     search = [[UISearchController alloc] initWithSearchResultsController:nil];
     search.dimsBackgroundDuringPresentation = NO;
     search.searchBar.delegate = self;
-    search.searchBar.placeholder = @"Search movies or series";
-    search.searchBar.scopeButtonTitles = @[ @"English", [[NSUserDefaults standardUserDefaults] stringForKey:@"langName"] ];
+    search.searchBar.placeholder = NSLocalizedString(@"Search movies or series", @"");
+    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [[NSUserDefaults standardUserDefaults] stringForKey:@"langName"] ];
     search.searchBar.barStyle = UIBarStyleBlack;
     search.searchBar.tintColor = [UIColor lightGrayColor];
     search.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
@@ -56,38 +56,38 @@
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"f"
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(openSearch)
-                                         discoverabilityTitle:@"Search"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Search", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"f"
                                                 modifierFlags:UIKeyModifierCommand | UIKeyModifierShift
                                                        action:@selector(selectLanguage:)
-                                         discoverabilityTitle:@"Search English Subtitles"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Search English Subtitles", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"f"
                                                 modifierFlags:UIKeyModifierCommand | UIKeyModifierAlternate
                                                        action:@selector(selectLanguage:)
-                                         discoverabilityTitle:@"Search using Second Language"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Search using Second Language", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"s"
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(increaseNumber:)
-                                         discoverabilityTitle:@"Increase Season number"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Increase Season number", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"e"
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(increaseNumber:)
-                                         discoverabilityTitle:@"Increase Episode number"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Increase Episode number", @"")]];
         
         // TODO: Increase, change scope, Escape while searching
         
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputUpArrow
                                                 modifierFlags:0
                                                        action:@selector(keyArrow:)
-                                         discoverabilityTitle:@"Select Previous result"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Select Previous result", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputDownArrow
                                                 modifierFlags:0
                                                        action:@selector(keyArrow:)
-                                         discoverabilityTitle:@"Select Next result"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Select Next result", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"\r"
                                                 modifierFlags:0
                                                        action:@selector(enterKey)
-                                         discoverabilityTitle:@"Play Selection"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Play Selection", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputEscape
                                                 modifierFlags:0
                                                        action:@selector(escapeKey)]];
@@ -95,11 +95,11 @@
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"l"
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(openLanguage)
-                                         discoverabilityTitle:@"Second Search Language Settings"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Second Search Language Settings", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"i"
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(infos:)
-                                         discoverabilityTitle:@"Tips"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Tips", @"")]];
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLanguage) name:@"updateLanguage" object:nil];
@@ -143,10 +143,10 @@
         }
         else
         {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Unable to fetch available languages"
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to fetch available languages", @"")
                                                                            message:error.localizedDescription
                                                                     preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
         }
         [[Data sharedData] updateNetwork:-1];
@@ -183,19 +183,19 @@
             }
             else
             {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"No results for “%@”", str]
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"No results for “%@”", @""), str]
                                                                                message:@"¯\\_(ツ)_/¯"
                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
                 [self presentViewController:alert animated:YES completion:nil];
             }
         }
         else
         {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Search error"
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Search error", @"")
                                                                            message:[error localizedDescription]
                                                                     preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
         }
         [[Data sharedData] updateNetwork:-1];
@@ -258,10 +258,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     OpenSubtitleSearchResult *result = searchResults[indexPath.row];
     if ([result.subtitleName hasSuffix:@".sub"])
     {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"SUB files are not supported"
-                                                                       message:@"Sorry, search for SRT files, please."
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SUB files are not supported", @"")
+                                                                       message:NSLocalizedString(@"Sorry, search for SRT files, please.", @"")
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
@@ -276,10 +276,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                   }
                                   else
                                   {
-                                      UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error when downloading SRT file"
+                                      UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error when downloading SRT file", @"")
                                                                                                      message:[error localizedDescription]
                                                                                               preferredStyle:UIAlertControllerStyleAlert];
-                                      [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                                      [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
                                       [self presentViewController:alert animated:YES completion:nil];
                                   }
                                   [[Data sharedData] updateNetwork:-1];
@@ -315,7 +315,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (void) updateLanguage
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    search.searchBar.scopeButtonTitles = @[ @"English", [defaults stringForKey:@"langName"], @"S+1", @"E+1" ];
+    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [defaults stringForKey:@"langName"], @"S+1", @"E+1" ];
     search.searchBar.selectedScopeButtonIndex = [defaults integerForKey:@"langIndex"];
     currentScope = [defaults integerForKey:@"langIndex"];
     [search.searchBar sizeToFit];
@@ -324,30 +324,30 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (IBAction) infos:(id)sender
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Subtle Subtitles"
-                                                                   message:@"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\n\nContact: @tomn94"
+                                                                   message:NSLocalizedString(@"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip 1: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\nTip 2: Pinch to resize subtitles\n\nContact: @tomn94", @"")
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
     if ([SKPaymentQueue canMakePayments])
     {
-        [alert addAction:[UIAlertAction actionWithTitle:@"Remove Ads"
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Ads", @"")
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction * _Nonnull action) {
-            UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:@"Remove ads for a small amount"
-                                                                            message:@"The developer will be so happy for your donation especially knowing that you won't have to bear ads anymore!"
+            UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Remove ads for a small amount", @"")
+                                                                            message:NSLocalizedString(@"The developer will be so happy for your donation especially knowing that you won't have to bear ads anymore!", @"")
                                                                      preferredStyle:UIAlertControllerStyleAlert];
-            [alert2 addAction:[UIAlertAction actionWithTitle:@"Please, remove them" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert2 addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Please, remove them", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [[Data sharedData] startPurchase];
             }]];
-            [alert2 addAction:[UIAlertAction actionWithTitle:@"Restore purchase" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alert2 addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Restore purchase", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [[Data sharedData] restorePurchase];
             }]];
-            [alert2 addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+            [alert2 addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
             
             [self presentViewController:alert2 animated:YES completion:nil];
         }]];
     }
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
     
     [self presentViewController:alert animated:YES completion:nil];
 }

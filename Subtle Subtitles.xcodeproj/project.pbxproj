@@ -10,6 +10,7 @@
 		3FCC13E20D128CC3784598E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08A9A7D0B14129C80462E8EE /* libPods.a */; };
 		640C57F51CEB2D9100845807 /* KBTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640C57F31CEB2D9100845807 /* KBTableView.swift */; };
 		640C57F61CEB2D9100845807 /* UITableView+RowConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640C57F41CEB2D9100845807 /* UITableView+RowConvenience.swift */; };
+		64167DBE1CED371A0046B60D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64167DC01CED371A0046B60D /* Localizable.strings */; };
 		6438598A1CA727CD00BE70FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 643859891CA727CD00BE70FF /* main.m */; };
 		6438598D1CA727CD00BE70FF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6438598C1CA727CD00BE70FF /* AppDelegate.m */; };
 		643859931CA727CD00BE70FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643859911CA727CD00BE70FF /* Main.storyboard */; };
@@ -45,6 +46,10 @@
 		640C57F21CEB2D9000845807 /* Subtle Subtitles-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Subtle Subtitles-Bridging-Header.h"; sourceTree = "<group>"; };
 		640C57F31CEB2D9100845807 /* KBTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KBTableView.swift; sourceTree = "<group>"; };
 		640C57F41CEB2D9100845807 /* UITableView+RowConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+RowConvenience.swift"; sourceTree = "<group>"; };
+		64167DBA1CED30AF0046B60D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		64167DBB1CED30AF0046B60D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		64167DBF1CED371A0046B60D /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		64167DC11CED37330046B60D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		643859851CA727CD00BE70FF /* Subtle Subtitles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Subtle Subtitles.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		643859891CA727CD00BE70FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6438598B1CA727CD00BE70FF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -153,6 +158,7 @@
 				643859911CA727CD00BE70FF /* Main.storyboard */,
 				643859941CA727CD00BE70FF /* Assets.xcassets */,
 				643859961CA727CD00BE70FF /* LaunchScreen.storyboard */,
+				64167DC01CED371A0046B60D /* Localizable.strings */,
 				643859991CA727CD00BE70FF /* Info.plist */,
 				640C57F71CEB2D9600845807 /* KBTableView */,
 				643859881CA727CD00BE70FF /* Supporting Files */,
@@ -284,6 +290,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 6438597C1CA727CD00BE70FF;
 			productRefGroup = 643859861CA727CD00BE70FF /* Products */;
@@ -303,6 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				643859981CA727CD00BE70FF /* LaunchScreen.storyboard in Resources */,
+				64167DBE1CED371A0046B60D /* Localizable.strings in Resources */,
 				643859951CA727CD00BE70FF /* Assets.xcassets in Resources */,
 				643859931CA727CD00BE70FF /* Main.storyboard in Resources */,
 			);
@@ -420,10 +428,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		64167DC01CED371A0046B60D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				64167DBF1CED371A0046B60D /* Base */,
+				64167DC11CED37330046B60D /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		643859911CA727CD00BE70FF /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				643859921CA727CD00BE70FF /* Base */,
+				64167DBA1CED30AF0046B60D /* fr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -432,6 +450,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				643859971CA727CD00BE70FF /* Base */,
+				64167DBB1CED30AF0046B60D /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

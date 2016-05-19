@@ -42,19 +42,19 @@
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputUpArrow
                                                 modifierFlags:0
                                                        action:@selector(keyArrow:)
-                                         discoverabilityTitle:@"Select Previous Language"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Select Previous Language", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputDownArrow
                                                 modifierFlags:0
                                                        action:@selector(keyArrow:)
-                                         discoverabilityTitle:@"Select Next Language"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Select Next Language", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"\r"
                                                 modifierFlags:0
                                                        action:@selector(enterKey)
-                                         discoverabilityTitle:@"Choose Language"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Choose Language", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputEscape
                                                 modifierFlags:0
                                                        action:@selector(close)
-                                         discoverabilityTitle:@"Dismiss Languages"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Dismiss Languages", @"")]];
     }
 }
 

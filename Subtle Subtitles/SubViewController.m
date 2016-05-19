@@ -84,7 +84,7 @@
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@" "
                                                 modifierFlags:0
                                                        action:@selector(playTapped:)
-                                         discoverabilityTitle:@"Play/Pause"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Play/Pause", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"p"
                                                 modifierFlags:0
                                                        action:@selector(playTapped:)]];
@@ -92,55 +92,55 @@
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputUpArrow
                                                 modifierFlags:0
                                                        action:@selector(keyArrow:)
-                                         discoverabilityTitle:@"Add Delay: 0.1s"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Add Delay: 0.1s", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputDownArrow
                                                 modifierFlags:0
                                                        action:@selector(keyArrow:)
-                                         discoverabilityTitle:@"Reduce Delay: 0.1s"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Reduce Delay: 0.1s", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputUpArrow
                                                 modifierFlags:UIKeyModifierAlternate
                                                        action:@selector(keyArrowCmd:)
-                                         discoverabilityTitle:@"Add Delay: 1s"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Add Delay: 1s", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputDownArrow
                                                 modifierFlags:UIKeyModifierAlternate
                                                        action:@selector(keyArrowCmd:)
-                                         discoverabilityTitle:@"Reduce Delay: 1s"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Reduce Delay: 1s", @"")]];
         
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputLeftArrow
                                                 modifierFlags:0
                                                        action:@selector(keyArrow:)
-                                         discoverabilityTitle:@"Rewind: 1s"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Rewind: 1s", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputRightArrow
                                                 modifierFlags:0
                                                        action:@selector(keyArrow:)
-                                         discoverabilityTitle:@"Fast-Forward: 1s"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Fast-Forward: 1s", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputLeftArrow
                                                 modifierFlags:UIKeyModifierAlternate
                                                        action:@selector(keyArrowCmd:)
-                                         discoverabilityTitle:@"Rewind: 5s"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Rewind: 5s", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputRightArrow
                                                 modifierFlags:UIKeyModifierAlternate
                                                        action:@selector(keyArrowCmd:)
-                                         discoverabilityTitle:@"Fast-Forward: 5s"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Fast-Forward: 5s", @"")]];
         
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"+"
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(zoomText:)
-                                         discoverabilityTitle:@"Enlarge Text Size"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Enlarge Text Size", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"-"
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(zoomText:)
-                                         discoverabilityTitle:@"Reduce Text Size"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Reduce Text Size", @"")]];
         
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"i"
                                                 modifierFlags:0
                                                        action:@selector(showControls)
-                                         discoverabilityTitle:@"Show/Hide Controls"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Show/Hide Controls", @"")]];
         
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"e"
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(share:)
-                                         discoverabilityTitle:@"Export Subtitle"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Export Subtitle", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"s"
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(share:)]];
@@ -148,7 +148,7 @@
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"f"
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(back)
-                                         discoverabilityTitle:@"Go back to Search"]];
+                                         discoverabilityTitle:NSLocalizedString(@"Go back to Search", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputLeftArrow
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(back)]];
@@ -349,7 +349,7 @@
 - (IBAction) delay:(id)sender
 {
     delay = self.stepper.value / 10;
-    self.stepperValue.text = [NSString stringWithFormat:@"%.1f s", delay];
+    self.stepperValue.text = [NSString stringWithFormat:NSLocalizedString(@"%.1fs", @""), delay];
     forceShowControls = YES;
     [self showControls];
 }

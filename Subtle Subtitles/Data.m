@@ -84,10 +84,10 @@
     }
     else
     {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"This purchase can't be bought"
-                                                                       message:@"No purchase are currently available for sale."
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"This purchase can't be bought", @"")
+                                                                       message:NSLocalizedString(@"No purchase are currently available for sale.", @"")
                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
         [self updateNetwork:-1];
     }
@@ -105,10 +105,10 @@
                 [self updateNetwork:-1];
                 [[CJPAdController sharedInstance] removeAdsAndMakePermanent:YES andRemember:YES];
                 
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Thanks !"
-                                                                               message:@"Ads won't appear anymore on your devices."
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Thanks !", @"")
+                                                                               message:NSLocalizedString(@"Ads won't appear anymore on your devices.", @"")
                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"Great" style:UIAlertActionStyleCancel handler:nil]];
+                [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Great", @"") style:UIAlertActionStyleCancel handler:nil]];
                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
                 break;
             }
@@ -118,10 +118,10 @@
                 [self updateNetwork:-1];
                 [[CJPAdController sharedInstance] removeAdsAndMakePermanent:YES andRemember:YES];
                 
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ads have been removed!"
-                                                                               message:@"Your previous purchase has been restored."
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Ads have been removed!", @"")
+                                                                               message:NSLocalizedString(@"Your previous purchase has been restored.", @"")
                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"Great" style:UIAlertActionStyleCancel handler:nil]];
+                [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Great", @"") style:UIAlertActionStyleCancel handler:nil]];
                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
                 break;
             }
@@ -141,10 +141,10 @@
 didFailWithError:(NSError *)error
 {
     [self updateNetwork:-1];
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Can't complete the purchase"
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Can't complete the purchase", @"")
                                                                    message:error.localizedDescription
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 
@@ -156,10 +156,10 @@ didFailWithError:(NSError *)error
 restoreCompletedTransactionsFailedWithError:(NSError *)error
 {
     [self updateNetwork:-1];
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Can't restore the purchase"
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Can't restore the purchase", @"")
                                                                    message:error.localizedDescription
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 

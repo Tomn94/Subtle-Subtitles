@@ -1,0 +1,79 @@
+/* 
+  Localizable.strings
+  Subtle Subtitles
+
+  Created by Tomn on 19/05/2016.
+  Copyright © 2016 Tomn. All rights reserved.
+*/
+
+"OK" = "OK";
+"Cancel" = "Cancel";
+
+
+/* Main */
+"Search movies or series" = "Search movies or series";
+"English" = "English";
+
+"Search" = "Search";
+"Search English Subtitles" = "Search English Subtitles";
+"Search using Second Language" = "Search using Second Language";
+"Increase Season number" = "Increase Season number";
+"Increase Episode number" = "Increase Episode number";
+"Select Previous result" = "Select Previous result";
+"Select Next result" = "Select Next result";
+"Play Selection" = "Play Selection";
+"Second Search Language Settings" = "Second Search Language Settings";
+"Tips" = "Tips";
+
+"Unable to fetch available languages" = "Unable to fetch available languages";
+"No results for “%@”" = "No results for “%@”";
+"Search error" = "Search error";
+"SUB files are not supported" = "SUB files are not supported";
+"Sorry, search for SRT files, please." = "Sorry, search for SRT files, please.";
+"Error when downloading SRT file" = "Error when downloading SRT file";
+
+"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip 1: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\nTip 2: Pinch to resize subtitles\n\nContact: @tomn94" =
+"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip 1: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\nTip 2: Pinch to resize subtitles\n\nContact: @tomn94";
+"Remove Ads" = "Remove Ads";
+"Remove ads for a small amount" = "Remove ads for a small amount";
+"The developer will be so happy for your donation especially knowing that you won't have to bear ads anymore!" =
+"The developer will be so happy for your donation especially knowing that you won't have to bear ads anymore!";
+"Please, remove them" = "Please, remove them";
+"Restore purchase" = "Restore purchase";
+
+
+/* Player */
+"Play/Pause" = "Play/Pause";
+"Add Delay: 0.1s" = "Add Delay: 0.1s";
+"Add Delay: 1s" = "Add Delay: 1s";
+"Reduce Delay: 0.1s" = "Reduce Delay: 0.1s";
+"Reduce Delay: 1s" = "Reduce Delay: 1s";
+"Rewind: 1s" = "Rewind: 1s";
+"Rewind: 5s" = "Rewind: 5s";
+"Fast-Forward: 1s" = "Fast-Forward: 1s";
+"Fast-Forward: 5s" = "Fast-Forward: 5s";
+"Enlarge Text Size" = "Enlarge Text Size";
+"Reduce Text Size" = "Reduce Text Size";
+"Show/Hide Controls" = "Show/Hide Controls";
+"Export Subtitle" = "Export Subtitle";
+"Go back to Search" = "Go back to Search";
+"%.1fs" = "%.1fs";
+
+
+/*2nd Language */
+"Select Previous Language" = "Select Previous Language";
+"Select Next Language" = "Select Next Language";
+"Choose Language" = "Apply Selected Language";
+"Dismiss Languages" = "Dismiss Languages";
+
+
+/* Purchases */
+"This purchase can't be bought" = "This purchase can't be bought";
+"No purchase are currently available for sale." = "No purchase are currently available for sale.";
+"Thanks !" = "Thanks !";
+"Ads won't appear anymore on your devices." = "Ads won't appear anymore on your devices.";
+"Ads have been removed!" = "Ads have been removed!";
+"Your previous purchase has been restored." = "Your previous purchase has been restored.";
+"Great" = "Great";
+"Can't complete the purchase" = "Can't complete the purchase";
+"Can't restore the purchase" = "Can't restore the purchase";
