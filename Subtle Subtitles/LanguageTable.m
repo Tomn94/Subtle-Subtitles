@@ -30,7 +30,7 @@
         lastSel = nil;
     
     UIView *backView = [UIView new];
-    [backView setBackgroundColor:[UIColor colorWithWhite:0.25 alpha:1]];
+    [backView setBackgroundColor:[UIColor colorWithWhite:0.23 alpha:1]];
     [self.tableView setBackgroundView:backView];
     
     KBTableView *tableView = (KBTableView *)self.tableView;
