@@ -37,7 +37,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Subtle Subtitles" id="maL-5P-2ld">
-                        <barButtonItem key="leftBarButtonItem" image="flag" id="ZH9-gV-OCg"/>
+                        <barButtonItem key="leftBarButtonItem" image="settings" id="ZH9-gV-OCg"/>
                         <barButtonItem key="rightBarButtonItem" id="9iW-Sh-p1m">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Rww-dn-Izk">
                                 <rect key="frame" x="558" y="11" width="22" height="22"/>
@@ -73,6 +73,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="flag" width="22" height="22"/>
+        <image name="settings" width="22" height="22"/>
     </resources>
 </document>

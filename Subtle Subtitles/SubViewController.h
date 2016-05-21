@@ -7,6 +7,7 @@
 //
 
 @import UIKit;
+#import <TUSafariActivity.h>
 #import "Data.h"
 
 #define MIN_FONT_SIZE  10
@@ -27,6 +28,7 @@ typedef enum : NSUInteger {
     NSInteger curIndex;
     NSTimeInterval delay;
     NSString *fileName;
+    UIActivityViewController *docAct;
     UIDocumentInteractionController *doc;
     NSTimer *autohideTimer;
     NSString *maxTimeLabel;
@@ -50,6 +52,7 @@ typedef enum : NSUInteger {
 - (NSArray *) parse:(NSString *)srtData;
 - (IBAction) delay:(id)sender;
 - (IBAction) share:(UIBarButtonItem *)sender;
+- (void) openIn;
 - (void) showControls;
 
 - (void) pinch:(UIPinchGestureRecognizer *)g;
@@ -59,4 +62,20 @@ typedef enum : NSUInteger {
 - (void) keyArrowCmd:(UIKeyCommand *)sender;
 - (void) zoomText:(UIKeyCommand *)sender;
 
+@end
+
+
+@interface SafariActivity : TUSafariActivity
+@end
+
+@interface DownActivity : UIActivity
+@end
+
+@interface OpenInActivity : UIActivity
+@end
+
+@interface ActivityTextProvider : UIActivityItemProvider
+@end
+
+@interface ActivityLinkProvider : UIActivityItemProvider
 @end

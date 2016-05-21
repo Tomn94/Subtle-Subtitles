@@ -50,7 +50,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Subtle Subtitles" id="Bid-r3-r2i">
                         <barButtonItem key="backBarButtonItem" title="Search" id="4yn-4c-nhx"/>
-                        <barButtonItem key="leftBarButtonItem" image="flag" id="HvU-0q-m31">
+                        <barButtonItem key="leftBarButtonItem" image="settings" id="HvU-0q-m31">
                             <connections>
                                 <segue destination="Zc4-30-BRW" kind="popoverPresentation" identifier="languageSegue" popoverAnchorBarButtonItem="HvU-0q-m31" id="8hd-Nr-kBb">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -76,15 +76,15 @@
         <scene sceneID="BIY-g7-2so">
             <objects>
                 <tableViewController title="Second Search Language" id="FvB-en-hfb" customClass="LanguageTable" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="EcG-Uh-Vze" customClass="KBTableView" customModule="Subtle_Subtitles" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="EcG-Uh-Vze" customClass="KBTableView" customModule="Subtle_Subtitles" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.20000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="tintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="langCell" textLabel="pi1-nJ-XWh" style="IBUITableViewCellStyleDefault" id="g40-tQ-ZUY">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="114" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g40-tQ-ZUY" id="IPL-fu-AX3">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -108,7 +108,7 @@
                             <outlet property="delegate" destination="FvB-en-hfb" id="Ggz-cM-c0j"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Second Search Language" id="vGP-b0-AKn">
+                    <navigationItem key="navigationItem" title="Preferences" id="vGP-b0-AKn">
                         <barButtonItem key="backBarButtonItem" title="Search" id="Hyz-lc-1cc"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="UQt-eA-T13">
                             <connections>
@@ -283,7 +283,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="flag" width="22" height="22"/>
         <image name="pause" width="29" height="29"/>
+        <image name="settings" width="22" height="22"/>
     </resources>
 </document>

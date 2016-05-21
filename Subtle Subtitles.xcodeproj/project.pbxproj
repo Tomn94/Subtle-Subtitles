@@ -18,6 +18,9 @@
 		643859981CA727CD00BE70FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643859961CA727CD00BE70FF /* LaunchScreen.storyboard */; };
 		643859A31CA727CD00BE70FF /* Subtle_SubtitlesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 643859A21CA727CD00BE70FF /* Subtle_SubtitlesTests.m */; };
 		643859AE1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 643859AD1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m */; };
+		649867031CF0748E00600DAE /* OROpenSubtitleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 649867021CF0748E00600DAE /* OROpenSubtitleDownloader.m */; };
+		649867051CF075B100600DAE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 649867041CF075B100600DAE /* libz.tbd */; };
+		649867081CF0BFC500600DAE /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 6498670A1CF0BFC500600DAE /* Localizable.stringsdict */; };
 		64D8FBD71CA735F00082ADA8 /* SearchTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBD61CA735F00082ADA8 /* SearchTable.m */; };
 		64D8FBDA1CA74BBC0082ADA8 /* SubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBD91CA74BBC0082ADA8 /* SubViewController.m */; };
 		64D8FBDD1CA7797C0082ADA8 /* LanguageTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBDC1CA7797C0082ADA8 /* LanguageTable.m */; };
@@ -64,6 +67,11 @@
 		643859A91CA727CD00BE70FF /* Subtle SubtitlesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subtle SubtitlesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		643859AD1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subtle_SubtitlesUITests.m; sourceTree = "<group>"; };
 		643859AF1CA727CD00BE70FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		649867011CF0748E00600DAE /* OROpenSubtitleDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OROpenSubtitleDownloader.h; sourceTree = "<group>"; };
+		649867021CF0748E00600DAE /* OROpenSubtitleDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OROpenSubtitleDownloader.m; sourceTree = "<group>"; };
+		649867041CF075B100600DAE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		649867091CF0BFC500600DAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		6498670C1CF0BFF400600DAE /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		64D8FBD51CA735F00082ADA8 /* SearchTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTable.h; sourceTree = "<group>"; };
 		64D8FBD61CA735F00082ADA8 /* SearchTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTable.m; sourceTree = "<group>"; };
 		64D8FBD81CA74BBC0082ADA8 /* SubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubViewController.h; sourceTree = "<group>"; };
@@ -81,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				649867051CF075B100600DAE /* libz.tbd in Frameworks */,
 				3FCC13E20D128CC3784598E5 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,8 +168,11 @@
 				643859941CA727CD00BE70FF /* Assets.xcassets */,
 				643859961CA727CD00BE70FF /* LaunchScreen.storyboard */,
 				64167DC01CED371A0046B60D /* Localizable.strings */,
+				6498670A1CF0BFC500600DAE /* Localizable.stringsdict */,
 				643859991CA727CD00BE70FF /* Info.plist */,
 				640C57F71CEB2D9600845807 /* KBTableView */,
+				649867011CF0748E00600DAE /* OROpenSubtitleDownloader.h */,
+				649867021CF0748E00600DAE /* OROpenSubtitleDownloader.m */,
 				643859881CA727CD00BE70FF /* Supporting Files */,
 				640C57F21CEB2D9000845807 /* Subtle Subtitles-Bridging-Header.h */,
 			);
@@ -196,6 +208,7 @@
 		FCFDD0BCF0D71AA3819832B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				649867041CF075B100600DAE /* libz.tbd */,
 				08A9A7D0B14129C80462E8EE /* libPods.a */,
 			);
 			name = Frameworks;
@@ -313,6 +326,7 @@
 				64167DBE1CED371A0046B60D /* Localizable.strings in Resources */,
 				643859951CA727CD00BE70FF /* Assets.xcassets in Resources */,
 				643859931CA727CD00BE70FF /* Main.storyboard in Resources */,
+				649867081CF0BFC500600DAE /* Localizable.stringsdict in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +406,7 @@
 				6438598A1CA727CD00BE70FF /* main.m in Sources */,
 				64D8FBDA1CA74BBC0082ADA8 /* SubViewController.m in Sources */,
 				640C57F51CEB2D9100845807 /* KBTableView.swift in Sources */,
+				649867031CF0748E00600DAE /* OROpenSubtitleDownloader.m in Sources */,
 				64D8FBE01CA77B790082ADA8 /* Data.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,6 +468,15 @@
 				64167DBB1CED30AF0046B60D /* fr */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		6498670A1CF0BFC500600DAE /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				649867091CF0BFC500600DAE /* Base */,
+				6498670C1CF0BFF400600DAE /* fr */,
+			);
+			name = Localizable.stringsdict;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

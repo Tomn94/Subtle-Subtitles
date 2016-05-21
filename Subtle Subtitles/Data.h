@@ -10,6 +10,7 @@
 @import UIKit;
 @import StoreKit;
 #import "CJPAdController.h"
+#import "OROpenSubtitleDownloader.h"
 
 #define ADS_ID @"com.tomn.SubtleSubtitles.ads"
 
@@ -20,7 +21,7 @@
 @property (strong, nonatomic) NSArray *langNames;
 @property (strong, nonatomic) NSArray *langIDs;
 @property (assign, nonatomic) NSInteger networkCount;
-@property (strong, nonatomic) NSString *currentFileName;
+@property (strong, nonatomic) OpenSubtitleSearchResult *currentFile;
 
 - (void) updateNetwork:(int)diff;
 - (void) startPurchase;

@@ -21,18 +21,30 @@
     srt = nil;
     
     maxTimeLabel = @"00:00";
-    _stepperValue.font = [UIFont monospacedDigitSystemFontOfSize:_stepperValue.font.pointSize
-                                                          weight:UIFontWeightRegular];
-    _timeLabel.font = [UIFont monospacedDigitSystemFontOfSize:_timeLabel.font.pointSize
-                                                       weight:UIFontWeightRegular];
+    if ([UIFont instancesRespondToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)])
+    {
+        _stepperValue.font = [UIFont monospacedDigitSystemFontOfSize:_stepperValue.font.pointSize
+                                                              weight:UIFontWeightRegular];
+        _timeLabel.font = [UIFont monospacedDigitSystemFontOfSize:_timeLabel.font.pointSize
+                                                           weight:UIFontWeightRegular];
+    }
     [self.slider setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateNormal];
     
-    [self setTitle:[[Data sharedData] currentFileName]];
-    fileName = [NSString stringWithFormat:@"/%@", [[Data sharedData] currentFileName]];
+    OpenSubtitleSearchResult *subFile = [[Data sharedData] currentFile];
+    if (subFile.movieName == nil || [subFile.movieName isEqualToString:@""])
+        [self setTitle:subFile.subtitleName];
+    else
+        [self setTitle:subFile.movieName];
+    fileName = [NSString stringWithFormat:@"/%@", subFile.subtitleName];
     if (fileName == nil || [fileName isEqualToString:@""] || [fileName isEqualToString:@"/"])
         fileName = @"/sub.srt";
     
     NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:fileName];
+    
+    
+    docAct = [[UIActivityViewController alloc] initWithActivityItems:@[[[ActivityLinkProvider alloc] initWithPlaceholderItem:@""],
+                                                                       [[ActivityTextProvider alloc] initWithPlaceholderItem:@""]]
+                                               applicationActivities:@[[OpenInActivity new], [DownActivity new], [SafariActivity new]]];
     doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:path]];
     
     encoding = NSUTF8StringEncoding;
@@ -78,6 +90,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stop) name:@"stopTimerSub" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showControls) name:@"showControls" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openIn) name:@"openIn" object:nil];
     
     if ([UIKeyCommand instancesRespondToSelector:@selector(setDiscoverabilityTitle:)])
     {
@@ -364,6 +377,18 @@
     if (item == nil)
         return;
     
+    if ([docAct respondsToSelector:@selector(popoverPresentationController)])
+        docAct.popoverPresentationController.barButtonItem = item;
+    [self presentViewController:docAct animated:YES completion:nil];
+}
+
+- (void) openIn
+{
+    UIBarButtonItem *item = self.navigationItem.rightBarButtonItem;
+    if (item == nil)
+        item = self.navigationItem.leftBarButtonItem;
+    if (item == nil)
+        return;
     if (![doc presentOpenInMenuFromBarButtonItem:item animated:YES])
         [doc presentOptionsMenuFromBarButtonItem:item animated:YES];
 }
@@ -480,3 +505,121 @@
 }
 
 @end
+
+
+
+@implementation SafariActivity
+
+- (NSString *) activityTitle
+{
+    return NSLocalizedString(@"View on OpenSubtitles.org", @"");
+}
+
+- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
+{
+    return YES;
+}
+
+@end
+
+
+
+@implementation OpenInActivity
+
+- (NSString *) activityTitle
+{
+    return NSLocalizedString(@"Export to app…", @"");
+}
+
+- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
+{
+    return YES;
+}
+
+- (UIImage *)activityImage
+{
+    return [UIImage imageNamed:@"export"];
+}
+
+- (void)performActivity
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"openIn" object:nil];
+    [self activityDidFinish:YES];
+}
+
+@end
+
+
+
+@implementation DownActivity
+{
+    NSString *_URL;
+}
+
+- (NSString *)activityType
+{
+    return NSStringFromClass([self class]);
+}
+
+- (NSString *)activityTitle
+{
+    return NSLocalizedString(@"Copy Download Link", @"");
+}
+
+- (UIImage *)activityImage
+{
+    return [UIImage imageNamed:@"copy"];
+}
+
+- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
+{
+    for (id activityItem in activityItems) {
+        if ([activityItem isKindOfClass:[NSString class]]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (void)prepareWithActivityItems:(NSArray *)activityItems
+{
+    for (id activityItem in activityItems) {
+        if ([activityItem isKindOfClass:[NSString class]]) {
+            _URL = activityItem;
+        }
+    }
+}
+
+- (void)performActivity
+{
+    [[UIPasteboard generalPasteboard] setString:_URL];
+    [self activityDidFinish:YES];
+}
+
+@end
+
+
+@implementation ActivityTextProvider
+
+- (id) activityViewController:(UIActivityViewController *)activityViewController
+          itemForActivityType:(NSString *)activityType
+{
+    if ([activityType isEqualToString:@"DownActivity"])
+        return [[Data sharedData] currentFile].subtitleDownloadAddress;
+    return nil;
+}
+
+@end
+
+@implementation ActivityLinkProvider
+
+- (id) activityViewController:(UIActivityViewController *)activityViewController
+          itemForActivityType:(NSString *)activityType
+{
+    if (![activityType isEqualToString:@"DownActivity"])
+        return [NSURL URLWithString:[[Data sharedData] currentFile].subtitlePage];
+    return nil;
+}
+
+@end
+

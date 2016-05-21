@@ -15,6 +15,10 @@
     NSArray *langNames;
     NSArray *langIDs;
     NSIndexPath *lastSel;
+    NSArray *settings;
+    NSArray *settingsKeys;
+    NSArray *sortSettings;
+    NSArray *sortSettingsKeys;
 }
 
 - (IBAction) close;

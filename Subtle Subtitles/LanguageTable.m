@@ -16,6 +16,13 @@
     
     langNames = [Data sharedData].langNames;
     langIDs   = [Data sharedData].langIDs;
+    settings = @[NSLocalizedString(@"Remember Last Search", @"")];
+    settingsKeys = @[@"rememberLastSearch"];
+    sortSettings = @[NSLocalizedString(@"Download Number", @""),
+                     NSLocalizedString(@"Ratings", @""),
+                     NSLocalizedString(@"CC (Hearing Impaired)", @""),
+                     NSLocalizedString(@"HD", @"")];
+    sortSettingsKeys = @[@"ratings", @"down", @"cc", @"hd"];
     NSUInteger index = [langIDs indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"langID"]];
     if (index != NSNotFound)
         lastSel = [NSIndexPath indexPathForRow:index inSection:0];
@@ -23,7 +30,7 @@
         lastSel = nil;
     
     UIView *backView = [UIView new];
-    [backView setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
+    [backView setBackgroundColor:[UIColor colorWithWhite:0.25 alpha:1]];
     [self.tableView setBackgroundView:backView];
     
     KBTableView *tableView = (KBTableView *)self.tableView;
@@ -63,32 +70,31 @@
     return UIStatusBarStyleLightContent;
 }
 
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    NSUInteger pos = [langIDs indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"langID"]];
-    if (pos != NSNotFound && [self tableView:self.tableView numberOfRowsInSection:0] > pos)
-    {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:pos inSection:0]
-                              atScrollPosition:UITableViewScrollPositionMiddle
-                                      animated:YES];
-        KBTableView *tableView = (KBTableView *)self.tableView;
-        [tableView setCurrentlyFocussedIndex:[NSIndexPath indexPathForRow:pos inSection:0]];
-    }
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 3;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView
   numberOfRowsInSection:(NSInteger)section
 {
+    if (section == 0)
+        return [settings count];
+    if (section == 1)
+        return [sortSettings count];
     return [langNames count];
+}
+
+- (NSString *) tableView:(UITableView *)tableView
+ titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0)
+        return nil;
+    if (section == 1)
+        return NSLocalizedString(@"Sort Search Results by", @"");
+    return NSLocalizedString(@"Second Search Language", @"");
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView
@@ -96,13 +102,22 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"langCell" forIndexPath:indexPath];
     
-    cell.textLabel.text = langNames[indexPath.row];
+    if (indexPath.section == 0)
+        cell.textLabel.text = settings[indexPath.row];
+    else if (indexPath.section == 1)
+        cell.textLabel.text = sortSettings[indexPath.row];
+    else if (indexPath.section == 2)
+        cell.textLabel.text = langNames[indexPath.row];
     
     cell.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1]; // iPad fix
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.bounds];
     cell.selectedBackgroundView.backgroundColor = [UIColor darkGrayColor];
     
-    if ([langIDs[indexPath.row] isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"langID"]])
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if ((indexPath.section == 0 && [defaults boolForKey:settingsKeys[indexPath.row]]) ||
+        (indexPath.section == 1 && [defaults boolForKey:sortSettingsKeys[indexPath.row]]) ||
+        (indexPath.section == 2 && [langIDs[indexPath.row] isEqualToString:[defaults stringForKey:@"langID"]]))
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -113,23 +128,45 @@
 - (void)      tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (lastSel)
-        [tableView cellForRowAtIndexPath:lastSel].accessoryType = UITableViewCellAccessoryNone;
-    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-    lastSel = indexPath;
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:langIDs[indexPath.row]   forKey:@"langID"];
-    [defaults setValue:langNames[indexPath.row] forKey:@"langName"];
-    [defaults synchronize];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateLanguage" object:nil];
+    if (indexPath.section == 2)
+    {
+        if (lastSel)
+            [tableView cellForRowAtIndexPath:lastSel].accessoryType = UITableViewCellAccessoryNone;
+        [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+        lastSel = indexPath;
+        
+        [defaults setValue:langIDs[indexPath.row]   forKey:@"langID"];
+        [defaults setValue:langNames[indexPath.row] forKey:@"langName"];
+        [defaults synchronize];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateLanguage" object:nil];
+    }
+    else
+    {
+        BOOL value;
+        if (indexPath.section == 0)
+        {
+            value = ![defaults boolForKey:settingsKeys[indexPath.row]];
+            [defaults setBool:value forKey:settingsKeys[indexPath.row]];
+        }
+        else if (indexPath.section == 1)
+        {
+            value = ![defaults boolForKey:sortSettingsKeys[indexPath.row]];
+            [defaults setBool:value forKey:sortSettingsKeys[indexPath.row]];
+        }
+        [tableView cellForRowAtIndexPath:indexPath].accessoryType = (value) ? UITableViewCellAccessoryCheckmark
+                                                                            : UITableViewCellAccessoryNone;
+    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (IBAction) close
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults boolForKey:@"rememberLastSearch"])
+        [defaults removeObjectForKey:@"lastSearch"];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

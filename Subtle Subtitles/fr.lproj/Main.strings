@@ -9,7 +9,7 @@
 "Bid-r3-r2i.title" = "Subtle Subtitles";
 
 /* Class = "UITableViewController"; title = "Second Search Language"; ObjectID = "FvB-en-hfb"; */
-"FvB-en-hfb.title" = "Seconde langue de recherche";
+"FvB-en-hfb.title" = "Préférences";
 
 /* Class = "UIBarButtonItem"; title = "Search"; ObjectID = "Hyz-lc-1cc"; */
 "Hyz-lc-1cc.title" = "Recherche";
@@ -30,4 +30,4 @@
 "pi1-nJ-XWh.text" = "English";
 
 /* Class = "UINavigationItem"; title = "Second Search Language"; ObjectID = "vGP-b0-AKn"; */
-"vGP-b0-AKn.title" = "Seconde langue de recherche";
+"vGP-b0-AKn.title" = "Préférences";

@@ -13,6 +13,15 @@
 /* Main */
 "Search movies or series" = "Rechercher des films et séries";
 "English" = "Anglais";
+"Bad" = "Mauvais";
+"HD" = "HD";
+"CC" = "CC";
+"%d download(s)" = "%d téléchargement(s)";
+"%d down." = "%d tél.";
+"Ratings" = "Classement";
+"Download Number" = "Téléchargements";
+"CC (Hearing Impaired)" = "CC (malentendant)";
+"Remember Last Search" = "Mémoriser la dernière recherche";
 
 "Search" = "Rechercher";
 "Search English Subtitles" = "Rechercher en anglais";
@@ -22,7 +31,9 @@
 "Select Previous result" = "Sélectionner le résultat précédent";
 "Select Next result" = "Sélectionner le résultat suivant";
 "Play Selection" = "Lire la sélection";
-"Second Search Language Settings" = "Modifier la 2nde langue de recherche";
+"Second Search Language Settings" = "Préférences";
+"Sort Search Results by" = "Trier les résultats de recherche par :";
+"Second Search Language" = "Seconde langue de recherche";
 "Tips" = "Infos";
 
 "Unable to fetch available languages" = "Impossible de récupérer les langues disponibles";
@@ -33,7 +44,7 @@
 "Error when downloading SRT file" = "Erreur lors du téléchargement du fichier SRT";
 
 "Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip 1: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\nTip 2: Pinch to resize subtitles\n\nContact: @tomn94" =
-"Recherche sur OpenSubtitles.org grâce à OROpenSubtitleDownloader.\n\nAstuce №1 : les boutons S+1 et E+1 permettent de trouver l'épisode suivant si vous tapez quelque chose comme « Archer S03E05 »\nAstuce №2 : zoomez les sous-titres en écartant 2 doigts\n\nContact : @tomn94";
+"Recherche sur OpenSubtitles.org grâce à OROpenSubtitleDownloader.\n\nAstuce №1 : les boutons S+1 et E+1 permettent de trouver l'épisode suivant si vous tapez quelque chose comme « Archer S03E05 »\nAstuce №2 : zoomez les sous-titres en écartant 2 doigts\n\nContact : @tomn94";
 "Remove Ads" = "Supprimer les publicités";
 "Remove ads for a small amount" = "Retirer les pubs à petit prix";
 "The developer will be so happy for your donation especially knowing that you won't have to bear ads anymore!" =
@@ -58,13 +69,16 @@
 "Export Subtitle" = "Exporter";
 "Go back to Search" = "Retour à la recherche";
 "%.1fs" = "%.1f s";
+"View on OpenSubtitles.org" = "Voir sur OpenSubtitles.org";
+"Copy Download Link" = "Copier le lien de téléchargement";
+"Export to app…" = "Exporter vers l'app…";
 
 
 /* 2nd Language */
-"Select Previous Language" = "Sélectionner la langue précédente";
-"Select Next Language" = "Sélectionner la langue suivante";
-"Choose Language" = "Appliquer la langue sélectionnée";
-"Dismiss Languages" = "Masquer les langues";
+"Select Previous Language" = "Sélectionner la ligne précédente";
+"Select Next Language" = "Sélectionner la ligne suivante";
+"Choose Language" = "Valider la sélection";*/
+"Dismiss Languages" = "Masquer préférences";
 
 
 /* Purchases */

@@ -24,7 +24,12 @@
         [defaults registerDefaults:@{ @"langID": @"fre",
                                       @"langName": @"French",
                                       @"langIndex": @0,
-                                      @"defaultPointSize": @28.0f }];
+                                      @"defaultPointSize": @28.0f,
+                                      @"ratings" : @YES,
+                                      @"down" : @YES,
+                                      @"cc" : @NO,
+                                      @"hd" : @NO,
+                                      @"rememberLastSearch" : @YES }];
         [defaults synchronize];
         
         // Nettoyage des données précédentes

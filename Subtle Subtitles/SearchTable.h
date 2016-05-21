@@ -8,7 +8,7 @@
 
 @import UIKit;
 #import "Data.h"
-#import <OROpenSubtitleDownloader/OROpenSubtitleDownloader.h>
+#import "OROpenSubtitleDownloader.h"
 #import "Subtle_Subtitles-Swift.h"
 #import "SubViewController.h"
 

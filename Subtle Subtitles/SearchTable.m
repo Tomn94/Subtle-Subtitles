@@ -25,15 +25,17 @@
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:nil action:nil];*/
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     search = [[UISearchController alloc] initWithSearchResultsController:nil];
     search.dimsBackgroundDuringPresentation = NO;
     search.searchBar.delegate = self;
     search.searchBar.placeholder = NSLocalizedString(@"Search movies or series", @"");
-    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [[NSUserDefaults standardUserDefaults] stringForKey:@"langName"] ];
+    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [defaults stringForKey:@"langName"] ];
     search.searchBar.barStyle = UIBarStyleBlack;
     search.searchBar.tintColor = [UIColor lightGrayColor];
     search.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
-    search.searchBar.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"lastSearch"];
+    if ([defaults boolForKey:@"rememberLastSearch"])
+        search.searchBar.text = [defaults valueForKey:@"lastSearch"];
     [search.searchBar sizeToFit];
     self.tableView.tableHeaderView = search.searchBar;
     
@@ -166,7 +168,8 @@
 {
     NSString *query = searchBar.text;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:searchBar.text forKey:@"lastSearch"];
+    if ([defaults boolForKey:@"rememberLastSearch"])
+        [defaults setValue:searchBar.text forKey:@"lastSearch"];
     
     [[Data sharedData] updateNetwork:+1];
     down.languageString = search.searchBar.selectedScopeButtonIndex ? [defaults stringForKey:@"langID"] : @"eng";
@@ -178,7 +181,27 @@
         {
             if ([subtitles count])
             {
-                searchResults = subtitles;
+                NSMutableArray *results = [NSMutableArray array];
+                for (OpenSubtitleSearchResult *result in subtitles)
+                {
+                    if ([result.subtitleFormat.lowercaseString isEqualToString:@"srt"])
+                        [results addObject:result];
+                }
+                NSMutableArray *sortDescriptors = [NSMutableArray array];
+                NSArray *settingsKeys = @[@"down", @"ratings", @"cc", @"hd"];
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:settingsKeys[0]])
+                    [sortDescriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"downloadCount"
+                                                                           ascending:NO]];
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:settingsKeys[1]])
+                    [sortDescriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"subtitleRating"
+                                                                           ascending:NO]];
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:settingsKeys[2]])
+                    [sortDescriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"hearingImpaired"
+                                                                           ascending:NO]];
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:settingsKeys[3]])
+                    [sortDescriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"hd"
+                                                                           ascending:NO]];
+                searchResults = [results sortedArrayUsingDescriptors:sortDescriptors];
                 [self.tableView reloadData];
             }
             else
@@ -238,12 +261,66 @@ selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
                                                             forIndexPath:indexPath];
     
     OpenSubtitleSearchResult *result = searchResults[indexPath.row];
-    cell.textLabel.text       = result.subtitleName;
-    cell.detailTextLabel.text = result.movieYear;
+    NSMutableArray *infos = [NSMutableArray array];
+    BOOL longInfos = self.view.frame.size.width > 320;
     
     cell.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1];
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.bounds];
     cell.selectedBackgroundView.backgroundColor = [UIColor darkGrayColor];
+    cell.textLabel.textColor = ([result.bad isEqualToString:@"1"]) ? [UIColor lightGrayColor] : [UIColor whiteColor];
+    
+    if ([result.bad isEqualToString:@"1"])
+        [infos addObject:NSLocalizedString(@"Bad", "Mauvais sous-titre")];
+    
+    float rating = result.subtitleRating / 2;
+    if (rating > 0) {
+        NSString *star = @"★";
+        NSString *emptyStar = @"☆";
+        NSString *val = [NSString stringWithFormat:@"%@%@%@%@%@",
+                         (rating >= 1) ? star : emptyStar,
+                         (rating >= 2) ? star : ((rating > 1) ? emptyStar : @""),
+                         (rating >= 3) ? star : ((rating > 2) ? emptyStar : @""),
+                         (rating >= 4) ? star : ((rating > 3) ? emptyStar : @""),
+                         (rating >= 5) ? star : ((rating > 4) ? emptyStar : @"")];
+        [infos addObject:val];
+    }
+    
+    [infos addObject:result.movieYear];
+    
+    NSString *hearing = NSLocalizedString(@"CC", "Descriptions sonores");
+    if ([result.hearingImpaired isEqualToString:@"1"])
+        [infos addObject:hearing];
+    
+    NSString *hd = NSLocalizedString(@"HD", "Haute définition");
+    if ([result.hd isEqualToString:@"1"])
+        [infos addObject:hd];
+    
+    NSString *key = (longInfos) ? @"%d download(s)" : @"%d down.";
+    [infos addObject:[NSString localizedStringWithFormat:NSLocalizedString(key, "Téléchargements"), result.downloadCount]];
+    
+    [infos addObject:[NSByteCountFormatter stringFromByteCount:result.subtitleSize
+                                                    countStyle:NSByteCountFormatterCountStyleFile]];
+    
+    NSString *lastTS = result.subtitleLength;
+    NSDateComponents *dc = [NSDateComponents new];
+    dc.hour = (lastTS.length >= 2) ? [lastTS substringToIndex:2].intValue : 0;
+    dc.minute = (lastTS.length >= 4) ? [lastTS substringWithRange:NSMakeRange(3, 2)].intValue : 0;
+    if (longInfos)
+        dc.second = (lastTS.length >= 7) ? [lastTS substringWithRange:NSMakeRange(6, 2)].intValue : 0;
+    [infos addObject:[NSDateComponentsFormatter localizedStringFromDateComponents:dc
+                                                                       unitsStyle:NSDateComponentsFormatterUnitsStyleAbbreviated]];
+    
+    NSString *detail = [infos componentsJoinedByString:@" · "]; // bad+rating+date+hearing+hd+download+size+length
+    NSMutableAttributedString *as = [[NSMutableAttributedString alloc] initWithString:detail];
+    if ([result.hearingImpaired isEqualToString:@"1"])
+        [as setAttributes:@{ NSFontAttributeName: [UIFont boldSystemFontOfSize:cell.detailTextLabel.font.pointSize] }
+                    range:[detail rangeOfString:hearing]];
+    if ([result.hd isEqualToString:@"1"])
+        [as setAttributes:@{ NSFontAttributeName: [UIFont italicSystemFontOfSize:cell.detailTextLabel.font.pointSize] }
+                    range:[detail rangeOfString:hd]];
+    
+    cell.textLabel.text       = result.subtitleName;
+    cell.detailTextLabel.attributedText = as;
     
     return cell;
 }
@@ -271,7 +348,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                               toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@", result.subtitleName]] :^(NSString *path, NSError *error) {
                                   if (error == nil)
                                   {
-                                      [[Data sharedData] setCurrentFileName:result.subtitleName];
+                                      [[Data sharedData] setCurrentFile:result];
                                       [self.navigationController performSegueWithIdentifier:@"detailSegue" sender:self];
                                   }
                                   else
