@@ -35,8 +35,16 @@ Coded in few hours so be clement! (✿◠‿◠)
 <br>
 ### Release notes
 #####v1.3 - 2?/05/2016
-> - Pop-over menus and Keyboard Shortcuts on the iPad
-> - UI tweaks
+> Subtle Subtitles has found many users, thank you all!
+>
+> - Pinch to change the text size of the subtitles
+> - Keyboard shortcuts on iOS 9
+> - Text size of the subtitles now optimized for every screen size, including Split View and better UI on iPad
+> - Many data added when searching to find the better subtitles seamlessly, with customizable options (includes closed captions, based on many user requests)
+> - New features to download and share subtitles in the Export menu
+> - Available now in French
+> 
+> Feel free to contact me on Twitter if you have some other ideas: @tomn94
 
 #####v1.2 - 18/05/2016
 > Subtle Subtitles has found many users, thank you all!
