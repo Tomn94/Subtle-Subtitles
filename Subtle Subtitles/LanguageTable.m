@@ -80,9 +80,9 @@
 - (NSInteger) tableView:(UITableView *)tableView
   numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0)
+    if (section == 2)
         return [settings count];
-    if (section == 1)
+    if (section == 0)
         return [sortSettings count];
     return [langNames count];
 }
@@ -90,9 +90,9 @@
 - (NSString *) tableView:(UITableView *)tableView
  titleForHeaderInSection:(NSInteger)section
 {
-    if (section == 0)
+    if (section == 2)
         return nil;
-    if (section == 1)
+    if (section == 0)
         return NSLocalizedString(@"Sort Search Results by", @"");
     return NSLocalizedString(@"Second Search Language", @"");
 }
@@ -115,9 +115,9 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if ((indexPath.section == 0 && [defaults boolForKey:settingsKeys[indexPath.row]]) ||
-        (indexPath.section == 1 && [defaults boolForKey:sortSettingsKeys[indexPath.row]]) ||
-        (indexPath.section == 2 && [langIDs[indexPath.row] isEqualToString:[defaults stringForKey:@"langID"]]))
+    if ((indexPath.section == 2 && [defaults boolForKey:settingsKeys[indexPath.row]]) ||
+        (indexPath.section == 0 && [defaults boolForKey:sortSettingsKeys[indexPath.row]]) ||
+        (indexPath.section == 1 && [langIDs[indexPath.row] isEqualToString:[defaults stringForKey:@"langID"]]))
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -129,7 +129,7 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (indexPath.section == 2)
+    if (indexPath.section == 1)
     {
         if (lastSel)
             [tableView cellForRowAtIndexPath:lastSel].accessoryType = UITableViewCellAccessoryNone;
@@ -145,12 +145,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     else
     {
         BOOL value;
-        if (indexPath.section == 0)
+        if (indexPath.section == 2)
         {
             value = ![defaults boolForKey:settingsKeys[indexPath.row]];
             [defaults setBool:value forKey:settingsKeys[indexPath.row]];
         }
-        else if (indexPath.section == 1)
+        else if (indexPath.section == 0)
         {
             value = ![defaults boolForKey:sortSettingsKeys[indexPath.row]];
             [defaults setBool:value forKey:sortSettingsKeys[indexPath.row]];
