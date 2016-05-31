@@ -3,7 +3,9 @@
 //  Subtle Subtitles
 //
 //  Created by Tomn on 26/03/2016.
-//  Copyright © 2016 Tomn. All rights reserved.
+//  Copyright © 2016 Thomas Naudet. All rights reserved.
+//  This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+//  To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/
 //
 
 #import "AppDelegate.h"
@@ -19,7 +21,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [CJPAdController sharedInstance].adPosition = CJPAdPositionBottom;
     [CJPAdController sharedInstance].initialDelay = 2.0;
     [CJPAdController sharedInstance].adMobUnitID = @"ca-app-pub-5043679231014485/5228181857";
-    [[CJPAdController sharedInstance] setTestDeviceIDs:@[@""]]; // TEST_EMULATOR pour avoir l'ID
+    [[CJPAdController sharedInstance] setTestDeviceIDs:@[@"7bf93d1f07cb039c3a523bc37ba84bdd"]]; // TEST_EMULATOR pour avoir l'ID
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController *navController = (UINavigationController*)[storyboard instantiateInitialViewController];
