@@ -1,8 +1,19 @@
 # Subtle Subtitles
-Repository for my simple iOS app suiting my needs about movie/series subtitles
 
-[View and download for iPhone/iPad on the App Store](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
+[![Version](https://img.shields.io/badge/version-1.3-green.svg)](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
+[![Code](https://img.shields.io/badge/code-Objective--C-orange.svg)](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210)
+[![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
+[![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
+[![Licence](https://img.shields.io/badge/licence-CC BY--NC--ND 4.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
 
+Download : [App Store](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
+
+<img src="/App Store/6/1.png" height="370" />
+<img src="/App Store/6/2.png" height="370" />
+
+## Description
+
+Repository for my simple iOS app suiting my needs about movie/series subtitles<br>
 Coded in few hours so be clement! (✿◠‿◠) 
 
 > Super simple Subtitle player: Search & Play!
@@ -27,14 +38,31 @@ Coded in few hours so be clement! (✿◠‿◠)
 > Completely free and unlimited, with ads that can be easily removed.<br>
 > Enjoy, feel free to send your feedback: @tomn94
 
-<br>
-<img src="https://pbs.twimg.com/media/Ceh0TjCXIAEVyBD.jpg:large" width="400" />
-![Screenshot Player](https://pbs.twimg.com/media/Ceh0TtbW8AADHFg.jpg:large)
+
+## Licence
+
+    This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+    To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/
+    
+![Licence](https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png)
+
+## Technical information
+
+Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 
-<br>
-### Release notes
-#####v1.3 - 23/05/2016
+## TODO
+- Keyboard shortcuts support while searching
+- Display previous searches
+- Improve “Nothing found” dialog
+- Overlay when downloading subtitle file
+- Support for other file formats
+- Load file from another app
+- Font settings
+- UI improvements
+
+## Release notes
+###v1.3 · 23/05/2016
 > Subtle Subtitles has found many users, thank you all!
 >
 >- Pinch to change the text size of the subtitles
@@ -48,7 +76,7 @@ Coded in few hours so be clement! (✿◠‿◠)
 >
 >Feel free to contact me on Twitter if you have some other ideas: @tomn94
 
-#####v1.2 - 18/05/2016
+###v1.2 · 18/05/2016
 > Subtle Subtitles has found many users, thank you all!
 >
 > - Enhanced UI for player controls, now displaying the current time and easier to scrub
@@ -61,7 +89,7 @@ Coded in few hours so be clement! (✿◠‿◠)
 > 
 > Feel free to contact me on Twitter if you have some other ideas: @tomn94
 
-#####v1.1 - 16/05/2016
+###v1.1 · 16/05/2016
 > Subtle Subtitles has found many users, thank you all!
 >
 > Some of you made suggestions, here they are:
@@ -69,3 +97,6 @@ Coded in few hours so be clement! (✿◠‿◠)
 > – Fixed a crash when exporting to some apps such as video players
 > 
 > Feel free to contact me on Twitter if you have some ideas too: @tomn94
+
+###v1.0 · 07/04/2016
+> *Original publication*
