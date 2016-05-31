@@ -57,6 +57,7 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 - Load file from another app
 - Font settings
 - UI improvements
+- New App Store screenshots + localized
 
 ## Release notes
 ###v1.4 · 0?/06/2016
