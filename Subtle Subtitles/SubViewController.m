@@ -46,7 +46,7 @@
     
     docAct = [[UIActivityViewController alloc] initWithActivityItems:@[[[ActivityLinkProvider alloc] initWithPlaceholderItem:@""],
                                                                        [[ActivityTextProvider alloc] initWithPlaceholderItem:@""]]
-                                               applicationActivities:@[[OpenInActivity new], [DownActivity new], [SafariActivity new]]];
+                                               applicationActivities:@[[DownActivity new], [SafariActivity new]]];
     doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:path]];
     
     encoding = NSUTF8StringEncoding;
@@ -82,7 +82,7 @@
         timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timer) userInfo:nil repeats:YES];
     }
     else
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItems = nil;
     
     UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
     [self.view addGestureRecognizer:pinch];
@@ -373,7 +373,7 @@
 {
     forceShowControls = YES;
     [self showControls];
-    UIBarButtonItem *item = self.navigationItem.rightBarButtonItem;
+    UIBarButtonItem *item = self.navigationItem.rightBarButtonItems.lastObject;
     if (item == nil)
         item = self.navigationItem.leftBarButtonItem;
     if (item == nil)
@@ -384,13 +384,16 @@
     [self presentViewController:docAct animated:YES completion:nil];
 }
 
-- (void) openIn
+- (IBAction) openIn:(UIBarButtonItem *)sender
 {
-    UIBarButtonItem *item = self.navigationItem.rightBarButtonItem;
+    forceShowControls = YES;
+    [self showControls];
+    UIBarButtonItem *item = self.navigationItem.rightBarButtonItems[0];
     if (item == nil)
         item = self.navigationItem.leftBarButtonItem;
     if (item == nil)
         return;
+    
     if (![doc presentOpenInMenuFromBarButtonItem:item animated:YES])
         [doc presentOptionsMenuFromBarButtonItem:item animated:YES];
 }
@@ -520,33 +523,6 @@
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
 {
     return YES;
-}
-
-@end
-
-
-
-@implementation OpenInActivity
-
-- (NSString *) activityTitle
-{
-    return NSLocalizedString(@"Export to app…", @"");
-}
-
-- (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
-{
-    return YES;
-}
-
-- (UIImage *)activityImage
-{
-    return [UIImage imageNamed:@"export"];
-}
-
-- (void)performActivity
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"openIn" object:nil];
-    [self activityDidFinish:YES];
 }
 
 @end

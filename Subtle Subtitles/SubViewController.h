@@ -54,7 +54,7 @@ typedef enum : NSUInteger {
 - (NSArray *) parse:(NSString *)srtData;
 - (IBAction) delay:(id)sender;
 - (IBAction) share:(UIBarButtonItem *)sender;
-- (void) openIn;
+- (IBAction) openIn:(UIBarButtonItem *)sender;
 - (void) showControls;
 
 - (void) pinch:(UIPinchGestureRecognizer *)g;
@@ -71,9 +71,6 @@ typedef enum : NSUInteger {
 @end
 
 @interface DownActivity : UIActivity
-@end
-
-@interface OpenInActivity : UIActivity
 @end
 
 @interface ActivityTextProvider : UIActivityItemProvider

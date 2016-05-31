@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Subtle Subtitles-->
@@ -244,11 +245,18 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="mkk-Iq-cey">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="jle-r0-ejQ">
-                            <connections>
-                                <action selector="share:" destination="KXK-aY-shy" id="mBo-Fe-R2c"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="action" id="jle-r0-ejQ">
+                                <connections>
+                                    <action selector="openIn:" destination="KXK-aY-shy" id="yd9-7i-OY1"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="link" id="2D5-9m-UXd">
+                                <connections>
+                                    <action selector="share:" destination="KXK-aY-shy" id="7XW-Fm-0W7"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="playButton" destination="6MT-OH-wmX" id="sj4-Tg-0W7"/>
@@ -307,6 +315,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="link" width="25" height="25"/>
         <image name="pause" width="29" height="29"/>
         <image name="settings" width="22" height="22"/>
     </resources>
