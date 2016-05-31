@@ -111,6 +111,16 @@
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(infos:)
                                          discoverabilityTitle:NSLocalizedString(@"Tips", @"")]];
+        
+        UIBarButtonItem *seasonKey = [[UIBarButtonItem alloc] initWithTitle:@"S+1" style:UIBarButtonItemStylePlain
+                                                                     target:self action:@selector(increaseNumberWithButton:)];
+        UIBarButtonItem *episodeKey = [[UIBarButtonItem alloc] initWithTitle:@"E+1" style:UIBarButtonItemStylePlain
+                                                                      target:self action:@selector(increaseNumberWithButton:)];
+        UIBarButtonItem *plus1Buttons = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                                      target:self action:nil];
+        UIBarButtonItemGroup *plus1Group = [[UIBarButtonItemGroup alloc] initWithBarButtonItems:@[seasonKey, episodeKey]
+                                                                             representativeItem:plus1Buttons];
+        search.searchBar.inputAssistantItem.trailingBarButtonGroups = @[plus1Group];
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLanguage) name:@"updateLanguage" object:nil];
@@ -561,6 +571,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (void) openLanguage
 {
     [self performSegueWithIdentifier:@"languageSegue" sender:self.navigationItem.leftBarButtonItem];
+}
+
+- (void) increaseNumberWithButton:(UIBarButtonItem *)sender
+{
+    [self increaseTextNumber:[sender.title isEqualToString:@"S+1"]];
 }
 
 - (void) increaseNumber:(UIKeyCommand *)sender
