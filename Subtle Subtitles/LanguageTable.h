@@ -14,14 +14,15 @@
 
 @interface LanguageTable : UITableViewController
 {
-    NSArray *langNames;
-    NSArray *langIDs;
+    NSArray *languages;
     NSIndexPath *lastSel;
     NSArray *settings;
     NSArray *settingsKeys;
     NSArray *sortSettings;
     NSArray *sortSettingsKeys;
 }
+
++ (NSString *) localize:(NSString *)lang;
 
 - (IBAction) close;
 - (void) keyArrow:(UIKeyCommand *)sender;

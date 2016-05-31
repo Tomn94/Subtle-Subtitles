@@ -99,5 +99,26 @@ class SuggestionsTable: UITableViewController {
         searchBar?.becomeFirstResponder()
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            let defaults = NSUserDefaults.standardUserDefaults();
+            if var previous = defaults.objectForKey("previousSearches") as? [String] {
+                if let index = previous.indexOf(suggestions[indexPath.row]) {
+                    previous.removeAtIndex(index)
+                    defaults.setObject(previous, forKey: "previousSearches")
+                }
+            }
+            suggestions.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            if suggestions.isEmpty {
+                tableView.reloadData()
+            }
+        }
+    }
 }
  

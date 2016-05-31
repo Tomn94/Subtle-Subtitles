@@ -16,8 +16,6 @@
 {
     [super viewDidLoad];
     
-    langNames = [Data sharedData].langNames;
-    langIDs   = [Data sharedData].langIDs;
     settings  = @[NSLocalizedString(@"Remember Last Search", @"")];
     settingsKeys = @[@"rememberLastSearch"];
     sortSettings = @[NSLocalizedString(@"Download Number", @""),
@@ -25,11 +23,28 @@
                      NSLocalizedString(@"CC (Hearing Impaired)", @""),
                      NSLocalizedString(@"HD", @"")];
     sortSettingsKeys = @[@"ratings", @"down", @"cc", @"hd"];
-    NSUInteger index = [langIDs indexOfObject:[[NSUserDefaults standardUserDefaults] stringForKey:@"langID"]];
-    if (index != NSNotFound)
-        lastSel = [NSIndexPath indexPathForRow:index inSection:0];
-    else
-        lastSel = nil;
+    
+    NSArray *languagesNames = [Data sharedData].langNames;
+    NSArray *languagesIDs   = [Data sharedData].langIDs;
+    NSMutableArray *langs   = [NSMutableArray array];
+    NSInteger count = MIN(languagesNames.count, languagesIDs.count);
+    for (NSInteger i = 0 ; i < count ; ++i)
+        [langs addObject:@{ @"name": [LanguageTable localize:languagesNames[i]],
+                            @"id":   languagesIDs[i] }];
+    
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES
+                                                            selector:@selector(caseInsensitiveCompare:)];
+    languages = [langs sortedArrayUsingDescriptors:@[sort]];
+    
+    lastSel = nil;
+    NSInteger i = 0;
+    NSString *selectedLanguage = [[NSUserDefaults standardUserDefaults] stringForKey:@"langID"];
+    for (NSDictionary *language in languages)
+    {
+        if ([language[@"id"] isEqualToString:selectedLanguage])
+            lastSel = [NSIndexPath indexPathForRow:i inSection:2];
+        i++;
+    }
     
     UIView *backView = [UIView new];
     [backView setBackgroundColor:[UIColor colorWithWhite:0.23 alpha:1]];
@@ -92,7 +107,7 @@
         return [settings count] + 1;
     if (section == 1)
         return [sortSettings count];
-    return [langNames count];
+    return [languages count];
 }
 
 - (NSString *) tableView:(UITableView *)tableView
@@ -102,7 +117,7 @@
         return nil;
     if (section == 1)
         return NSLocalizedString(@"Sort Search Results by", @"");
-    return [langNames count] ? NSLocalizedString(@"Second Search Language", @"")
+    return [languages count] ? NSLocalizedString(@"Second Search Language", @"")
                              : NSLocalizedString(@"Second Search Language Empty", @"");
 }
 
@@ -131,13 +146,13 @@
     else if (indexPath.section == 1)
         cell.textLabel.text = sortSettings[indexPath.row];
     else if (indexPath.section == 2)
-        cell.textLabel.text = langNames[indexPath.row];
+        cell.textLabel.text = languages[indexPath.row][@"name"];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if ((indexPath.section == 0 && [defaults boolForKey:settingsKeys[indexPath.row]]) ||
         (indexPath.section == 1 && [defaults boolForKey:sortSettingsKeys[indexPath.row]]) ||
-        (indexPath.section == 2 && [langIDs[indexPath.row] isEqualToString:[defaults stringForKey:@"langID"]]))
+        (indexPath.section == 2 && [languages[indexPath.row][@"id"] isEqualToString:[defaults stringForKey:@"langID"]]))
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -156,8 +171,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
         lastSel = indexPath;
         
-        [defaults setValue:langIDs[indexPath.row]   forKey:@"langID"];
-        [defaults setValue:langNames[indexPath.row] forKey:@"langName"];
+        NSDictionary *language = languages[indexPath.row];
+        [defaults setValue:language[@"name"] forKey:@"langName"];
+        [defaults setValue:language[@"id"]   forKey:@"langID"];
         [defaults synchronize];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateLanguage" object:nil];
@@ -186,6 +202,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - Actions
+
++ (NSString *) localize:(NSString *)lang
+{
+    return NSLocalizedString(lang, @"");
 }
 
 - (IBAction) close

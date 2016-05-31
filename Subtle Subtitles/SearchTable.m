@@ -33,7 +33,7 @@
     search.searchBar.delegate = self;
     search.searchResultsUpdater = self;
     search.searchBar.placeholder = NSLocalizedString(@"Search movies or series", @"");
-    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [defaults stringForKey:@"langName"], @"S+1", @"E+1" ];
+    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [LanguageTable localize:[defaults stringForKey:@"langName"]], @"S+1", @"E+1" ];
     search.searchBar.barStyle = UIBarStyleBlack;
     search.searchBar.tintColor = [UIColor lightGrayColor];
     search.searchBar.barTintColor = [UIColor colorWithWhite:0.25 alpha:1];
@@ -253,6 +253,30 @@
     }];
 }
 
+- (void)                searchBar:(UISearchBar *)searchBar
+selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+{
+    tapped = NO;
+    
+    if (selectedScope > 1)
+    {
+        searchBar.selectedScopeButtonIndex = currentScope;
+        [self increaseTextNumber:selectedScope == 2];
+        return;
+    }
+    
+    currentScope = selectedScope;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:@(selectedScope) forKey:@"langIndex"];
+    [defaults synchronize];
+}
+
+- (void) searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    nothingFound = NO;
+    [self.tableView reloadEmptyDataSet];
+}
+
 - (void) updateSearchResultsForSearchController:(UISearchController *)searchController
 {
     NSArray *previous = [[NSUserDefaults standardUserDefaults] arrayForKey:@"previousSearches"];
@@ -286,30 +310,6 @@
 - (void) didPresentSearchController:(UISearchController *)searchController
 {
     searchController.searchResultsController.view.hidden = ![[NSUserDefaults standardUserDefaults] boolForKey:@"rememberLastSearch"];
-}
-
-- (void)                searchBar:(UISearchBar *)searchBar
-selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
-{
-    tapped = NO;
-    
-    if (selectedScope > 1)
-    {
-        searchBar.selectedScopeButtonIndex = currentScope;
-        [self increaseTextNumber:selectedScope == 2];
-        return;
-    }
-    
-    currentScope = selectedScope;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:@(selectedScope) forKey:@"langIndex"];
-    [defaults synchronize];
-}
-
-- (void) searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    nothingFound = NO;
-    [self.tableView reloadEmptyDataSet];
 }
 
 #pragma mark - Table view data source
@@ -523,7 +523,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (void) updateLanguage
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [defaults stringForKey:@"langName"], @"S+1", @"E+1" ];
+    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [LanguageTable localize:[defaults stringForKey:@"langName"]], @"S+1", @"E+1" ];
     search.searchBar.selectedScopeButtonIndex = [defaults integerForKey:@"langIndex"];
     currentScope = [defaults integerForKey:@"langIndex"];
     [search.searchBar sizeToFit];

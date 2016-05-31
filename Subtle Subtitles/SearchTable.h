@@ -13,6 +13,7 @@
 #import "OROpenSubtitleDownloader.h"
 #import "Subtle_Subtitles-Swift.h"
 #import "SubViewController.h"
+#import "LanguageTable.h"
 #import <UIScrollView+EmptyDataSet.h>
 
 @interface SearchTable : UITableViewController <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, OROpenSubtitleDownloaderDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
