@@ -60,24 +60,27 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 ## Release notes
 ###v1.4 · 0?/06/2016
-> - Welcome screen
-> - Display previous searches & suggestions
-> - Clear History or a single previous search
-> - Improve “Nothing found” dialog
-> - Indicate downloading state
-> - S+1 & E+1 buttons work with no text
-> - Keyboard actions on iPad for S+1/E+1
-> - Search button always enabled
-> - 2nd Search Languages translated
-> - 2 separated export menus
+>Subtle Subtitles has found many users, thank you all!
+>
+>- Improved Welcome and No Results screens
+>- Better Search v2:<br>
+>Displays suggestions based on your previous searches<br>
+>Clear all your recent searches or just one
+>- S+1 and E+1 buttons to jump to the next episode are slightly more clever<br>
+>They are now available above the iPad keyboard too
+>- Subtitle download indicator
+>- Separated export menus, one to simply export the SRT file, one to share the link to OpenSubtitles.org download page
+>- UI improvements and fixes
+>
+>Feel free to contact me on Twitter if you have some other ideas: @tomn94
 
 ###v1.3 · 23/05/2016
 > Subtle Subtitles has found many users, thank you all!
 >
 >- Pinch to change the text size of the subtitles
->- Better Search:
+>- Better Search:<br>
 >Many data added when searching to find the better subtitles way faster, with customizable options (includes closed captions, based on user request)
->- UI Improvement on iPad:
+>- UI Improvement on iPad:<br>
 >Text size of the subtitles now optimized for every screen size, including Split View
 >- New features to download and share subtitles in the Export menu
 >- Keyboard shortcuts on iOS 9
@@ -102,8 +105,8 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 > Subtle Subtitles has found many users, thank you all!
 >
 > Some of you made suggestions, here they are:
-> – Exported subtitles now use the original name of the file
-> – Fixed a crash when exporting to some apps such as video players
+> - Exported subtitles now use the original name of the file
+> - Fixed a crash when exporting to some apps such as video players
 > 
 > Feel free to contact me on Twitter if you have some ideas too: @tomn94
 
