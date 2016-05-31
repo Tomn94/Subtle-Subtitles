@@ -69,7 +69,7 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 >- S+1 and E+1 buttons to jump to the next episode are slightly more clever<br>
 >They are now available above the iPad keyboard too
 >- Subtitle download indicator
->- Separated export menus, one to simply export the SRT file, one to share the link to OpenSubtitles.org download page
+>- Separated export menus: one to simply export the SRT file, one to share the link to OpenSubtitles.org download page
 >- UI improvements and fixes
 >
 >Feel free to contact me on Twitter if you have some other ideas: @tomn94
