@@ -10,6 +10,8 @@
 
 @import StoreKit;
 #import "SearchTable.h"
+#import "Subtle_Subtitles-Swift.h"
+#import <AFNetworking/UIKit+AFNetworking.h>
 
 @implementation SearchTable
 
@@ -35,6 +37,7 @@
     search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [defaults stringForKey:@"langName"] ];
     search.searchBar.barStyle = UIBarStyleBlack;
     search.searchBar.tintColor = [UIColor lightGrayColor];
+    search.searchBar.barTintColor = [UIColor colorWithWhite:0.25 alpha:1];
     search.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
     if ([defaults boolForKey:@"rememberLastSearch"])
         search.searchBar.text = [defaults valueForKey:@"lastSearch"];
@@ -168,6 +171,8 @@
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    tapped = NO;
+    
     NSString *query = searchBar.text;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:@"rememberLastSearch"])
@@ -230,6 +235,8 @@
 - (void)                searchBar:(UISearchBar *)searchBar
 selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
+    tapped = NO;
+    
     if (selectedScope > 1)
     {
         searchBar.selectedScopeButtonIndex = currentScope;
@@ -259,7 +266,7 @@ selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 - (UITableViewCell *) tableView:(UITableView *)tableView
           cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell"
+    SearchTableCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell"
                                                             forIndexPath:indexPath];
     
     OpenSubtitleSearchResult *result = searchResults[indexPath.row];
@@ -269,7 +276,7 @@ selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
     cell.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1];
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.bounds];
     cell.selectedBackgroundView.backgroundColor = [UIColor darkGrayColor];
-    cell.textLabel.textColor = ([result.bad isEqualToString:@"1"]) ? [UIColor lightGrayColor] : [UIColor whiteColor];
+    cell.title.textColor = ([result.bad isEqualToString:@"1"]) ? [UIColor lightGrayColor] : [UIColor whiteColor];
     
     if ([result.bad isEqualToString:@"1"])
         [infos addObject:NSLocalizedString(@"Bad", "Mauvais sous-titre")];
@@ -315,14 +322,15 @@ selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
     NSString *detail = [infos componentsJoinedByString:@" · "]; // bad+rating+date+hearing+hd+download+size+length
     NSMutableAttributedString *as = [[NSMutableAttributedString alloc] initWithString:detail];
     if ([result.hearingImpaired isEqualToString:@"1"])
-        [as setAttributes:@{ NSFontAttributeName: [UIFont boldSystemFontOfSize:cell.detailTextLabel.font.pointSize] }
+        [as setAttributes:@{ NSFontAttributeName: [UIFont boldSystemFontOfSize:cell.subtitle.font.pointSize] }
                     range:[detail rangeOfString:hearing]];
     if ([result.hd isEqualToString:@"1"])
-        [as setAttributes:@{ NSFontAttributeName: [UIFont italicSystemFontOfSize:cell.detailTextLabel.font.pointSize] }
+        [as setAttributes:@{ NSFontAttributeName: [UIFont italicSystemFontOfSize:cell.subtitle.font.pointSize] }
                     range:[detail rangeOfString:hd]];
     
-    cell.textLabel.text       = result.subtitleName;
-    cell.detailTextLabel.attributedText = as;
+    cell.title.text              = result.subtitleName;
+    cell.subtitle.attributedText = as;
+    [cell.progress setProgress:0 animated:NO];
     
     return cell;
 }
@@ -330,12 +338,19 @@ selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 - (void)      tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (tapped)
+    {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        return;
+    }
+    tapped = YES;
+    
     NSString *str = search.searchBar.text;
     search.active = NO;
     search.searchBar.text = str;
-    
+
     OpenSubtitleSearchResult *result = searchResults[indexPath.row];
-    if ([result.subtitleName hasSuffix:@".sub"])
+    if ([result.subtitleName hasSuffix:@".sub"] || [result.subtitleFormat.lowercaseString isEqualToString:@"sub"])
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"SUB files are not supported", @"")
                                                                        message:NSLocalizedString(@"Sorry, search for SRT files, please.", @"")
@@ -343,25 +358,36 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        tapped = NO;
+        return;
     }
+    
+    SearchTableCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell.progress setProgress:0.9 animated:YES];
     
     [[Data sharedData] updateNetwork:1];
     [down downloadSubtitlesForResult:result
-                              toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@", result.subtitleName]] :^(NSString *path, NSError *error) {
-                                  if (error == nil)
-                                  {
-                                      [[Data sharedData] setCurrentFile:result];
-                                      [self.navigationController performSegueWithIdentifier:@"detailSegue" sender:self];
+                              toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@", result.subtitleName]]
+                          onProgress:^(float progress) {
+                                      [cell.progress setProgress:progress animated:YES];
                                   }
-                                  else
-                                  {
-                                      UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error when downloading SRT file", @"")
-                                                                                                     message:[error localizedDescription]
-                                                                                              preferredStyle:UIAlertControllerStyleAlert];
-                                      [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
-                                      [self presentViewController:alert animated:YES completion:nil];
-                                  }
-                                  [[Data sharedData] updateNetwork:-1];
+                                    :^(NSString *path, NSError *error) {
+                                        if (error == nil)
+                                        {
+                                            [[Data sharedData] setCurrentFile:result];
+                                            [self.navigationController performSegueWithIdentifier:@"detailSegue" sender:self];
+                                        }
+                                        else
+                                        {
+                                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error when downloading SRT file", @"")
+                                                                                                           message:[error localizedDescription]
+                                                                                                    preferredStyle:UIAlertControllerStyleAlert];
+                                            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
+                                            [self presentViewController:alert animated:YES completion:nil];
+                                        }
+                                        [cell.progress setProgress:0 animated:YES];
+                                        [[Data sharedData] updateNetwork:-1];
+                                        tapped = NO;
                               }];
 }
 
@@ -402,6 +428,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (IBAction) infos:(id)sender
 {
+    if (tapped)
+        return;
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Subtle Subtitles"
                                                                    message:NSLocalizedString(@"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip 1: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\nTip 2: Pinch to resize subtitles\n\nContact: @tomn94", @"")
                                                             preferredStyle:UIAlertControllerStyleAlert];

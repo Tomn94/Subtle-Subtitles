@@ -136,7 +136,10 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
 }
 
 
-- (void)downloadSubtitlesForResult:(OpenSubtitleSearchResult *)result toPath:(NSString *)path :(void(^)(NSString *path, NSError *error))onResultsFound
+- (void)downloadSubtitlesForResult:(OpenSubtitleSearchResult *)result
+                            toPath:(NSString *)path
+                        onProgress:(void(^)(float progress))onProgress
+                                  :(void(^)(NSString *path, NSError *error))onResultsFound
 {
     // Download the subtitles using the HTTP request method
     // as doing it through XMLRPC was proving unpredictable
@@ -173,7 +176,10 @@ static NSString * const kRequest_SearchSubtitles = @"SearchSubtitles";
                                                   }
                                                   else if(onResultsFound) { onResultsFound(path, error); }
                                               }];
-
+    [manager setDownloadTaskDidWriteDataBlock:^(NSURLSession * _Nonnull session, NSURLSessionDownloadTask * _Nonnull downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+        float progress = (float)totalBytesWritten / (float)totalBytesExpectedToWrite;
+        onProgress(progress);
+    }];
     [downloadTask resume];
 }
 

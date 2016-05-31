@@ -20,6 +20,7 @@
     NSArray *searchResults;
     OROpenSubtitleDownloader *down;
     NSInteger currentScope;
+    BOOL tapped;
 }
 
 - (void) increaseTextNumber:(int)type;

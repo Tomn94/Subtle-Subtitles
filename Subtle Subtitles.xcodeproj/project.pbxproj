@@ -18,6 +18,7 @@
 		643859981CA727CD00BE70FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643859961CA727CD00BE70FF /* LaunchScreen.storyboard */; };
 		643859A31CA727CD00BE70FF /* Subtle_SubtitlesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 643859A21CA727CD00BE70FF /* Subtle_SubtitlesTests.m */; };
 		643859AE1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 643859AD1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m */; };
+		64725A591CFDC7740057AC4A /* SearchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64725A581CFDC7740057AC4A /* SearchTableCell.swift */; };
 		649867031CF0748E00600DAE /* OROpenSubtitleDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 649867021CF0748E00600DAE /* OROpenSubtitleDownloader.m */; };
 		649867051CF075B100600DAE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 649867041CF075B100600DAE /* libz.tbd */; };
 		649867081CF0BFC500600DAE /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 6498670A1CF0BFC500600DAE /* Localizable.stringsdict */; };
@@ -67,6 +68,7 @@
 		643859A91CA727CD00BE70FF /* Subtle SubtitlesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Subtle SubtitlesUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		643859AD1CA727CD00BE70FF /* Subtle_SubtitlesUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Subtle_SubtitlesUITests.m; sourceTree = "<group>"; };
 		643859AF1CA727CD00BE70FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		64725A581CFDC7740057AC4A /* SearchTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableCell.swift; sourceTree = "<group>"; };
 		649867011CF0748E00600DAE /* OROpenSubtitleDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OROpenSubtitleDownloader.h; sourceTree = "<group>"; };
 		649867021CF0748E00600DAE /* OROpenSubtitleDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OROpenSubtitleDownloader.m; sourceTree = "<group>"; };
 		649867041CF075B100600DAE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -160,6 +162,7 @@
 				64D8FBDF1CA77B790082ADA8 /* Data.m */,
 				64D8FBD51CA735F00082ADA8 /* SearchTable.h */,
 				64D8FBD61CA735F00082ADA8 /* SearchTable.m */,
+				64725A581CFDC7740057AC4A /* SearchTableCell.swift */,
 				64D8FBD81CA74BBC0082ADA8 /* SubViewController.h */,
 				64D8FBD91CA74BBC0082ADA8 /* SubViewController.m */,
 				64D8FBDB1CA7797C0082ADA8 /* LanguageTable.h */,
@@ -401,6 +404,7 @@
 			files = (
 				640C57F61CEB2D9100845807 /* UITableView+RowConvenience.swift in Sources */,
 				6438598D1CA727CD00BE70FF /* AppDelegate.m in Sources */,
+				64725A591CFDC7740057AC4A /* SearchTableCell.swift in Sources */,
 				64D8FBD71CA735F00082ADA8 /* SearchTable.m in Sources */,
 				64D8FBDD1CA7797C0082ADA8 /* LanguageTable.m in Sources */,
 				6438598A1CA727CD00BE70FF /* main.m in Sources */,
@@ -573,6 +577,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Subtle Subtitles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -590,6 +596,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Subtle Subtitles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

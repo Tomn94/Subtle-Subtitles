@@ -82,9 +82,9 @@
 - (NSInteger) tableView:(UITableView *)tableView
   numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 2)
-        return [settings count];
     if (section == 0)
+        return [settings count];
+    if (section == 1)
         return [sortSettings count];
     return [langNames count];
 }
@@ -92,9 +92,9 @@
 - (NSString *) tableView:(UITableView *)tableView
  titleForHeaderInSection:(NSInteger)section
 {
-    if (section == 2)
-        return nil;
     if (section == 0)
+        return nil;
+    if (section == 1)
         return NSLocalizedString(@"Sort Search Results by", @"");
     return NSLocalizedString(@"Second Search Language", @"");
 }
@@ -117,9 +117,9 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if ((indexPath.section == 2 && [defaults boolForKey:settingsKeys[indexPath.row]]) ||
-        (indexPath.section == 0 && [defaults boolForKey:sortSettingsKeys[indexPath.row]]) ||
-        (indexPath.section == 1 && [langIDs[indexPath.row] isEqualToString:[defaults stringForKey:@"langID"]]))
+    if ((indexPath.section == 0 && [defaults boolForKey:settingsKeys[indexPath.row]]) ||
+        (indexPath.section == 1 && [defaults boolForKey:sortSettingsKeys[indexPath.row]]) ||
+        (indexPath.section == 2 && [langIDs[indexPath.row] isEqualToString:[defaults stringForKey:@"langID"]]))
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
         cell.accessoryType = UITableViewCellAccessoryNone;
