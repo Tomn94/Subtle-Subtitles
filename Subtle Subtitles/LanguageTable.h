@@ -26,5 +26,6 @@
 - (IBAction) close;
 - (void) keyArrow:(UIKeyCommand *)sender;
 - (void) enterKey;
+- (void) clearHistory;
 
 @end

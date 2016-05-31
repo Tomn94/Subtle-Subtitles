@@ -23,8 +23,13 @@
 "Ratings" = "Ratings";
 "Download Number" = "Downloads";
 "CC (Hearing Impaired)" = "CC (Hearing Impaired)";
-"Remember Last Search" = "Remember Last Search";
+"Remember Last Search" = "Remember Previous Searches";
+"Remember Last Search small" = "Remember Previous Searches";
 "Empty search" = "Start by searching what you want to watch";
+"Previous Searches" = "Previous Searches";
+"No Previous Searches" = "No Previous Searches";
+"Previous Searches Matching" = "Previous Searches Matching";
+"No Previous Matching" = "No Previous Matching";
 
 "Search" = "Search";
 "Search English Subtitles" = "Search English Subtitles";
@@ -34,8 +39,8 @@
 "Select Previous result" = "Select Previous result";
 "Select Next result" = "Select Next result";
 "Play Selection" = "Play Selection";
-"Second Search Language Settings" = "Préférences";
-"Sort Search Results by" = "Sort Search Results by :";
+"Second Search Language Settings" = "Preferences";
+"Sort Search Results by" = "Sort Search Results by:";
 "Second Search Language" = "Second Search Language";
 "Tips" = "Tips";
 
@@ -82,6 +87,11 @@
 "Select Next Language" = "Select Next Row";
 "Choose Language" = "Validate Selection";
 "Dismiss Languages" = "Dismiss Preferences";
+"Clear Search History" = "Clear Search History";
+"Second Search Language Empty" = "Second Search Language (Not Loaded From Server)";
+"Clear searches title" = "Are you sure?";
+"Clear searches message" = "You won't get your search history back…";
+"Clear Searches" = "Clear Searches";
 
 
 /* Purchases */

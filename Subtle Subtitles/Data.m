@@ -31,7 +31,9 @@
                                       @"down" : @YES,
                                       @"cc" : @NO,
                                       @"hd" : @NO,
-                                      @"rememberLastSearch" : @YES }];
+                                      @"rememberLastSearch" : @YES,
+                                      @"previousSearches" : @[] }];
+        [defaults removeObjectForKey:@"lastSearch"];
         [defaults synchronize];
         
         // Nettoyage des données précédentes

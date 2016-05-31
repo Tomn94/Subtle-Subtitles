@@ -18,7 +18,7 @@
     
     langNames = [Data sharedData].langNames;
     langIDs   = [Data sharedData].langIDs;
-    settings = @[NSLocalizedString(@"Remember Last Search", @"")];
+    settings  = @[NSLocalizedString(@"Remember Last Search", @"")];
     settingsKeys = @[@"rememberLastSearch"];
     sortSettings = @[NSLocalizedString(@"Download Number", @""),
                      NSLocalizedString(@"Ratings", @""),
@@ -67,6 +67,12 @@
     }
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    settings = @[NSLocalizedString(self.view.frame.size.width > 330 ? @"Remember Last Search" : @"Remember Last Search small", @"")];
+}
+
 - (UIStatusBarStyle) preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
@@ -83,7 +89,7 @@
   numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0)
-        return [settings count];
+        return [settings count] + 1;
     if (section == 1)
         return [sortSettings count];
     return [langNames count];
@@ -96,7 +102,8 @@
         return nil;
     if (section == 1)
         return NSLocalizedString(@"Sort Search Results by", @"");
-    return NSLocalizedString(@"Second Search Language", @"");
+    return [langNames count] ? NSLocalizedString(@"Second Search Language", @"")
+                             : NSLocalizedString(@"Second Search Language Empty", @"");
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView
@@ -104,16 +111,27 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"langCell" forIndexPath:indexPath];
     
+    cell.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1]; // iPad fix
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.bounds];
+    cell.selectedBackgroundView.backgroundColor = [UIColor darkGrayColor];
+    cell.textLabel.textAlignment = NSTextAlignmentLeft;
+    cell.textLabel.textColor = [UIColor whiteColor];
+    
+    if (indexPath.section == 0 && indexPath.row == settings.count)
+    {
+        cell.textLabel.text = NSLocalizedString(@"Clear Search History", @"");
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.textColor = [UIColor lightGrayColor];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        return cell;
+    }
+    
     if (indexPath.section == 0)
         cell.textLabel.text = settings[indexPath.row];
     else if (indexPath.section == 1)
         cell.textLabel.text = sortSettings[indexPath.row];
     else if (indexPath.section == 2)
         cell.textLabel.text = langNames[indexPath.row];
-    
-    cell.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1]; // iPad fix
-    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.bounds];
-    cell.selectedBackgroundView.backgroundColor = [UIColor darkGrayColor];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -131,7 +149,7 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (indexPath.section == 1)
+    if (indexPath.section == 2)
     {
         if (lastSel)
             [tableView cellForRowAtIndexPath:lastSel].accessoryType = UITableViewCellAccessoryNone;
@@ -147,12 +165,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     else
     {
         BOOL value;
-        if (indexPath.section == 2)
+        if (indexPath.section == 0)
         {
+            if (indexPath.row == settings.count)
+            {
+                [self clearHistory];
+                return;
+            }
+            
             value = ![defaults boolForKey:settingsKeys[indexPath.row]];
             [defaults setBool:value forKey:settingsKeys[indexPath.row]];
         }
-        else if (indexPath.section == 0)
+        else if (indexPath.section == 1)
         {
             value = ![defaults boolForKey:sortSettingsKeys[indexPath.row]];
             [defaults setBool:value forKey:sortSettingsKeys[indexPath.row]];
@@ -166,9 +190,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (IBAction) close
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (![defaults boolForKey:@"rememberLastSearch"])
-        [defaults removeObjectForKey:@"lastSearch"];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -185,6 +206,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     KBTableView *tableView = (KBTableView *)self.tableView;
     [tableView returnCommand];
+}
+
+- (void) clearHistory
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Clear searches title", @"")
+                                                                   message:NSLocalizedString(@"Clear searches message", @"")
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Clear Searches", @"") style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction * _Nonnull action) {
+        [[NSUserDefaults standardUserDefaults] setObject:@[] forKey:@"previousSearches"];
+        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

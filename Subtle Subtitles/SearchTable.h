@@ -15,10 +15,11 @@
 #import "SubViewController.h"
 #import <UIScrollView+EmptyDataSet.h>
 
-@interface SearchTable : UITableViewController <UISearchBarDelegate, OROpenSubtitleDownloaderDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface SearchTable : UITableViewController <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, OROpenSubtitleDownloaderDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
     UISearchController *search;
     NSArray *searchResults;
+    SuggestionsTable *suggestionsTable;
     OROpenSubtitleDownloader *down;
     NSInteger currentScope;
     BOOL tapped;

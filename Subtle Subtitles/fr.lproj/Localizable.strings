@@ -23,8 +23,13 @@
 "Ratings" = "Classement";
 "Download Number" = "Téléchargements";
 "CC (Hearing Impaired)" = "CC (malentendant)";
-"Remember Last Search" = "Mémoriser la dernière recherche";
+"Remember Last Search" = "Mémoriser les précédentes recherches";
+"Remember Last Search small" = "Mémoriser les recherches";
 "Empty search" = "Commencez par chercher ce que vous voulez regarder";
+"Previous Searches" = "Recherches précédentes";
+"No Previous Searches" = "Aucune recherche précédente";
+"Previous Searches Matching" = "Recherches précédentes correspondantes";
+"No Previous Matching" = "Aucune recherche précédente correspondante";
 
 "Search" = "Rechercher";
 "Search English Subtitles" = "Rechercher en anglais";
@@ -80,8 +85,13 @@
 /* 2nd Language */
 "Select Previous Language" = "Sélectionner la ligne précédente";
 "Select Next Language" = "Sélectionner la ligne suivante";
-"Choose Language" = "Valider la sélection";*/
+"Choose Language" = "Valider la sélection";
 "Dismiss Languages" = "Masquer préférences";
+"Clear Search History" = "Effacer l'historique de recherche";
+"Second Search Language Empty" = "Seconde langue de recherche (pas récupérées du serveur)";
+"Clear searches title" = "Êtes-vous sûr ?";
+"Clear searches message" = "Vous ne pourrez pas récupérer vos précédentes recherches…";
+"Clear Searches" = "Effacer l'historique";
 
 
 /* Purchases */

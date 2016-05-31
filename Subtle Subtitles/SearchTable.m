@@ -20,25 +20,29 @@
     [super viewDidLoad];
     
     searchResults = [NSArray array];
+    suggestionsTable = [[SuggestionsTable alloc] initWithStyle:UITableViewStyleGrouped];
     
     UIView *backView = [UIView new];
     [backView setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
     [self.tableView setBackgroundView:backView];
+    self.tableView.rowHeight = 44; // iOS 8
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    search = [[UISearchController alloc] initWithSearchResultsController:nil];
-    search.dimsBackgroundDuringPresentation = NO;
+    search = [[UISearchController alloc] initWithSearchResultsController:suggestionsTable];
+    search.delegate = self;
     search.searchBar.delegate = self;
+    search.searchResultsUpdater = self;
     search.searchBar.placeholder = NSLocalizedString(@"Search movies or series", @"");
-    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [defaults stringForKey:@"langName"] ];
+    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [defaults stringForKey:@"langName"], @"S+1", @"E+1" ];
     search.searchBar.barStyle = UIBarStyleBlack;
     search.searchBar.tintColor = [UIColor lightGrayColor];
     search.searchBar.barTintColor = [UIColor colorWithWhite:0.25 alpha:1];
     search.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
-    if ([defaults boolForKey:@"rememberLastSearch"])
-        search.searchBar.text = [defaults valueForKey:@"lastSearch"];
+    search.dimsBackgroundDuringPresentation = YES;
+    search.searchBar.enablesReturnKeyAutomatically = NO;
     [search.searchBar sizeToFit];
     self.tableView.tableHeaderView = search.searchBar;
+    suggestionsTable.searchBar = search.searchBar;
     
     down = [[OROpenSubtitleDownloader alloc] initWithUserAgent:@"subtle subtitles"];
     down.delegate = self;
@@ -160,23 +164,34 @@
     }];
 }
 
-#pragma mark - Search bar delegate
-
-- (void) searchBar:(UISearchBar *)searchBar
-     textDidChange:(NSString *)searchText
-{
-    if ([searchText isEqualToString:@""])
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastSearch"];
-}
+#pragma mark - Search delegates
 
 - (void) searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     tapped = NO;
     
     NSString *query = searchBar.text;
+    NSString *simplerQuery = [SuggestionsTable simplerQuery:search.searchBar.text];
+    if ([simplerQuery isEqualToString:@""])
+    {
+        search.active = NO;
+        return;
+    }
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:@"rememberLastSearch"])
-        [defaults setValue:searchBar.text forKey:@"lastSearch"];
+    {
+        NSArray *t_previous = [defaults arrayForKey:@"previousSearches"];
+        NSMutableArray *previous = (t_previous != nil) ? [NSMutableArray arrayWithArray:t_previous] : [NSMutableArray array];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", simplerQuery];
+        NSArray *filteredArray = [previous filteredArrayUsingPredicate:predicate];
+        for (NSString *string in filteredArray)
+            [previous removeObject:string];
+        [previous insertObject:simplerQuery atIndex:0];
+        
+        [defaults setObject:previous forKey:@"previousSearches"];
+    }
     
     [[Data sharedData] updateNetwork:+1];
     down.languageString = search.searchBar.selectedScopeButtonIndex ? [defaults stringForKey:@"langID"] : @"eng";
@@ -226,6 +241,41 @@
         }
         [[Data sharedData] updateNetwork:-1];
     }];
+}
+
+- (void) updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    NSArray *previous = [[NSUserDefaults standardUserDefaults] arrayForKey:@"previousSearches"];
+    if (previous == nil)
+        previous = [NSArray array];
+    
+    NSString *currentText = [SuggestionsTable simplerQuery:search.searchBar.text];
+    
+    NSArray *res;
+    if ([currentText isEqualToString:@""])
+        res = previous;
+    else
+    {
+        NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", currentText];
+        res = [previous filteredArrayUsingPredicate:resultPredicate];
+    }
+    
+    // Suggestions when empty
+    searchController.searchResultsController.view.hidden = ![[NSUserDefaults standardUserDefaults] boolForKey:@"rememberLastSearch"];
+    suggestionsTable.suggestions = res;
+    [suggestionsTable.tableView reloadData];
+}
+
+- (void) willPresentSearchController:(UISearchController *)searchController
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        searchController.searchResultsController.view.hidden = ![[NSUserDefaults standardUserDefaults] boolForKey:@"rememberLastSearch"];
+    });
+}
+
+- (void) didPresentSearchController:(UISearchController *)searchController
+{
+    searchController.searchResultsController.view.hidden = ![[NSUserDefaults standardUserDefaults] boolForKey:@"rememberLastSearch"];
 }
 
 - (void)                searchBar:(UISearchBar *)searchBar
@@ -393,23 +443,64 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                               }];
 }
 
+#pragma mark - Actions
+
 - (void) increaseTextNumber:(int)type
 {
     NSString *query = search.searchBar.text;
     
     NSError *error = nil;
-    NSRegularExpression *regex;
-    if (type)
-        regex = [NSRegularExpression regularExpressionWithPattern:@"S[0-9]{1,2}"
-                                                          options:NSRegularExpressionCaseInsensitive
-                                                            error:&error];
-    else
-        regex = [NSRegularExpression regularExpressionWithPattern:@"E[0-9]{1,2}"
-                                                          options:NSRegularExpressionCaseInsensitive
-                                                            error:&error];
+    NSRegularExpression *regexS = [NSRegularExpression regularExpressionWithPattern:@"S[0-9]{1,2}"
+                                                                            options:NSRegularExpressionCaseInsensitive
+                                                                              error:&error];
+    NSRegularExpression *regexE = [NSRegularExpression regularExpressionWithPattern:@"E[0-9]{1,2}"
+                                                                            options:NSRegularExpressionCaseInsensitive
+                                                                              error:&error];
+    NSRegularExpression *regex = type ? regexS : regexE;
+
     NSRange range = [regex rangeOfFirstMatchInString:query options:0 range:NSMakeRange(0, query.length)];
-    if (range.location == NSNotFound && range.location + 1 >= query.length)
+    if (range.location == NSNotFound && range.location + 1 >= query.length) // Pas trouvé
+    {
+        BOOL rienDeRien = YES;
+        
+        if (type)   // Si bouton S+1
+        {
+            // Si on a au moins l'épisode
+            range = [regexE rangeOfFirstMatchInString:query options:0 range:NSMakeRange(0, query.length)];
+            if (range.location != NSNotFound && range.location + 1 < query.length)
+            {
+                // On rajoute la saison 1
+                NSString *result = [query substringWithRange:range];
+                query = [regexE stringByReplacingMatchesInString:query options:0 range:NSMakeRange(0, [query length])
+                                                    withTemplate:[@"S01" stringByAppendingString:result]];
+                rienDeRien = NO;
+            }
+        }
+        else        // Si bouton E+1
+        {
+            // Si on a au moins la saison
+            range = [regexS rangeOfFirstMatchInString:query options:0 range:NSMakeRange(0, query.length)];
+            if (range.location != NSNotFound && range.location + 1 < query.length)
+            {
+                // On rajoute l'épisode 1
+                NSString *result = [query substringWithRange:range];
+                query = [regexS stringByReplacingMatchesInString:query options:0 range:NSMakeRange(0, [query length])
+                                                    withTemplate:[result stringByAppendingString:@"E01"]];
+                rienDeRien = NO;
+            }
+        }
+     
+        if (rienDeRien) // S'il n'y a ni Sxx ni Exx
+        {
+            if (![query hasSuffix:@" "])
+                query = [query stringByAppendingString:@" "];
+            search.searchBar.text = [query stringByAppendingString:@"S01E01"];
+        }
+        else
+            search.searchBar.text = query;
+    
         return;
+    }
     
     NSString *result = [query substringWithRange:NSMakeRange(range.location + 1, range.length - 1)];
     int intVal = [result intValue] + 1;
@@ -514,7 +605,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [tableView escapeCommand];
 }
 
-#pragma mark - Empty data set
+#pragma mark - Empty data set delegate
 
 - (UIImage *) imageForEmptyDataSet:(UIScrollView *)scrollView
 {
