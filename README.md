@@ -52,12 +52,6 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 
 ## TODO
-✓ Welcome screen
-✓ Display previous searches & suggestions
-✓ Improve “Nothing found” dialog
-✓ Indicate downloading state
-✓ S+1 & E+1 works with no text
-✓ Search button always enabled
 - Keyboard shortcuts support while searching
 - Support for other file formats
 - Load file from another app
@@ -65,6 +59,18 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 - UI improvements
 
 ## Release notes
+###v1.4 · 0?/06/2016
+> - Welcome screen
+> - Display previous searches & suggestions
+> - Clear History or a single previous search
+> - Improve “Nothing found” dialog
+> - Indicate downloading state
+> - S+1 & E+1 buttons work with no text
+> - Keyboard actions on iPad for S+1/E+1
+> - Search button always enabled
+> - 2nd Search Languages translated
+> - 2 separated export menus
+
 ###v1.3 · 23/05/2016
 > Subtle Subtitles has found many users, thank you all!
 >
