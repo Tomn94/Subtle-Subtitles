@@ -13,14 +13,16 @@
 #import "OROpenSubtitleDownloader.h"
 #import "Subtle_Subtitles-Swift.h"
 #import "SubViewController.h"
+#import <UIScrollView+EmptyDataSet.h>
 
-@interface SearchTable : UITableViewController <UISearchBarDelegate, OROpenSubtitleDownloaderDelegate>
+@interface SearchTable : UITableViewController <UISearchBarDelegate, OROpenSubtitleDownloaderDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
     UISearchController *search;
     NSArray *searchResults;
     OROpenSubtitleDownloader *down;
     NSInteger currentScope;
     BOOL tapped;
+    BOOL nothingFound;
 }
 
 - (void) increaseTextNumber:(int)type;

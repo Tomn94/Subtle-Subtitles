@@ -25,10 +25,6 @@
     [backView setBackgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
     [self.tableView setBackgroundView:backView];
     
-    /*self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:nil action:nil];*/
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     search = [[UISearchController alloc] initWithSearchResultsController:nil];
     search.dimsBackgroundDuringPresentation = NO;
@@ -46,6 +42,10 @@
     
     down = [[OROpenSubtitleDownloader alloc] initWithUserAgent:@"subtle subtitles"];
     down.delegate = self;
+    
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
+    self.tableView.tableFooterView = [UIView new];
     
     KBTableView *tableView = (KBTableView *)self.tableView;
     [tableView setOnFocus:^(NSIndexPath * _Nullable current, NSIndexPath * _Nullable previous) {
@@ -186,7 +186,11 @@
         searchBar.text = str;
         if (error == nil)
         {
-            if ([subtitles count])
+            nothingFound = [subtitles count] == 0;
+            self.tableView.tableFooterView = nothingFound ? [UIView new] : nil;
+            if (nothingFound)
+                searchResults = [NSArray array];
+            else
             {
                 NSMutableArray *results = [NSMutableArray array];
                 for (OpenSubtitleSearchResult *result in subtitles)
@@ -209,16 +213,8 @@
                     [sortDescriptors addObject:[[NSSortDescriptor alloc] initWithKey:@"hd"
                                                                            ascending:NO]];
                 searchResults = [results sortedArrayUsingDescriptors:sortDescriptors];
-                [self.tableView reloadData];
             }
-            else
-            {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:NSLocalizedString(@"No results for “%@”", @""), str]
-                                                                               message:@"¯\\_(ツ)_/¯"
-                                                                        preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
-                [self presentViewController:alert animated:YES completion:nil];
-            }
+            [self.tableView reloadData];
         }
         else
         {
@@ -248,6 +244,12 @@ selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setValue:@(selectedScope) forKey:@"langIndex"];
     [defaults synchronize];
+}
+
+- (void) searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    nothingFound = NO;
+    [self.tableView reloadEmptyDataSet];
 }
 
 #pragma mark - Table view data source
@@ -510,6 +512,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     
     KBTableView *tableView = (KBTableView *)self.tableView;
     [tableView escapeCommand];
+}
+
+#pragma mark - Empty data set
+
+- (UIImage *) imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return [UIImage imageNamed:@"empty"];
+}
+
+- (NSAttributedString *) titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = NSLocalizedString(@"Empty search", @"");
+    if (nothingFound)
+        text = [NSString stringWithFormat:NSLocalizedString(@"No results for “%@”", @""), search.searchBar.text];
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0],
+                                 NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
 @end
