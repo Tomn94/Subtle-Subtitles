@@ -1,7 +1,7 @@
 # Subtle Subtitles
 
 [![Version](https://img.shields.io/badge/version-1.3-green.svg)](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
-[![Code](https://img.shields.io/badge/code-Objective--C-orange.svg)](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011210)
+![Code](https://img.shields.io/badge/code-Objective--C + Swift-orange.svg)
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
 [![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
 [![Licence](https://img.shields.io/badge/licence-CC BY--NC--ND 4.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
@@ -52,10 +52,13 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 
 ## TODO
+✓ Welcome screen
+✓ Display previous searches & suggestions
+✓ Improve “Nothing found” dialog
+✓ Indicate downloading state
+✓ S+1 & E+1 works with no text
+✓ Search button always enabled
 - Keyboard shortcuts support while searching
-- Display previous searches
-- Improve “Nothing found” dialog
-- Overlay when downloading subtitle file
 - Support for other file formats
 - Load file from another app
 - Font settings
