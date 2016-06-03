@@ -1,6 +1,6 @@
 # Subtle Subtitles
 
-[![Version](https://img.shields.io/badge/version-1.3-green.svg)](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
+[![Version](https://img.shields.io/badge/version-1.4-green.svg)](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
 ![Code](https://img.shields.io/badge/code-Objective--C + Swift-orange.svg)
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
 [![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
@@ -63,7 +63,10 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 ## Release notes
 ###v1.4 · 03/06/2016
->Subtle Subtitles has found many users, thank you all!
+> Warning if IAP are disabled
+
+###v1.4 · 03/06/2016
+> Subtle Subtitles has found many users, thank you all!
 >
 >- Improved Welcome and No Results screens
 >- Better Search v2:<br>
