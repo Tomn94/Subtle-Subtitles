@@ -95,6 +95,8 @@
 
 
 /* Purchases */
+"IAP unavailable title" = "Unable to remove ads";
+"IAP unavailable message" = "In-App Purchase are disabled.\nPlease check your Restriction policies in:\nSettings app › General › Restrictions";
 "This purchase can't be bought" = "This purchase can't be bought";
 "No purchase are currently available for sale." = "No purchase are currently available for sale.";
 "Thanks !" = "Thanks !";

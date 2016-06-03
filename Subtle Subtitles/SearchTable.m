@@ -538,25 +538,31 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                                                    message:NSLocalizedString(@"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip 1: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\nTip 2: Pinch to resize subtitles\n\nContact: @tomn94", @"")
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    if ([SKPaymentQueue canMakePayments])
-    {
         [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Ads", @"")
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction * _Nonnull action) {
-            UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Remove ads for a small amount", @"")
-                                                                            message:NSLocalizedString(@"The developer will be so happy for your donation especially knowing that you won't have to bear ads anymore!", @"")
-                                                                     preferredStyle:UIAlertControllerStyleAlert];
-            [alert2 addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Please, remove them", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [[Data sharedData] startPurchase];
-            }]];
-            [alert2 addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Restore purchase", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [[Data sharedData] restorePurchase];
-            }]];
+            UIAlertController *alert2;
+            if ([SKPaymentQueue canMakePayments])
+            {
+                alert2 = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Remove ads for a small amount", @"")
+                                                                                message:NSLocalizedString(@"The developer will be so happy for your donation especially knowing that you won't have to bear ads anymore!", @"")
+                                                                         preferredStyle:UIAlertControllerStyleAlert];
+                [alert2 addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Please, remove them", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [[Data sharedData] startPurchase];
+                }]];
+                [alert2 addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Restore purchase", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [[Data sharedData] restorePurchase];
+                }]];
+            }
+            else
+            {
+                alert2 = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"IAP unavailable title", @"")
+                                                             message:NSLocalizedString(@"IAP unavailable message", @"")
+                                                      preferredStyle:UIAlertControllerStyleAlert];
+            }
             [alert2 addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
-            
             [self presentViewController:alert2 animated:YES completion:nil];
         }]];
-    }
     
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
     

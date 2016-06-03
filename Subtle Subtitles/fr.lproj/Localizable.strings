@@ -95,6 +95,8 @@
 
 
 /* Purchases */
+"IAP unavailable title" = "Impossible de retirer les publicités";
+"IAP unavailable message" = "Les Achats In-App sont désactivés.\nPour cela, veuillez les retirer du contrôle parental dans :\napp Réglages › Général › Restrictions";
 "This purchase can't be bought" = "Ce produit ne peut pas être acheté";
 "No purchase are currently available for sale." = "Aucun achat n'est actuellement disponible.";
 "Thanks !" = "Merci !";
