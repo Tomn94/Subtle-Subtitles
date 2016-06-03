@@ -62,7 +62,7 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 - Subtitle library
 
 ## Release notes
-###v1.4 · 03/06/2016
+###v1.5 · ??/06/2016
 > Warning if IAP are disabled
 
 ###v1.4 · 03/06/2016
