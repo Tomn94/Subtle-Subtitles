@@ -56,12 +56,13 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 - Support for other file formats
 - Load file from another app
 - Font settings
+- Always display search scopes
 - UI improvements
 - New App Store screenshots + localized
 - Subtitle library
 
 ## Release notes
-###v1.4 · 0?/06/2016
+###v1.4 · 03/06/2016
 >Subtle Subtitles has found many users, thank you all!
 >
 >- Improved Welcome and No Results screens
