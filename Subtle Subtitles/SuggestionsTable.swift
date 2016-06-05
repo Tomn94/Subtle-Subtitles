@@ -10,9 +10,72 @@
 
 import UIKit
 
+extension String {
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
+}
+
+extension NSString {
+    func increaseNumber(season: Bool) -> NSString {
+        do {
+            let regexS = try NSRegularExpression(pattern: "S[0-9]{1,2}", options: [.CaseInsensitive])
+            let regexE = try NSRegularExpression(pattern: "E[0-9]{1,2}", options: [.CaseInsensitive])
+            
+            let regex = season ? regexS : regexE;
+            let cc = self.length
+            
+            var range = regex.rangeOfFirstMatchInString(self as String, options: [], range: NSRange(location: 0, length: cc))
+            if range.location == NSNotFound || range.location + 1 >= cc { // Pas trouvé
+                if season {     // Si bouton S+1
+                    // Si on a au moins l'épisode
+                    range = regexE.rangeOfFirstMatchInString(self as String, options: [], range: NSRange(location: 0, length: cc))
+                    if range.location != NSNotFound && range.location + 1 < cc {
+                        // On rajoute la saison 1
+                        let result = (self as NSString).substringWithRange(range)
+                        return regexE.stringByReplacingMatchesInString(self as String, options: [],
+                                                                       range: NSRange(location: 0, length: cc),
+                                                                       withTemplate: "S01" + result)
+                    }
+                } else {        // Si bouton E+1
+                    // Si on a au moins la saison
+                    range = regexS.rangeOfFirstMatchInString(self as String, options: [], range:NSRange(location: 0, length: cc))
+                    if range.location != NSNotFound && range.location + 1 < cc {
+                        // On rajoute l'épisode 1
+                        let result = (self as NSString).substringWithRange(range)
+                        return regexS.stringByReplacingMatchesInString(self as String, options: [],
+                                                                       range:NSRange(location: 0, length: cc),
+                                                                       withTemplate: result + "E01")
+                    }
+                }
+                
+                var res = self
+                // S'il n'y a ni Sxx ni Exx
+                if !hasSuffix(" ") {
+                    res = res.stringByAppendingString(" ")
+                }
+                res = res.stringByAppendingString("S01E01")
+                return res
+            } else {
+                let result = (self as NSString).substringWithRange(NSRange(location: range.location + 1, length: range.length - 1))
+                var intVal = Int(result) ?? 0
+                if intVal < 99 {
+                    intVal += 1
+                }
+                
+                return regex.stringByReplacingMatchesInString(self as String, options: [], range:NSRange(location: 0, length: cc),
+                                                              withTemplate: String(format: "%@%02d", season ? "S" : "E", intVal))
+            }
+        } catch {}
+        return self
+    }
+}
+
+
 class SuggestionsTable: UITableViewController {
     
     var suggestions: [String] = []
+    var searchController: UISearchController?
     var searchBar: UISearchBar?
     
     class func simplerQuery(query: String) -> String {
@@ -27,6 +90,7 @@ class SuggestionsTable: UITableViewController {
         return query;
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,7 +100,66 @@ class SuggestionsTable: UITableViewController {
         tableView.separatorColor = .darkGrayColor()
 
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "suggestCell")
+        
+        if #available(iOS 9, *) {
+            addKeyCommand(UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(search(_:)),
+                                       discoverabilityTitle: "Search".localized))
+            addKeyCommand(UIKeyCommand(input: "\r", modifierFlags: [.Shift], action: #selector(search(_:)),
+                                       discoverabilityTitle: "Search English Subtitles".localized))
+            addKeyCommand(UIKeyCommand(input: "\r", modifierFlags: [.Alternate], action: #selector(search(_:)),
+                                       discoverabilityTitle: "Search using Second Language".localized))
+            
+            addKeyCommand(UIKeyCommand(input: "f", modifierFlags: [.Command, .Shift], action: #selector(switchLang(_:)),
+                                       discoverabilityTitle: "Switch to English".localized))
+            addKeyCommand(UIKeyCommand(input: "f", modifierFlags: [.Command, .Alternate], action: #selector(switchLang(_:)),
+                                       discoverabilityTitle: "Switch to Second Language".localized))
+            
+            addKeyCommand(UIKeyCommand(input: "s", modifierFlags: [.Command], action: #selector(increase(_:)),
+                                       discoverabilityTitle: "Increase Season number".localized))
+            addKeyCommand(UIKeyCommand(input: "e", modifierFlags: [.Command], action: #selector(increase(_:)),
+                                       discoverabilityTitle: "Increase Episode number".localized))
+            
+            addKeyCommand(UIKeyCommand(input: "f", modifierFlags: [.Command], action: #selector(exit)))
+            addKeyCommand(UIKeyCommand(input: UIKeyInputEscape, modifierFlags: [], action: #selector(exit),
+                                       discoverabilityTitle: "Exit Search".localized))
+        }
     }
+    
+    func exit() {
+        if let sb = searchBar where sb.isFirstResponder() {
+            sb.resignFirstResponder()
+        } else if let sc = searchController {
+            sc.active = false
+        }
+    }
+    
+    func switchLang(sender: UIKeyCommand) {
+        if let sb = searchBar {
+            sb.selectedScopeButtonIndex = (sender.modifierFlags == [.Command, .Alternate]) ? 1 : 0
+        }
+    }
+    
+    func increase(sender: UIKeyCommand) {
+        if let sb = searchBar {
+            let txt = sb.text! as NSString
+            sb.text = txt.increaseNumber(sender.input == "s") as String
+        }
+    }
+    
+    func search(sender: UIKeyCommand) {
+        if let sb = searchBar {
+            if sender.modifierFlags == [.Shift] {
+                sb.selectedScopeButtonIndex = 0
+            } else if sender.modifierFlags == [.Alternate] {
+                sb.selectedScopeButtonIndex = 1
+            }
+            
+            if let d = sb.delegate {
+                d.searchBarSearchButtonClicked!(sb)
+            }
+        }
+    }
+    
     
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -66,20 +189,20 @@ class SuggestionsTable: UITableViewController {
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         // Aucune recherche précédemment stockée
         if let previous = NSUserDefaults.standardUserDefaults().objectForKey("previousSearches") where previous.count == 0 {
-            return NSLocalizedString("No Previous Searches", comment: "")
+            return "No Previous Searches".localized
         }
         // Recherches stockées
         if suggestions.count > 0 {
             if let sb = searchBar,
                 let txt = sb.text {
                 if SuggestionsTable.simplerQuery(txt).isEmpty {
-                    return NSLocalizedString("Previous Searches", comment: "")      // Champ vide = liste complète
+                    return "Previous Searches".localized      // Champ vide = liste complète
                 }
-                return NSLocalizedString("Previous Searches Matching", comment: "") // Champ plein = correspondances
+                return "Previous Searches Matching".localized // Champ plein = correspondances
             }
         }
         // Aucune correspondance
-        return NSLocalizedString("No Previous Matching", comment: "")
+        return "No Previous Matching".localized
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

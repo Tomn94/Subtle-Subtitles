@@ -64,6 +64,8 @@ typedef enum : NSUInteger {
 - (void) keyArrowCmd:(UIKeyCommand *)sender;
 - (void) zoomText:(UIKeyCommand *)sender;
 
+- (IBAction) fontSettings:(id)sender;
+
 @end
 
 

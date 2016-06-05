@@ -58,6 +58,11 @@
     }
     if (htmlString == nil)
     {
+        encoding = NSWindowsCP1251StringEncoding; // TODO: Test Greek NSWindowsCP1253StringEncoding, French, Turkish NSWindowsCP1254StringEncoding, Japanese NSISO2022JPStringEncoding
+        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
+    }
+    if (htmlString == nil)
+    {
         encoding = NSASCIIStringEncoding;
         htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
     }
@@ -92,7 +97,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stop) name:@"stopTimerSub" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showControls) name:@"showControls" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openIn) name:@"openIn" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openIn:) name:@"openIn" object:nil];
     
     if ([UIKeyCommand instancesRespondToSelector:@selector(setDiscoverabilityTitle:)])
     {
@@ -507,6 +512,11 @@
     else if ([sender.input isEqualToString:@"-"] && size > MIN_FONT_SIZE)
         _subLabel.font = [UIFont systemFontOfSize:size - 10];
     [[NSUserDefaults standardUserDefaults] setFloat:_subLabel.font.pointSize forKey:@"defaultPointSize"];
+}
+
+- (IBAction) fontSettings:(id)sender
+{
+    // TODO: Font settings
 }
 
 @end

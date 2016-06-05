@@ -256,6 +256,11 @@
                                     <action selector="share:" destination="KXK-aY-shy" id="7XW-Fm-0W7"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem image="font" id="g0k-qa-xci">
+                                <connections>
+                                    <action selector="fontSettings:" destination="KXK-aY-shy" id="ckh-h5-ifQ"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -315,7 +320,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="link" width="25" height="25"/>
+        <image name="font" width="24" height="24"/>
+        <image name="link" width="24" height="24"/>
         <image name="pause" width="29" height="29"/>
         <image name="settings" width="22" height="22"/>
     </resources>

@@ -42,6 +42,7 @@
     search.searchBar.enablesReturnKeyAutomatically = NO;
     [search.searchBar sizeToFit];
     self.tableView.tableHeaderView = search.searchBar;
+    suggestionsTable.searchController = search;
     suggestionsTable.searchBar = search.searchBar;
     
     down = [[OROpenSubtitleDownloader alloc] initWithUserAgent:@"subtle subtitles"];
@@ -84,8 +85,6 @@
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(increaseNumber:)
                                          discoverabilityTitle:NSLocalizedString(@"Increase Episode number", @"")]];
-        
-        // TODO: Increase, change scope, Escape while searching
         
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputUpArrow
                                                 modifierFlags:0
@@ -457,67 +456,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void) increaseTextNumber:(int)type
 {
-    NSString *query = search.searchBar.text;
-    
-    NSError *error = nil;
-    NSRegularExpression *regexS = [NSRegularExpression regularExpressionWithPattern:@"S[0-9]{1,2}"
-                                                                            options:NSRegularExpressionCaseInsensitive
-                                                                              error:&error];
-    NSRegularExpression *regexE = [NSRegularExpression regularExpressionWithPattern:@"E[0-9]{1,2}"
-                                                                            options:NSRegularExpressionCaseInsensitive
-                                                                              error:&error];
-    NSRegularExpression *regex = type ? regexS : regexE;
-
-    NSRange range = [regex rangeOfFirstMatchInString:query options:0 range:NSMakeRange(0, query.length)];
-    if (range.location == NSNotFound && range.location + 1 >= query.length) // Pas trouvé
-    {
-        BOOL rienDeRien = YES;
-        
-        if (type)   // Si bouton S+1
-        {
-            // Si on a au moins l'épisode
-            range = [regexE rangeOfFirstMatchInString:query options:0 range:NSMakeRange(0, query.length)];
-            if (range.location != NSNotFound && range.location + 1 < query.length)
-            {
-                // On rajoute la saison 1
-                NSString *result = [query substringWithRange:range];
-                query = [regexE stringByReplacingMatchesInString:query options:0 range:NSMakeRange(0, [query length])
-                                                    withTemplate:[@"S01" stringByAppendingString:result]];
-                rienDeRien = NO;
-            }
-        }
-        else        // Si bouton E+1
-        {
-            // Si on a au moins la saison
-            range = [regexS rangeOfFirstMatchInString:query options:0 range:NSMakeRange(0, query.length)];
-            if (range.location != NSNotFound && range.location + 1 < query.length)
-            {
-                // On rajoute l'épisode 1
-                NSString *result = [query substringWithRange:range];
-                query = [regexS stringByReplacingMatchesInString:query options:0 range:NSMakeRange(0, [query length])
-                                                    withTemplate:[result stringByAppendingString:@"E01"]];
-                rienDeRien = NO;
-            }
-        }
-     
-        if (rienDeRien) // S'il n'y a ni Sxx ni Exx
-        {
-            if (![query hasSuffix:@" "])
-                query = [query stringByAppendingString:@" "];
-            search.searchBar.text = [query stringByAppendingString:@"S01E01"];
-        }
-        else
-            search.searchBar.text = query;
-    
-        return;
-    }
-    
-    NSString *result = [query substringWithRange:NSMakeRange(range.location + 1, range.length - 1)];
-    int intVal = [result intValue] + 1;
-    
-    NSString *modifiedString = [regex stringByReplacingMatchesInString:query options:0 range:NSMakeRange(0, [query length])
-                                                          withTemplate:[NSString stringWithFormat:@"%@%02d", (type) ? @"S" : @"E", intVal]];
-    search.searchBar.text = modifiedString;
+    search.searchBar.text = [search.searchBar.text increaseNumber:type];
 }
 
 - (void) updateLanguage

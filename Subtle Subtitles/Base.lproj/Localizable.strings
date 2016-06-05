@@ -43,6 +43,9 @@
 "Sort Search Results by" = "Sort Search Results by:";
 "Second Search Language" = "Second Search Language";
 "Tips" = "Tips";
+"Exit Search" = "Exit Search";
+"Switch to English" = "Switch to English";
+"Switch to Second Language" = "Switch to Second Language";
 
 "Unable to fetch available languages" = "Unable to fetch available languages";
 "No results for “%@”" = "No results for “%@”";
