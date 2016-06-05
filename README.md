@@ -1,6 +1,6 @@
 # Subtle Subtitles
 
-[![Version](https://img.shields.io/badge/version-1.3-green.svg)](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
+[![Version](https://img.shields.io/badge/version-1.4-green.svg)](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
 ![Code](https://img.shields.io/badge/code-Objective--C + Swift-orange.svg)
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
 [![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
@@ -53,17 +53,24 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 ## TODO
 - Keyboard shortcuts support while searching
-- Support for other file formats
 - Load file from another app
-- Font settings
 - Always display search scopes
+- Table Action on search rows (export)
+- Different settings pane for languages
+- Fix encoding in some languages (Russian)
+- Subtitle library
+- Support for other file formats
+- Font settings
+- Player displays 2 languages
 - UI improvements
 - New App Store screenshots + localized
-- Subtitle library
 
 ## Release notes
+###v1.5 · ??/06/2016
+> Warning if IAP are disabled
+
 ###v1.4 · 03/06/2016
->Subtle Subtitles has found many users, thank you all!
+> Subtle Subtitles has found many users, thank you all!
 >
 >- Improved Welcome and No Results screens
 >- Better Search v2:<br>
