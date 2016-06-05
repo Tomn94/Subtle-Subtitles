@@ -53,13 +53,17 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 ## TODO
 - Keyboard shortcuts support while searching
-- Support for other file formats
 - Load file from another app
-- Font settings
 - Always display search scopes
+- Table Action on search rows (export)
+- Different settings pane for languages
+- Fix encoding in some languages (Russian)
+- Subtitle library
+- Support for other file formats
+- Font settings
+- Player displays 2 languages
 - UI improvements
 - New App Store screenshots + localized
-- Subtitle library
 
 ## Release notes
 ###v1.5 · ??/06/2016
