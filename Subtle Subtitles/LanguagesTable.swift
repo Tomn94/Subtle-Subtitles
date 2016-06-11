@@ -31,6 +31,13 @@ class LanguagesTable: UITableViewController {
         loadLanguages()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: lastSel, inSection: 0),
+                                         atScrollPosition: .Middle, animated: true)
+    }
+    
     func loadLanguages() {
         if let languagesNames = Data.sharedData().langNames,
             let languagesIDs  = Data.sharedData().langIDs {
@@ -71,7 +78,7 @@ class LanguagesTable: UITableViewController {
         cell.selectedBackgroundView = UIView(frame: cell.bounds)
         cell.selectedBackgroundView!.backgroundColor = UIColor.darkGrayColor()
         cell.textLabel!.textColor = UIColor.whiteColor()
-        cell.textLabel!.text = languages[indexPath.row].name
+        cell.textLabel!.text = languages[indexPath.row].name.localized
         
         let defaults = NSUserDefaults.standardUserDefaults()
         cell.accessoryType = languages[indexPath.row].id == defaults.stringForKey("langID") ? .Checkmark : .None

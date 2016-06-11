@@ -128,7 +128,7 @@
     else if (indexPath.section == 1)
         cell.textLabel.text = sortSettings[indexPath.row];
     else if (indexPath.section == 2)
-        cell.textLabel.text = [defaults stringForKey:@"langName"];
+        cell.textLabel.text = [Settings localize:[defaults stringForKey:@"langName"]];
     
     if ((indexPath.section == 0 && [defaults boolForKey:settingsKeys[indexPath.row]]) ||
         (indexPath.section == 1 && [defaults boolForKey:sortSettingsKeys[indexPath.row]]))
