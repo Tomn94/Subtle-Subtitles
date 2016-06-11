@@ -102,7 +102,7 @@
                                                 modifierFlags:0
                                                        action:@selector(escapeKey)]];
         
-        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"l"
+        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@","
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(openLanguage)
                                          discoverabilityTitle:NSLocalizedString(@"Second Search Language Settings", @"")]];

@@ -18,6 +18,20 @@ class LanguagesTable: UITableViewController {
         
         title = "Second Search Language".localized
         
+        let betterTableView = KBTableView(frame: tableView.frame, style: tableView.style)
+        betterTableView.onSelection = { indexPath in
+            self.tableView(betterTableView, didSelectRowAtIndexPath: indexPath)
+        }
+        betterTableView.onFocus = { current, previous in
+            if let previous = previous {
+                betterTableView.deselectRowAtIndexPath(previous, animated: false)
+            }
+            if let current = current {
+                betterTableView.selectRowAtIndexPath(current, animated: false, scrollPosition: .Middle)
+            }
+        }
+        tableView = betterTableView
+        
         let backView = UIView()
         backView.backgroundColor = UIColor(white: 0.2, alpha: 1)
         tableView.backgroundView = backView
@@ -29,13 +43,33 @@ class LanguagesTable: UITableViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         languages = [(id: defaults.stringForKey("langID")!, name: defaults.stringForKey("langName")!)]
         loadLanguages()
+        
+        if #available(iOS 9, *) {
+            addKeyCommand(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: [], action: #selector(keyArrow(_:)),
+                                       discoverabilityTitle: "Select Previous Language".localized))
+            
+            addKeyCommand(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: [], action: #selector(keyArrow(_:)),
+                                       discoverabilityTitle: "Select Next Language".localized))
+            
+            addKeyCommand(UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(enterKey),
+                                       discoverabilityTitle: "Choose Language".localized))
+        
+            addKeyCommand(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: [.Command], action: #selector(back),
+                                       discoverabilityTitle: "Back to Settings".localized))
+            addKeyCommand(UIKeyCommand(input: ",", modifierFlags: [.Command], action: #selector(back)))
+            
+            addKeyCommand(UIKeyCommand(input: UIKeyInputEscape, modifierFlags: [], action: #selector(close),
+                                       discoverabilityTitle: "Dismiss Languages".localized))
+        }
+
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: lastSel, inSection: 0),
-                                         atScrollPosition: .Middle, animated: true)
+        let indexPath = NSIndexPath(forRow: lastSel, inSection: 0)
+        (tableView as! KBTableView).currentlyFocussedIndex = indexPath
+        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Middle, animated: true)
     }
     
     func loadLanguages() {
@@ -100,6 +134,30 @@ class LanguagesTable: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         NSNotificationCenter.defaultCenter().postNotificationName("updateLanguage", object: nil)
+    }
+    
+    // MARK: - Keyboard
+    
+    func keyArrow(sender: UIKeyCommand) {
+        let kbTableView = tableView as! KBTableView
+        if sender.input == UIKeyInputUpArrow {
+            kbTableView.upCommand()
+        } else {
+            kbTableView.downCommand()
+        }
+    }
+    
+    func enterKey() {
+        let kbTableView = tableView as! KBTableView
+        kbTableView.returnCommand()
+    }
+    
+    func back() {
+        navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func close() {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
 }

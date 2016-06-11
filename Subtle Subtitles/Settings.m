@@ -57,6 +57,9 @@
                                                 modifierFlags:0
                                                        action:@selector(close)
                                          discoverabilityTitle:NSLocalizedString(@"Dismiss Languages", @"")]];
+        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@","
+                                                modifierFlags:UIKeyModifierCommand
+                                                       action:@selector(close)]];
     }
 }
 

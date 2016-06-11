@@ -89,12 +89,13 @@
 "Select Previous Language" = "Sélectionner la ligne précédente";
 "Select Next Language" = "Sélectionner la ligne suivante";
 "Choose Language" = "Valider la sélection";
-"Dismiss Languages" = "Masquer préférences";
+"Dismiss Languages" = "Masquer les préférences";
 "Clear Search History" = "Effacer l'historique de recherche";
 "Second Search Language Empty" = "Erreur lors de la récupération de la liste complète depuis le serveur";
 "Clear searches title" = "Êtes-vous sûr ?";
 "Clear searches message" = "Vous ne pourrez pas récupérer vos précédentes recherches…";
 "Clear Searches" = "Effacer l'historique";
+"Back to Settings" = "Retour";
 
 
 /* Purchases */
