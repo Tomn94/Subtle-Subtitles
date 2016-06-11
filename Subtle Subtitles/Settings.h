@@ -14,8 +14,6 @@
 
 @interface Settings : UITableViewController
 {
-    NSArray *languages;
-    NSIndexPath *lastSel;
     NSArray *settings;
     NSArray *settingsKeys;
     NSArray *sortSettings;

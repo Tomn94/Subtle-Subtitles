@@ -91,7 +91,7 @@
 "Choose Language" = "Valider la sélection";
 "Dismiss Languages" = "Masquer préférences";
 "Clear Search History" = "Effacer l'historique de recherche";
-"Second Search Language Empty" = "Seconde langue de recherche (pas récupérées du serveur)";
+"Second Search Language Empty" = "Erreur lors de la récupération de la liste complète depuis le serveur";
 "Clear searches title" = "Êtes-vous sûr ?";
 "Clear searches message" = "Vous ne pourrez pas récupérer vos précédentes recherches…";
 "Clear Searches" = "Effacer l'historique";

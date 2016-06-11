@@ -91,7 +91,7 @@
 "Choose Language" = "Validate Selection";
 "Dismiss Languages" = "Dismiss Preferences";
 "Clear Search History" = "Clear Search History";
-"Second Search Language Empty" = "Second Search Language (Not Loaded From Server)";
+"Second Search Language Empty" = "Unable to fetch the full list from the server";
 "Clear searches title" = "Are you sure?";
 "Clear searches message" = "You won't get your search history back…";
 "Clear Searches" = "Clear Searches";
