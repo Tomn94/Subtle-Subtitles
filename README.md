@@ -59,6 +59,7 @@ v1.5
 Later
 - Open files from other apps
 - Subtitle library
+- Share a punchline (© Euryale)
 - Support for other subtitles file formats
 - Display 2 languages in Player
 - ~~Keyboard shortcuts in search bar while typing~~
