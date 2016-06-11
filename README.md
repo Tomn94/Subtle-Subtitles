@@ -52,12 +52,9 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 
 ## TODO
-- Keyboard shortcuts support while searching
+- Keyboard shortcuts in search bar
 - Load file from another app
 - Always display search scopes
-- Table Action on search rows (export)
-- Different settings pane for languages
-- Fix encoding in some languages (Russian)
 - Subtitle library
 - Support for other file formats
 - Font settings
@@ -67,7 +64,11 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 ## Release notes
 ###v1.5 · ??/06/2016
-> Warning if IAP are disabled
+>- Keyboard shortcuts support while searching
+>- Table Action on search rows (export)
+>- Fix encoding in some languages (Russian)
+>- Different settings pane for languages
+>- Warning if IAP are disabled
 
 ###v1.4 · 03/06/2016
 > Subtle Subtitles has found many users, thank you all!
