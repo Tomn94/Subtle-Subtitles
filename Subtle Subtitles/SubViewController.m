@@ -44,9 +44,9 @@
     NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:fileName];
     
     
-    docAct = [[UIActivityViewController alloc] initWithActivityItems:@[[[ActivityLinkProvider alloc] initWithPlaceholderItem:@""],
-                                                                       [[ActivityTextProvider alloc] initWithPlaceholderItem:@""]]
-                                               applicationActivities:@[[DownActivity new], [SafariActivity new]]];
+    docAct = [[UIActivityViewController alloc] initWithActivityItems:@[[[ActivityLinkProvider alloc] initWithPlaceholderItem:subFile.subtitlePage],
+                                                                       [[ActivityTextProvider alloc] initWithPlaceholderItem:subFile.subtitleDownloadAddress]]
+                                               applicationActivities:@[[SafariActivity new], [DownActivity new]]];
     doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:path]];
     
     encoding = NSUTF8StringEncoding;
@@ -593,7 +593,7 @@
           itemForActivityType:(NSString *)activityType
 {
     if ([activityType isEqualToString:@"DownActivity"])
-        return [[Data sharedData] currentFile].subtitleDownloadAddress;
+        return self.placeholderItem;
     return nil;
 }
 
@@ -604,9 +604,7 @@
 - (id) activityViewController:(UIActivityViewController *)activityViewController
           itemForActivityType:(NSString *)activityType
 {
-    if (![activityType isEqualToString:@"DownActivity"])
-        return [NSURL URLWithString:[[Data sharedData] currentFile].subtitlePage];
-    return nil;
+    return [NSURL URLWithString:self.placeholderItem];
 }
 
 @end

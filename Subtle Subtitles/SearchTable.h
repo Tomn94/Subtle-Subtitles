@@ -14,6 +14,7 @@
 #import "Subtle_Subtitles-Swift.h"
 #import "SubViewController.h"
 #import "Settings.h"
+#import "BGTableViewRowActionWithImage.h"
 #import <UIScrollView+EmptyDataSet.h>
 
 @interface SearchTable : UITableViewController <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, OROpenSubtitleDownloaderDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
@@ -38,5 +39,13 @@
 - (void) keyArrow:(UIKeyCommand *)sender;
 - (void) enterKey;
 - (void) escapeKey;
+- (void) openInKey;
+- (void) shareKey;
+
+- (void) longPress:(UILongPressGestureRecognizer *)gestureRecognizer;
+- (void) openIn:(NSIndexPath *)indexPath
+         atRect:(CGRect)rect;
+- (void) share:(NSIndexPath *)indexPath
+        atRect:(CGRect)rect;
 
 @end

@@ -52,6 +52,8 @@
     self.tableView.emptyDataSetDelegate = self;
     self.tableView.tableFooterView = [UIView new];
     
+    [self.tableView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)]];
+    
     KBTableView *tableView = (KBTableView *)self.tableView;
     [tableView setOnFocus:^(NSIndexPath * _Nullable current, NSIndexPath * _Nullable previous) {
         if (previous != nil)
@@ -98,6 +100,14 @@
                                                 modifierFlags:0
                                                        action:@selector(enterKey)
                                          discoverabilityTitle:NSLocalizedString(@"Play Selection", @"")]];
+        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"o"
+                                                modifierFlags:UIKeyModifierCommand
+                                                       action:@selector(openInKey)
+                                         discoverabilityTitle:NSLocalizedString(@"Open Selection in App…", @"")]];
+        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"l"
+                                                modifierFlags:UIKeyModifierCommand
+                                                       action:@selector(shareKey)
+                                         discoverabilityTitle:NSLocalizedString(@"Share Selection…", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputEscape
                                                 modifierFlags:0
                                                        action:@selector(escapeKey)]];
@@ -452,6 +462,39 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                               }];
 }
 
+- (NSArray<UITableViewRowAction *> *) tableView:(UITableView *)tableView
+                   editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewRowAction *linkAction = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault
+                                                                                   title:@"   "
+                                                                         backgroundColor:[UIColor grayColor]
+                                                                                   image:[UIImage imageNamed:@"link"]
+                                                                           forCellHeight:69
+                                                                                 handler:^(UITableViewRowAction *action,
+                                                                                           NSIndexPath *indexPath) {
+                                                                                     CGRect rect = [self.tableView rectForRowAtIndexPath:indexPath];
+                                                                                     rect.origin.x = rect.size.width - 98;
+                                                                                     rect.size.width = 50;
+                                                                                     [self share:indexPath
+                                                                                         atRect:rect];
+                                                                                 }];
+    UITableViewRowAction *fileAction = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault
+                                                                                   title:@"   "
+                                                                         backgroundColor:[UIColor lightGrayColor]
+                                                                                   image:[UIImage imageNamed:@"share"]
+                                                                           forCellHeight:67
+                                                                                 handler:^(UITableViewRowAction *action,
+                                                                                           NSIndexPath *indexPath) {
+                                                                                     CGRect rect = [self.tableView rectForRowAtIndexPath:indexPath];
+                                                                                     rect.origin.x = rect.size.width - 48;
+                                                                                     rect.size.width = 48;
+                                                                                     [self openIn:indexPath
+                                                                                          atRect:rect];
+                                                                                 }];
+    
+    return @[fileAction, linkAction];
+}
+
 #pragma mark - Actions
 
 - (void) increaseTextNumber:(int)type
@@ -563,6 +606,81 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     
     KBTableView *tableView = (KBTableView *)self.tableView;
     [tableView escapeCommand];
+}
+
+- (void) openInKey
+{
+    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    if (indexPath != nil)
+        [self openIn:indexPath atRect:[self.tableView rectForRowAtIndexPath:indexPath]];
+}
+
+- (void) shareKey
+{
+    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    if (indexPath != nil)
+        [self share:indexPath atRect:[self.tableView rectForRowAtIndexPath:indexPath]];
+}
+
+#pragma mark - Long Press
+
+- (void) longPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    CGPoint p = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+    if (indexPath != nil && gestureRecognizer.state == UIGestureRecognizerStateBegan)
+    {
+        CGRect rect = [self.tableView rectForRowAtIndexPath:indexPath];
+        rect.origin.x = p.x;
+        [self openIn:indexPath atRect:rect];
+    }
+}
+
+#pragma mark - Table Row Actions
+
+- (void) openIn:(NSIndexPath *)indexPath
+        atRect:(CGRect)rect
+{
+    OpenSubtitleSearchResult *result = searchResults[indexPath.row];
+    [[Data sharedData] updateNetwork:1];
+    [down downloadSubtitlesForResult:result
+                              toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@", result.subtitleName]]
+                          onProgress:^(float progress) {}
+                                    :^(NSString *path, NSError *error) {
+                                        if (error == nil)
+                                        {
+                                            UIDocumentInteractionController *doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:path]];
+                                            if (![doc presentOpenInMenuFromRect:rect inView:self.tableView animated:YES])
+                                                [doc presentOptionsMenuFromRect:rect inView:self.tableView animated:YES];
+                                        }
+                                        else
+                                        {
+                                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error when downloading SRT file", @"")
+                                                                                                           message:[error localizedDescription]
+                                                                                                    preferredStyle:UIAlertControllerStyleAlert];
+                                            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
+                                            [self presentViewController:alert animated:YES completion:nil];
+                                        }
+                                        [[Data sharedData] updateNetwork:-1];
+                                    }];
+}
+
+- (void) share:(NSIndexPath *)indexPath
+       atRect:(CGRect)rect
+{
+    OpenSubtitleSearchResult *result = searchResults[indexPath.row];
+    UIActivityViewController *docAct = [[UIActivityViewController alloc] initWithActivityItems:@[[[ActivityLinkProvider alloc] initWithPlaceholderItem:result.subtitlePage],
+                                                                                                 [[ActivityTextProvider alloc] initWithPlaceholderItem:result.subtitleDownloadAddress]]
+                                                                         applicationActivities:@[[SafariActivity new],
+                                                                                                 [DownActivity new]]];
+    
+    if ([docAct respondsToSelector:@selector(popoverPresentationController)])
+    {
+        docAct.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown;
+        docAct.popoverPresentationController.sourceRect = rect;
+        docAct.popoverPresentationController.sourceView = self.tableView;
+    }
+    [self presentViewController:docAct animated:YES completion:nil];
 }
 
 #pragma mark - Empty data set delegate

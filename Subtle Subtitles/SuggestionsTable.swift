@@ -208,7 +208,7 @@ class SuggestionsTable: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("suggestCell", forIndexPath: indexPath)
         
-        cell.textLabel?.text = suggestions[indexPath.row]
+        cell.textLabel?.text = suggestions[indexPath.row].capitalizedString
         cell.textLabel?.textColor = .lightGrayColor()
         cell.backgroundColor = UIColor(white: 0.2, alpha: 1)
         cell.selectedBackgroundView = UIView(frame: cell.bounds)
