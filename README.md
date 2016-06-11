@@ -52,23 +52,30 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 
 ## TODO
+v1.5
+- Avoid redownloading subtitles if the file is already cached
+- Font settings
+Later
 - Keyboard shortcuts in search bar
 - Load file from another app
 - Always display search scopes
 - Subtitle library
 - Support for other file formats
-- Font settings
 - Player displays 2 languages
 - UI improvements
 - New App Store screenshots + localized
+- Fix UIDocumentInteractionController arrow direction for Open In UITableViewRowAction on iPad
 
 ## Release notes
 ###v1.5 · ??/06/2016
 >- Keyboard shortcuts support while searching
->- Table Action on search rows (export)
+>- Inverted links so by default it shares OpenSubtitles.org page instead of a direct link to file
+>- long press on search result to share
+>- Table Action on search rows (export + link) and Keyboard shortcuts
 >- Fix encoding in some languages (Russian)
->- Different settings pane for languages
+>- Different settings pane for languages and shortcut
 >- Warning if IAP are disabled
+>- Capitalized strings for Search Suggestions
 
 ###v1.4 · 03/06/2016
 > Subtle Subtitles has found many users, thank you all!
