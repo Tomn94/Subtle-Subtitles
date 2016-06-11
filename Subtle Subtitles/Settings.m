@@ -8,9 +8,9 @@
 //  To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/
 //
 
-#import "LanguageTable.h"
+#import "Settings.h"
 
-@implementation LanguageTable
+@implementation Settings
 
 - (void) viewDidLoad
 {
@@ -29,7 +29,7 @@
     NSMutableArray *langs   = [NSMutableArray array];
     NSInteger count = MIN(languagesNames.count, languagesIDs.count);
     for (NSInteger i = 0 ; i < count ; ++i)
-        [langs addObject:@{ @"name": [LanguageTable localize:languagesNames[i]],
+        [langs addObject:@{ @"name": [Settings localize:languagesNames[i]],
                             @"id":   languagesIDs[i] }];
     
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES

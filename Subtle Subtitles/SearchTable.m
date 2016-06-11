@@ -33,7 +33,7 @@
     search.searchBar.delegate = self;
     search.searchResultsUpdater = self;
     search.searchBar.placeholder = NSLocalizedString(@"Search movies or series", @"");
-    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [LanguageTable localize:[defaults stringForKey:@"langName"]], @"S+1", @"E+1" ];
+    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [Settings localize:[defaults stringForKey:@"langName"]], @"S+1", @"E+1" ];
     search.searchBar.barStyle = UIBarStyleBlack;
     search.searchBar.tintColor = [UIColor lightGrayColor];
     search.searchBar.barTintColor = [UIColor colorWithWhite:0.25 alpha:1];
@@ -462,7 +462,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (void) updateLanguage
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [LanguageTable localize:[defaults stringForKey:@"langName"]], @"S+1", @"E+1" ];
+    search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [Settings localize:[defaults stringForKey:@"langName"]], @"S+1", @"E+1" ];
     search.searchBar.selectedScopeButtonIndex = [defaults integerForKey:@"langIndex"];
     currentScope = [defaults integerForKey:@"langIndex"];
     [search.searchBar sizeToFit];

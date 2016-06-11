@@ -12,7 +12,7 @@
 #import "Data.h"
 #import "Subtle_Subtitles-Swift.h"
 
-@interface LanguageTable : UITableViewController
+@interface Settings : UITableViewController
 {
     NSArray *languages;
     NSIndexPath *lastSel;
