@@ -57,15 +57,18 @@ v1.5
 - Font settings
 
 Later
-- Keyboard shortcuts in search bar
-- Load file from another app
-- Always display search scopes
+- Open files from other apps
 - Subtitle library
-- Support for other file formats
-- Player displays 2 languages
-- UI improvements
+- Support for other subtitles file formats
+- Display 2 languages in Player
+- ~~Keyboard shortcuts in search bar while typing~~
+- ~~Always display search scopes~~
+- ~~Fix UIDocumentInteractionController arrow direction for Open In UITableViewRowAction on iPad~~
+- UI/icon
 - New App Store screenshots + localized
-- Fix UIDocumentInteractionController arrow direction for Open In UITableViewRowAction on iPad
+- Website / Twitter account
+
+<sup>~~Abc~~ = iOS SDK doesn't allow it at the moment</sup>
 
 ## Release notes
 ###v1.5 · ??/06/2016
