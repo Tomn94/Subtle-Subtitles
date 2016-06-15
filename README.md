@@ -55,6 +55,7 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 v1.5
 - Avoid redownloading subtitles if the file is already cached
 - Font settings
+- Restore purchases fix
 
 Later
 - Open files from other apps
