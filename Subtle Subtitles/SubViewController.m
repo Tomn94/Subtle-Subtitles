@@ -49,45 +49,11 @@
                                                applicationActivities:@[[SafariActivity new], [DownActivity new]]];
     doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:path]];
     
-    encoding = NSUTF8StringEncoding;
-    NSString *htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
-    if (htmlString == nil)
-    {
-        encoding = NSISOLatin1StringEncoding;
-        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
-    }
-    if (htmlString == nil)
-    {
-        encoding = NSWindowsCP1251StringEncoding; // TODO: Test Greek NSWindowsCP1253StringEncoding, French, Turkish NSWindowsCP1254StringEncoding, Japanese NSISO2022JPStringEncoding
-        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
-    }
-    if (htmlString == nil)
-    {
-        encoding = NSASCIIStringEncoding;
-        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
-    }
-    if (htmlString != nil)
-    {
-        self.subLabel.text = @"";
-        CGFloat txtSize = [[NSUserDefaults standardUserDefaults] floatForKey:@"defaultPointSize"];
-        _subLabel.font = [UIFont systemFontOfSize:txtSize * self.view.frame.size.width / 667];
-        
-        srt = [self parse:htmlString];
-        unsigned long maxTime = [[srt lastObject][@"to"] integerValue];
-        self.slider.maximumValue = maxTime;
-        
-        playing = YES;
-        [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
-        if (maxTime >= 3600)
-            _timeLabel.text = [NSString stringWithFormat:@"00:00/%lu:%02lu:%02lu",
-                               maxTime / 3600, maxTime % 3600 / 60, maxTime % 3600 % 60];
-        else
-            _timeLabel.text = [NSString stringWithFormat:@"00:00/%02lu:%02lu", maxTime / 60, maxTime % 60];
-        maxTimeLabel = [_timeLabel.text componentsSeparatedByString:@"/"][1];
-        timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timer) userInfo:nil repeats:YES];
-    }
-    else
-        self.navigationItem.rightBarButtonItems = nil;
+    [self loadWithEncoding];
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timer) userInfo:nil repeats:YES];
+    playing = YES;
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
     UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
     [self.view addGestureRecognizer:pinch];
@@ -98,6 +64,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stop) name:@"stopTimerSub" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showControls) name:@"showControls" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openIn:) name:@"openIn" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWithEncoding) name:@"updateEncoding" object:nil];
     
     if ([UIKeyCommand instancesRespondToSelector:@selector(setDiscoverabilityTitle:)])
     {
@@ -204,6 +171,60 @@
 
 #pragma mark - Actions
 
+- (void) loadWithEncoding
+{
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:fileName];
+    
+    encoding = (NSUInteger)[[NSUserDefaults standardUserDefaults] integerForKey:@"preferredEncoding"];
+    NSString *htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
+    
+    if (htmlString == nil)
+    {
+        encoding = NSUTF8StringEncoding;
+        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
+    }
+    if (htmlString == nil)
+    {
+        encoding = NSISOLatin1StringEncoding;
+        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
+    }
+    if (htmlString == nil)
+    {
+        encoding = NSWindowsCP1251StringEncoding;
+        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
+    }
+    if (htmlString == nil)
+    {
+        encoding = NSASCIIStringEncoding;
+        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
+    }
+    
+    if (htmlString != nil)
+    {
+        self.subLabel.text = @"";
+        CGFloat txtSize = [[NSUserDefaults standardUserDefaults] floatForKey:@"defaultPointSize"];
+        _subLabel.font = [UIFont systemFontOfSize:txtSize * self.view.frame.size.width / 667];
+        
+        srt = [self parse:htmlString];
+        unsigned long maxTime = [[srt lastObject][@"to"] integerValue];
+        self.slider.maximumValue = maxTime;
+        
+        if (maxTime >= 3600)
+            _timeLabel.text = [NSString stringWithFormat:@"00:00/%lu:%02lu:%02lu",
+                               maxTime / 3600, maxTime % 3600 / 60, maxTime % 3600 % 60];
+        else
+            _timeLabel.text = [NSString stringWithFormat:@"00:00/%02lu:%02lu", maxTime / 60, maxTime % 60];
+        maxTimeLabel = [_timeLabel.text componentsSeparatedByString:@"/"][1];
+        
+        [self updateText];
+        [self updateTime];
+    }
+    else
+        self.navigationItem.rightBarButtonItems = nil;
+    
+    encodingReloaded = YES;
+}
+
 - (void) playTapped:(id)sender
 {
     playing = !playing;
@@ -288,10 +309,12 @@
     
     if (found != -1)
     {
-        if (curIndex != found)
+        if (curIndex != found || encodingReloaded)
         {
             curIndex = found;
-            NSString *htmlForSub = [NSString stringWithFormat:@"<p style=\"color: white; text-align: center; font-family: '-apple-system', HelveticaNeue; font-size: %fpx\">", _subLabel.font.pointSize];
+            encodingReloaded = NO;
+            
+            NSString *htmlForSub = [NSString stringWithFormat:@"<p style=\"color: white; text-align: center; font-family: '-apple-system', HelveticaNeue, Arial; font-size: %fpx\">", _subLabel.font.pointSize];
             NSString *txt = [NSString stringWithFormat:@"%@%@</p>", htmlForSub, srt[curIndex][@"text"]];
             _subLabel.attributedText = [[NSAttributedString alloc] initWithData:[txt dataUsingEncoding:encoding]
                                                                         options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
@@ -337,7 +360,7 @@
             {
                 if ([tLine isEqualToString:@""])
                 {
-                    NSArray *times   = [curTime componentsSeparatedByString:@"-->"];
+                    NSArray *times = [curTime componentsSeparatedByString:@"-->"];
                     if (times.count > 1)
                     {
                         NSString *debutS = [times[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -350,9 +373,26 @@
                         s = [t[2] componentsSeparatedByString:@","];
                         NSTimeInterval fin = ([t[0] intValue] * 3600) + ([t[1] intValue] * 60) + [s[0] intValue] + ([s[1] intValue] / 1000);
                         
-                        [parts addObject:@{ @"from": @(debut),
-                                            @"to"  : @(fin),
-                                            @"text": curText }];
+                        curText = [curText stringByReplacingOccurrencesOfString:@"&#x27;" withString:@"'"];
+                        
+                        // Convert text (but not the tags) to HTML entities
+                        NSMutableString *htmlString = [NSMutableString string];
+                        NSString *dontReplace = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789<>/' =#-_;%!\"";
+                        for (int i = 0 ; i < curText.length ; i++)
+                        {
+                            unichar character = [curText characterAtIndex:i];
+                            if ([dontReplace containsString:[NSString stringWithCharacters:&character length:1]]) {
+                                [htmlString appendFormat:@"%c", character];
+                            } else {
+                                [htmlString appendFormat:@"&#x%x;", character];
+                            }
+                        }
+                        
+                        NSDictionary *previous = parts.lastObject;
+                        if ([previous[@"to"] doubleValue] < fin)
+                            [parts addObject:@{ @"from": @(debut),
+                                                @"to"  : @(fin),
+                                                @"text": htmlString }];
                         state = kNUMBER;
                     }
                 }
@@ -378,7 +418,7 @@
 {
     forceShowControls = YES;
     [self showControls];
-    UIBarButtonItem *item = self.navigationItem.rightBarButtonItems.lastObject;
+    UIBarButtonItem *item = self.navigationItem.rightBarButtonItems[1];
     if (item == nil)
         item = self.navigationItem.leftBarButtonItem;
     if (item == nil)
@@ -512,11 +552,6 @@
     else if ([sender.input isEqualToString:@"-"] && size > MIN_FONT_SIZE)
         _subLabel.font = [UIFont systemFontOfSize:size - 10];
     [[NSUserDefaults standardUserDefaults] setFloat:_subLabel.font.pointSize forKey:@"defaultPointSize"];
-}
-
-- (IBAction) fontSettings:(id)sender
-{
-    // TODO: Font settings
 }
 
 @end

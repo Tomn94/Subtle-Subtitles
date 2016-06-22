@@ -46,7 +46,8 @@
     suggestionsTable.searchBar = search.searchBar;
     
     down = [[OROpenSubtitleDownloader alloc] initWithUserAgent:@"subtle subtitles"];
-    down.delegate = self;
+    [[Data sharedData] setDownloader:down];
+    down.delegate = [Data sharedData];
     
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
@@ -148,39 +149,6 @@
 - (UIStatusBarStyle) preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
-}
-
-#pragma mark - OROpenSubtitleDownloader delegate
-
-- (void) openSubtitlerDidLogIn:(OROpenSubtitleDownloader *)downloader
-{
-    [[Data sharedData] updateNetwork:1];
-    [down supportedLanguagesList:^(NSArray *languages, NSError *error) {
-        if (error == nil)
-        {
-            NSMutableArray *langues  = [NSMutableArray array];
-            NSMutableArray *langues2 = [NSMutableArray array];
-            for (OpenSubtitleLanguageResult *res in languages)
-            {
-                if (![res.subLanguageID isEqualToString:@"eng"])
-                {
-                    [langues  addObject:res.localizedLanguageName];
-                    [langues2 addObject:res.subLanguageID];
-                }
-            }
-            [Data sharedData].langNames = [NSArray arrayWithArray:langues];
-            [Data sharedData].langIDs   = [NSArray arrayWithArray:langues2];
-        }
-        else
-        {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to fetch available languages", @"")
-                                                                           message:error.localizedDescription
-                                                                    preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-        [[Data sharedData] updateNetwork:-1];
-    }];
 }
 
 #pragma mark - Search delegates
@@ -436,30 +404,40 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     SearchTableCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [cell.progress setProgress:0.9 animated:YES];
     
-    [[Data sharedData] updateNetwork:1];
-    [down downloadSubtitlesForResult:result
-                              toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@", result.subtitleName]]
-                          onProgress:^(float progress) {
-                                      [cell.progress setProgress:progress animated:YES];
-                                  }
-                                    :^(NSString *path, NSError *error) {
-                                        if (error == nil)
-                                        {
-                                            [[Data sharedData] setCurrentFile:result];
-                                            [self.navigationController performSegueWithIdentifier:@"detailSegue" sender:self];
-                                        }
-                                        else
-                                        {
-                                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error when downloading SRT file", @"")
-                                                                                                           message:[error localizedDescription]
-                                                                                                    preferredStyle:UIAlertControllerStyleAlert];
-                                            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
-                                            [self presentViewController:alert animated:YES completion:nil];
-                                        }
-                                        [cell.progress setProgress:0 animated:YES];
-                                        [[Data sharedData] updateNetwork:-1];
-                                        tapped = NO;
-                              }];
+    if ([Data hasCachedFile:result.subtitleName])
+    {
+        [[Data sharedData] setCurrentFile:result];
+        [self.navigationController performSegueWithIdentifier:@"detailSegue" sender:self];
+        [cell.progress setProgress:0 animated:YES];
+        tapped = NO;
+    }
+    else
+    {
+        [[Data sharedData] updateNetwork:1];
+        [down downloadSubtitlesForResult:result
+                                  toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@", result.subtitleName]]
+                              onProgress:^(float progress) {
+                                  [cell.progress setProgress:progress animated:YES];
+                              }
+                                        :^(NSString *path, NSError *error) {
+                                            if (error == nil)
+                                            {
+                                                [[Data sharedData] setCurrentFile:result];
+                                                [self.navigationController performSegueWithIdentifier:@"detailSegue" sender:self];
+                                            }
+                                            else
+                                            {
+                                                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error when downloading SRT file", @"")
+                                                                                                               message:[error localizedDescription]
+                                                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                                                [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
+                                                [self presentViewController:alert animated:YES completion:nil];
+                                            }
+                                            [cell.progress setProgress:0 animated:YES];
+                                            [[Data sharedData] updateNetwork:-1];
+                                            tapped = NO;
+                                        }];
+    }
 }
 
 - (NSArray<UITableViewRowAction *> *) tableView:(UITableView *)tableView
@@ -520,6 +498,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                                                    message:NSLocalizedString(@"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip 1: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\nTip 2: Pinch to resize subtitles\n\nContact: @tomn94", @"")
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
+    if (![[CJPAdController sharedInstance] adsRemoved])
+    {
         [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Ads", @"")
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction * _Nonnull action) {
@@ -545,6 +525,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
             [alert2 addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alert2 animated:YES completion:nil];
         }]];
+    }
     
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
     
@@ -558,7 +539,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 - (void) openLanguage
 {
-    [self performSegueWithIdentifier:@"languageSegue" sender:self.navigationItem.leftBarButtonItem];
+    [self performSegueWithIdentifier:@"settingsSegue" sender:self.navigationItem.leftBarButtonItem];
 }
 
 - (void) increaseNumberWithButton:(UIBarButtonItem *)sender
@@ -639,30 +620,41 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 #pragma mark - Table Row Actions
 
 - (void) openIn:(NSIndexPath *)indexPath
-        atRect:(CGRect)rect
+         atRect:(CGRect)rect
 {
     OpenSubtitleSearchResult *result = searchResults[indexPath.row];
-    [[Data sharedData] updateNetwork:1];
-    [down downloadSubtitlesForResult:result
-                              toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@", result.subtitleName]]
-                          onProgress:^(float progress) {}
-                                    :^(NSString *path, NSError *error) {
-                                        if (error == nil)
-                                        {
-                                            UIDocumentInteractionController *doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:path]];
-                                            if (![doc presentOpenInMenuFromRect:rect inView:self.tableView animated:YES])
-                                                [doc presentOptionsMenuFromRect:rect inView:self.tableView animated:YES];
-                                        }
-                                        else
-                                        {
-                                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error when downloading SRT file", @"")
-                                                                                                           message:[error localizedDescription]
-                                                                                                    preferredStyle:UIAlertControllerStyleAlert];
-                                            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
-                                            [self presentViewController:alert animated:YES completion:nil];
-                                        }
-                                        [[Data sharedData] updateNetwork:-1];
-                                    }];
+    NSString *destinationPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@", result.subtitleName]];
+    
+    if ([Data hasCachedFile:result.subtitleName])
+    {
+        UIDocumentInteractionController *doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:destinationPath]];
+        if (![doc presentOpenInMenuFromRect:rect inView:self.tableView animated:YES])
+            [doc presentOptionsMenuFromRect:rect inView:self.tableView animated:YES];
+    }
+    else
+    {
+        [[Data sharedData] updateNetwork:1];
+        [down downloadSubtitlesForResult:result
+                                  toPath:destinationPath
+                              onProgress:^(float progress) {}
+                                        :^(NSString *path, NSError *error) {
+                                            if (error == nil)
+                                            {
+                                                UIDocumentInteractionController *doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:path]];
+                                                if (![doc presentOpenInMenuFromRect:rect inView:self.tableView animated:YES])
+                                                    [doc presentOptionsMenuFromRect:rect inView:self.tableView animated:YES];
+                                            }
+                                            else
+                                            {
+                                                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Error when downloading SRT file", @"")
+                                                                                                               message:[error localizedDescription]
+                                                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                                                [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
+                                                [self presentViewController:alert animated:YES completion:nil];
+                                            }
+                                            [[Data sharedData] updateNetwork:-1];
+                                        }];
+    }
 }
 
 - (void) share:(NSIndexPath *)indexPath

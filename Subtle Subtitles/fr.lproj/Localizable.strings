@@ -47,6 +47,13 @@
 "Switch to English" = "Choisir la langue anglaise";
 "Switch to Second Language" = "Choisir la 2nde langue";
 
+"Open Selection in App…" = "Ouvrir la sélection dans l'app…";
+"Share Selection…" = "Partager la sélection…";
+
+"Select Previous Suggestion" = "Suggestion précédente";
+"Select Next Suggestion" = "Suggestion suivante";
+"Choose Suggestion" = "Sélectionner la suggestion";
+
 "Unable to fetch available languages" = "Impossible de récupérer les langues disponibles";
 "No results for “%@”" = "Aucun résultat pour « %@ »";
 "Search error" = "Erreur lors de la recherche";
@@ -55,7 +62,7 @@
 "Error when downloading SRT file" = "Erreur lors du téléchargement du fichier SRT";
 
 "Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip 1: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\nTip 2: Pinch to resize subtitles\n\nContact: @tomn94" =
-"Recherche sur OpenSubtitles.org grâce à OROpenSubtitleDownloader.\n\nAstuce №1 : les boutons S+1 et E+1 permettent de trouver l'épisode suivant si vous tapez quelque chose comme « Archer S03E05 »\nAstuce №2 : zoomez les sous-titres en écartant 2 doigts\n\nContact : @tomn94";
+"Recherche sur OpenSubtitles.org grâce à OROpenSubtitleDownloader.\n\nAstuce №1 : les boutons S+1 et E+1 permettent de trouver l'épisode suivant si vous tapez quelque chose comme « Archer S03E05 »\nAstuce №2 : modifiez les paramètres d'encodage (bouton A) si des caractères n'apparaissent pas correctement\nAstuce №3: Utilisez les raccourcis clavier sur iPad (touche ⌘) !\n\nContact : @tomn94";
 "Remove Ads" = "Supprimer les publicités";
 "Remove ads for a small amount" = "Retirer les pubs à petit prix";
 "The developer will be so happy for your donation especially knowing that you won't have to bear ads anymore!" =
@@ -187,3 +194,35 @@
 "Ukrainian" = "Ukrainien";
 "Urdu" = "Urdu";
 "Vietnames" = "Vietnamien";
+
+
+/* Encodings */
+"Encoding Settings" = "Préférences d'encodage";
+"Tip: Pinch to change the text size of the subtitles" = "Astuce : agrandissez les sous-titres en écartant 2 doigts\n";
+"Select Previous Encoding" = "Sélectionner l'encodage précédent";
+"Select Next Encoding" = "Sélectionner l'encodage suivant";
+"Choose Encoding" = "Choisir l'encodage";
+"Dismiss" = "Masquer les préférences";
+"UTF-8" = "UTF-8 (par défaut)";
+"Western (Latin-1/ISO 8859-1)" = "Occidental (Latin-1/ISO 8859-1)";
+"Central European (Latin-2/ISO 8859-2)" = "Europe Centrale (Français · Latin-2/ISO 8859-2)";
+"Central European (Windows 1250)" = "Europe Centrale (Windows 1250)";
+"Cyrillic (Windows 1251)" = "Cyrillique (Russe · Windows 1251)";
+"Western (Windows 1252)" = "Occidental (Windows 1252)";
+"Greek (Windows 1253)" = "Grec (Windows 1253)";
+"Turkish (Windows 1254)" = "Turc (Windows 1254)";
+"Japanese (EUC-JP)" = "Japonais (EUC-JP)";
+"Japanese (Shift JIS)" = "Japonais (Shift JIS)";
+"Japanese (ISO 2022)" = "Japonais (ISO 2022)";
+"ASCII" = "ASCII";
+"ASCII (Non-Lossy)" = "ASCII (sans pertes)";
+"Unicode" = "Unicode";
+"UTF-16" = "UTF-16";
+"UTF-16 BE" = "UTF-16 BE";
+"UTF-16 LE" = "UTF-16 LE";
+"UTF-32" = "UTF-32";
+"UTF-32 BE" = "UTF-32 BE";
+"UTF-32 LE" = "UTF-32 LE";
+"Classic Mac OS" = "Mac OS Classic";
+"NEXTSTEP" = "NEXTSTEP";
+"Adobe Symbol" = "Adobe Symbol";

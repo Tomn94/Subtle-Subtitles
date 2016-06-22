@@ -61,6 +61,9 @@
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(close)]];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData)
+                                                 name:@"updateLanguage" object:nil];
 }
 
 - (void) viewWillAppear:(BOOL)animated

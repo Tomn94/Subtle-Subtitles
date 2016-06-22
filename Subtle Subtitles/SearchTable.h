@@ -17,7 +17,7 @@
 #import "BGTableViewRowActionWithImage.h"
 #import <UIScrollView+EmptyDataSet.h>
 
-@interface SearchTable : UITableViewController <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, OROpenSubtitleDownloaderDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface SearchTable : UITableViewController <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
     UISearchController *search;
     NSArray *searchResults;

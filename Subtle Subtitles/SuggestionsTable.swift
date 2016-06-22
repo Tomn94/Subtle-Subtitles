@@ -78,6 +78,44 @@ class SuggestionsTable: UITableViewController {
     var searchController: UISearchController?
     var searchBar: UISearchBar?
     
+    override var keyCommands: [UIKeyCommand]? {
+        if #available(iOS 9.0, *) {
+            return [
+                UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(search(_:)),
+                    discoverabilityTitle: "Search".localized),
+                UIKeyCommand(input: "\r", modifierFlags: [.Shift], action: #selector(search(_:)),
+                    discoverabilityTitle: "Search English Subtitles".localized),
+                UIKeyCommand(input: "\r", modifierFlags: [.Alternate], action: #selector(search(_:)),
+                    discoverabilityTitle: "Search using Second Language".localized),
+                
+                UIKeyCommand(input: "f", modifierFlags: [.Command, .Shift], action: #selector(switchLang(_:)),
+                    discoverabilityTitle: "Switch to English".localized),
+                UIKeyCommand(input: "f", modifierFlags: [.Command, .Alternate], action: #selector(switchLang(_:)),
+                    discoverabilityTitle: "Switch to Second Language".localized),
+                
+                UIKeyCommand(input: "s", modifierFlags: [.Command], action: #selector(increase(_:)),
+                discoverabilityTitle: "Increase Season number".localized),
+                UIKeyCommand(input: "e", modifierFlags: [.Command], action: #selector(increase(_:)),
+                    discoverabilityTitle: "Increase Episode number".localized),
+                
+                UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: [], action: #selector(keyArrow(_:)),
+                    discoverabilityTitle: "Select Previous Suggestion".localized),
+                
+                UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: [], action: #selector(keyArrow(_:)),
+                    discoverabilityTitle: "Select Next Suggestion".localized),
+                
+                UIKeyCommand(input: "\r", modifierFlags: [.Command], action: #selector(enterKey),
+                    discoverabilityTitle: "Choose Suggestion".localized),
+                
+                UIKeyCommand(input: "f", modifierFlags: [.Command], action: #selector(exit)),
+                UIKeyCommand(input: UIKeyInputEscape, modifierFlags: [], action: #selector(exit),
+                    discoverabilityTitle: "Exit Search".localized)
+            ]
+        } else {
+            return []
+        }
+    }
+    
     class func simplerQuery(query: String) -> String {
         do {
             let regex = try NSRegularExpression(pattern: "S\\d{1,2}E\\d{1,2}", options: [.CaseInsensitive])
@@ -93,6 +131,20 @@ class SuggestionsTable: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let betterTableView = KBTableView(frame: tableView.frame, style: tableView.style)
+        betterTableView.onSelection = { indexPath in
+            self.tableView(betterTableView, didSelectRowAtIndexPath: indexPath)
+        }
+        betterTableView.onFocus = { current, previous in
+            if let previous = previous {
+                betterTableView.deselectRowAtIndexPath(previous, animated: false)
+            }
+            if let current = current {
+                betterTableView.selectRowAtIndexPath(current, animated: false, scrollPosition: .Middle)
+            }
+        }
+        tableView = betterTableView
 
         let backView = UIView()
         backView.backgroundColor = UIColor(white: 0.2, alpha: 1)
@@ -100,29 +152,6 @@ class SuggestionsTable: UITableViewController {
         tableView.separatorColor = .darkGrayColor()
 
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "suggestCell")
-        
-        if #available(iOS 9, *) {
-            addKeyCommand(UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(search(_:)),
-                                       discoverabilityTitle: "Search".localized))
-            addKeyCommand(UIKeyCommand(input: "\r", modifierFlags: [.Shift], action: #selector(search(_:)),
-                                       discoverabilityTitle: "Search English Subtitles".localized))
-            addKeyCommand(UIKeyCommand(input: "\r", modifierFlags: [.Alternate], action: #selector(search(_:)),
-                                       discoverabilityTitle: "Search using Second Language".localized))
-            
-            addKeyCommand(UIKeyCommand(input: "f", modifierFlags: [.Command, .Shift], action: #selector(switchLang(_:)),
-                                       discoverabilityTitle: "Switch to English".localized))
-            addKeyCommand(UIKeyCommand(input: "f", modifierFlags: [.Command, .Alternate], action: #selector(switchLang(_:)),
-                                       discoverabilityTitle: "Switch to Second Language".localized))
-            
-            addKeyCommand(UIKeyCommand(input: "s", modifierFlags: [.Command], action: #selector(increase(_:)),
-                                       discoverabilityTitle: "Increase Season number".localized))
-            addKeyCommand(UIKeyCommand(input: "e", modifierFlags: [.Command], action: #selector(increase(_:)),
-                                       discoverabilityTitle: "Increase Episode number".localized))
-            
-            addKeyCommand(UIKeyCommand(input: "f", modifierFlags: [.Command], action: #selector(exit)))
-            addKeyCommand(UIKeyCommand(input: UIKeyInputEscape, modifierFlags: [], action: #selector(exit),
-                                       discoverabilityTitle: "Exit Search".localized))
-        }
     }
     
     func exit() {
@@ -242,6 +271,22 @@ class SuggestionsTable: UITableViewController {
                 tableView.reloadData()
             }
         }
+    }
+    
+    // MARK: - Keyboard
+    
+    func keyArrow(sender: UIKeyCommand) {
+        let kbTableView = tableView as! KBTableView
+        if sender.input == UIKeyInputUpArrow {
+            kbTableView.upCommand()
+        } else {
+            kbTableView.downCommand()
+        }
+    }
+    
+    func enterKey() {
+        let kbTableView = tableView as! KBTableView
+        kbTableView.returnCommand()
     }
 }
  

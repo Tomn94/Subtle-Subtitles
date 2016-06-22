@@ -36,6 +36,7 @@ typedef enum : NSUInteger {
     NSString *maxTimeLabel;
     NSStringEncoding encoding;
     BOOL forceShowControls;
+    BOOL encodingReloaded;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
@@ -45,6 +46,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UIStepper *stepper;
 @property (weak, nonatomic) IBOutlet UILabel *stepperValue;
 
+- (void) loadWithEncoding;
 - (IBAction) playTapped:(id)sender;
 - (void) stop;
 - (IBAction) scrub:(id)sender;
@@ -63,8 +65,6 @@ typedef enum : NSUInteger {
 - (void) keyArrow:(UIKeyCommand *)sender;
 - (void) keyArrowCmd:(UIKeyCommand *)sender;
 - (void) zoomText:(UIKeyCommand *)sender;
-
-- (IBAction) fontSettings:(id)sender;
 
 @end
 

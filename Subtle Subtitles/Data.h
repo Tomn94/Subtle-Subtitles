@@ -16,13 +16,15 @@
 
 #define ADS_ID @"com.tomn.SubtleSubtitles.ads"
 
-@interface Data : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver>
+@interface Data : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver, OROpenSubtitleDownloaderDelegate>
 
 + (Data *) sharedData;
++ (BOOL) hasCachedFile:(NSString *)name;
 
 @property (strong, nonatomic) NSArray *langNames;
 @property (strong, nonatomic) NSArray *langIDs;
 @property (assign, nonatomic) NSInteger networkCount;
+@property (strong, nonatomic) OROpenSubtitleDownloader *downloader;
 @property (strong, nonatomic) OpenSubtitleSearchResult *currentFile;
 
 - (void) updateNetwork:(int)diff;

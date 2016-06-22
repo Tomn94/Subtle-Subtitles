@@ -47,6 +47,13 @@
 "Switch to English" = "Switch to English";
 "Switch to Second Language" = "Switch to Second Language";
 
+"Open Selection in App…" = "Open Selection in App…";
+"Share Selection…" = "Share Selection…";
+
+"Select Previous Suggestion" = "Select Previous Suggestion";
+"Select Next Suggestion" = "Select Next Suggestion";
+"Choose Suggestion" = "Choose Suggestion";
+
 "Unable to fetch available languages" = "Unable to fetch available languages";
 "No results for “%@”" = "No results for “%@”";
 "Search error" = "Search error";
@@ -55,7 +62,7 @@
 "Error when downloading SRT file" = "Error when downloading SRT file";
 
 "Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip 1: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\nTip 2: Pinch to resize subtitles\n\nContact: @tomn94" =
-"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip 1: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\nTip 2: Pinch to resize subtitles\n\nContact: @tomn94";
+"Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip 1: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\nTip 2: Edit your Encoding settings (A button) if you see any strange character\nTip 3: Use Keyboard Shortcuts on iPad (⌘ key) !\n\nContact: @tomn94";
 "Remove Ads" = "Remove Ads";
 "Remove ads for a small amount" = "Remove ads for a small amount";
 "The developer will be so happy for your donation especially knowing that you won't have to bear ads anymore!" =
@@ -187,3 +194,35 @@
 "Ukrainian" = "Ukrainian";
 "Urdu" = "Urdu";
 "Vietnames" = "Vietnames";
+
+
+/* Encodings */
+"Encoding Settings" = "Encoding Settings";
+"Tip: Pinch to change the text size of the subtitles" = "Tip: Pinch to change the text size of the subtitles\n";
+"Select Previous Encoding" = "Select Previous Encoding";
+"Select Next Encoding" = "Select Next Encoding";
+"Choose Encoding" = "Choose Encoding";
+"Dismiss" = "Dismiss Preferences";
+"UTF-8" = "UTF-8 (default)";
+"Western (Latin-1/ISO 8859-1)" = "Western (French · Latin-1/ISO 8859-1)";
+"Central European (Latin-2/ISO 8859-2)" = "Central European (Latin-2/ISO 8859-2)";
+"Central European (Windows 1250)" = "Central European (Windows 1250)";
+"Cyrillic (Windows 1251)" = "Cyrillic (Russian · Windows 1251)";
+"Western (Windows 1252)" = "Western (Windows 1252)";
+"Greek (Windows 1253)" = "Greek (Windows 1253)";
+"Turkish (Windows 1254)" = "Turkish (Windows 1254)";
+"Japanese (EUC-JP)" = "Japanese (EUC-JP)";
+"Japanese (Shift JIS)" = "Japanese (Shift JIS)";
+"Japanese (ISO 2022)" = "Japanese (ISO 2022)";
+"ASCII" = "ASCII";
+"ASCII (Non-Lossy)" = "ASCII (Non-Lossy)";
+"Unicode" = "Unicode";
+"UTF-16" = "UTF-16";
+"UTF-16 BE" = "UTF-16 BE";
+"UTF-16 LE" = "UTF-16 LE";
+"UTF-32" = "UTF-32";
+"UTF-32 BE" = "UTF-32 BE";
+"UTF-32 LE" = "UTF-32 LE";
+"Classic Mac OS" = "Classic Mac OS";
+"NEXTSTEP" = "NEXTSTEP";
+"Adobe Symbol" = "Adobe Symbol";

@@ -32,7 +32,8 @@
                                       @"cc" : @NO,
                                       @"hd" : @NO,
                                       @"rememberLastSearch" : @YES,
-                                      @"previousSearches" : @[] }];
+                                      @"previousSearches" : @[],
+                                      @"preferredEncoding" : @(NSUTF8StringEncoding) }];
         [defaults removeObjectForKey:@"lastSearch"];
         [defaults synchronize];
         
@@ -50,8 +51,18 @@
         }
         
         instance.networkCount = 0;
+        
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:instance];
     }
     return instance;
+}
+
++ (BOOL) hasCachedFile:(NSString *)name
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    
+    return [fileManager fileExistsAtPath:[documentsDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@", name]]];
 }
 
 - (void) updateNetwork:(int)diff
@@ -59,6 +70,43 @@
     _networkCount += diff;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:_networkCount];
 }
+
+#pragma mark - OROpenSubtitleDownloader delegate
+
+- (void) openSubtitlerDidLogIn:(OROpenSubtitleDownloader *)downloader
+{
+    [[Data sharedData] updateNetwork:1];
+    [downloader supportedLanguagesList:^(NSArray *languages, NSError *error) {
+        if (error == nil)
+        {
+            NSMutableArray *langues  = [NSMutableArray array];
+            NSMutableArray *langues2 = [NSMutableArray array];
+            for (OpenSubtitleLanguageResult *res in languages)
+            {
+                if (![res.subLanguageID isEqualToString:@"eng"])
+                {
+                    [langues  addObject:res.localizedLanguageName];
+                    [langues2 addObject:res.subLanguageID];
+                }
+            }
+            [Data sharedData].langNames = [NSArray arrayWithArray:langues];
+            [Data sharedData].langIDs   = [NSArray arrayWithArray:langues2];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateLangages" object:nil];
+        }/*
+        else
+        {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to fetch available languages", @"")
+                                                                           message:error.localizedDescription
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+        }*/
+        [[Data sharedData] updateNetwork:-1];
+    }];
+}
+
+#pragma mark - In-App Purchase
 
 - (void) startPurchase
 {
@@ -68,12 +116,9 @@
     [self updateNetwork:1];
 }
 
-#pragma mark - In-App Purchase
-
 - (void) restorePurchase
 {
     [self updateNetwork:1];
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
@@ -88,8 +133,7 @@
         validProduct = [response.products firstObject];
         
         SKPayment *payment = [SKPayment paymentWithProduct:validProduct];
-        [[SKPaymentQueue defaultQueue]  addTransactionObserver:self];
-        [[SKPaymentQueue defaultQueue]  addPayment:payment];
+        [[SKPaymentQueue defaultQueue] addPayment:payment];
     }
     else
     {
@@ -107,41 +151,45 @@
 {
     for (SKPaymentTransaction *transaction in transactions)
     {
-        switch (transaction.transactionState)
+        if ([transaction.payment.productIdentifier isEqualToString:ADS_ID])
         {
-            case SKPaymentTransactionStatePurchased:
+            switch (transaction.transactionState)
             {
-                [self updateNetwork:-1];
-                [[CJPAdController sharedInstance] removeAdsAndMakePermanent:YES andRemember:YES];
-                
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Thanks !", @"")
-                                                                               message:NSLocalizedString(@"Ads won't appear anymore on your devices.", @"")
-                                                                        preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Great", @"") style:UIAlertActionStyleCancel handler:nil]];
-                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
-                break;
+                case SKPaymentTransactionStatePurchased:
+                {
+                    [self updateNetwork:-1];
+                    [[CJPAdController sharedInstance] removeAdsAndMakePermanent:YES andRemember:YES];
+                    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                    
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Thanks !", @"")
+                                                                                   message:NSLocalizedString(@"Ads won't appear anymore on your devices.", @"")
+                                                                            preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Great", @"") style:UIAlertActionStyleCancel handler:nil]];
+                    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+                    break;
+                }
+                case SKPaymentTransactionStateRestored:
+                {
+                    [self updateNetwork:-1];
+                    [[CJPAdController sharedInstance] removeAdsAndMakePermanent:YES andRemember:YES];
+                    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                    
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Ads have been removed!", @"")
+                                                                                   message:NSLocalizedString(@"Your previous purchase has been restored.", @"")
+                                                                            preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Great", @"") style:UIAlertActionStyleCancel handler:nil]];
+                    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+                    break;
+                }
+                case SKPaymentTransactionStateFailed:
+                case SKPaymentTransactionStateDeferred:
+                    [self updateNetwork:-1];
+                    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                    break;
+                case SKPaymentTransactionStatePurchasing:
+                default:
+                    break;
             }
-            case SKPaymentTransactionStateRestored:
-            {
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-                [self updateNetwork:-1];
-                [[CJPAdController sharedInstance] removeAdsAndMakePermanent:YES andRemember:YES];
-                
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Ads have been removed!", @"")
-                                                                               message:NSLocalizedString(@"Your previous purchase has been restored.", @"")
-                                                                        preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Great", @"") style:UIAlertActionStyleCancel handler:nil]];
-                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
-                break;
-            }
-            case SKPaymentTransactionStateFailed:
-                break;
-            case SKPaymentTransactionStatePurchasing:
-                break;
-            case SKPaymentTransactionStateDeferred:
-                break;
-            default:
-                break;
         }
     }
 }
@@ -159,6 +207,11 @@ didFailWithError:(NSError *)error
 
 - (void) paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
 {
+    for (SKPaymentTransaction *transaction in queue.transactions)
+    {
+        if ([transaction.payment.productIdentifier isEqualToString:ADS_ID])
+            [[CJPAdController sharedInstance] removeAdsAndMakePermanent:YES andRemember:YES];
+    }
 }
 
 - (void)                       paymentQueue:(SKPaymentQueue *)queue

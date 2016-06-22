@@ -77,7 +77,7 @@
                         <barButtonItem key="backBarButtonItem" title="Search" id="4yn-4c-nhx"/>
                         <barButtonItem key="leftBarButtonItem" image="settings" id="HvU-0q-m31">
                             <connections>
-                                <segue destination="Zc4-30-BRW" kind="popoverPresentation" identifier="languageSegue" popoverAnchorBarButtonItem="HvU-0q-m31" id="8hd-Nr-kBb">
+                                <segue destination="Zc4-30-BRW" kind="popoverPresentation" identifier="settingsSegue" popoverAnchorBarButtonItem="HvU-0q-m31" id="8hd-Nr-kBb">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
@@ -126,7 +126,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.20020104895104895" alpha="1" colorSpace="calibratedWhite"/>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.20020104895104895" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -135,7 +135,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Preferences" id="vGP-b0-AKn">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="UQt-eA-T13">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="UQt-eA-T13">
                             <connections>
                                 <action selector="close" destination="FvB-en-hfb" id="XBD-bO-awO"/>
                             </connections>
@@ -160,7 +160,7 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gMS-YV-O2Q">
                                 <rect key="frame" x="30" y="74" width="540" height="516"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="28"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -178,8 +178,8 @@
                                     <action selector="delay:" destination="KXK-aY-shy" eventType="valueChanged" id="7ff-qp-Epr"/>
                                 </connections>
                             </stepper>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00:00/2:00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtg-AB-otZ">
-                                <rect key="frame" x="45" y="518" width="101" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00/00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtg-AB-otZ">
+                                <rect key="frame" x="45" y="518" width="77" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -258,7 +258,9 @@
                             </barButtonItem>
                             <barButtonItem image="font" id="g0k-qa-xci">
                                 <connections>
-                                    <action selector="fontSettings:" destination="KXK-aY-shy" id="ckh-h5-ifQ"/>
+                                    <segue destination="GPT-Pv-8Rx" kind="popoverPresentation" identifier="fontSegue" popoverAnchorBarButtonItem="g0k-qa-xci" id="eqh-JP-bSB">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -275,6 +277,53 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v4v-gq-h1n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-572" y="1025"/>
+        </scene>
+        <!--Font Settings-->
+        <scene sceneID="LKY-6V-oBA">
+            <objects>
+                <tableViewController id="7DR-b0-BjD" customClass="FontSettings" customModule="Subtle_Subtitles" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="xsA-qJ-Q1L" customClass="KBTableView" customModule="Subtle_Subtitles" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fontSettingsCell" textLabel="1Ss-hG-o2z" style="IBUITableViewCellStyleDefault" id="Sv7-B2-DMv">
+                                <rect key="frame" x="0.0" y="114" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sv7-B2-DMv" id="Kbb-tc-CPb">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Ss-hG-o2z">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="7DR-b0-BjD" id="0rY-7j-Dqf"/>
+                            <outlet property="delegate" destination="7DR-b0-BjD" id="Gmw-Tq-B1o"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="J3b-MJ-9ym">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="ndN-pd-9V7">
+                            <connections>
+                                <action selector="close" destination="7DR-b0-BjD" id="5Wy-EO-jpc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cro-bx-U4k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="240" y="1774"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GhS-EL-gI0">
@@ -306,7 +355,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Xj8-d1-kHk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.49803921568627452" green="0.49803921568627452" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -317,6 +366,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xsy-sh-x60" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="248" y="1025"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Gdb-rX-0QN">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GPT-Pv-8Rx" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="Qfw-Eo-ybv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.49803921568627452" green="0.49803921568627452" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.12156862745098039" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="7DR-b0-BjD" kind="relationship" relationship="rootViewController" id="qW5-Ty-52Z"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cf5-Oh-jJV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-572" y="1774"/>
         </scene>
     </scenes>
     <resources>
