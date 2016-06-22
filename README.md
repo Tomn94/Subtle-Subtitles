@@ -71,22 +71,22 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 ###v1.5 · 2?/06/2016
 > Subtle Subtitles has found many users, thank you all!
 > 
-> – Download and Share subtitles right from the Search screen!<br>
+> - Download and Share subtitles right from the Search screen!<br>
 > Long press or swipe on a search result to reveal these actions.
 > 
-> – Fix for Non-Latin Languages, including Russian and Greek<br>
+> - Fix for Non-Latin Languages, including Russian and Greek<br>
 > Be sure to check Encoding Settings in the Player if you see any strange character!<br>
 > Your settings will be applied and saved for the next time.
 > 
-> – Subtitles are now stored in cache so you won't download them twice in a row
+> - Subtitles are now stored in cache so you won't download them twice in a row
 > 
-> – Added more keyboard shortcuts<br>
+> - Added more keyboard shortcuts<br>
 > On the iPad, press Cmd to see them all for a given screen
 > 
-> – Free In-App Purchase fixes included
-> – Simplified options for sharing links
-> – Improved Settings pane
-> – UI tweaks
+> - Free In-App Purchase fixes included
+> - Simplified options for sharing links
+> - Improved Settings pane
+> - UI tweaks
 > 
 > Feel free to rate the app if you like it!
 > You can contact me on Twitter for any feedback: @tomn94
