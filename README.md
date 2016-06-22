@@ -52,15 +52,10 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 
 ## TODO
-v1.5
-- Avoid redownloading subtitles if the file is already cached
-- Font settings
-- Restore purchases fix
-
-Later
 - Open files from other apps
 - Subtitle library
 - Share a punchline (© Euryale)
+- Support `&#x27;` characters in SRT files
 - Support for other subtitles file formats
 - Display 2 languages in Player
 - ~~Keyboard shortcuts in search bar while typing~~
@@ -73,15 +68,28 @@ Later
 <sup>~~Abc~~ = iOS SDK doesn't allow it at the moment</sup>
 
 ## Release notes
-###v1.5 · ??/06/2016
->- Keyboard shortcuts support while searching
->- Inverted links so by default it shares OpenSubtitles.org page instead of a direct link to file
->- long press on search result to share
->- Table Action on search rows (export + link) and Keyboard shortcuts
->- Fix encoding in some languages (Russian)
->- Different settings pane for languages and shortcut
->- Warning if IAP are disabled
->- Capitalized strings for Search Suggestions
+###v1.5 · 2?/06/2016
+> Subtle Subtitles has found many users, thank you all!
+> 
+> – Download and Share subtitles right from the Search screen!<br>
+> Long press or swipe on a search result to reveal these actions.
+> 
+> – Fix for Non-Latin Languages, including Russian and Greek<br>
+> Be sure to check Encoding Settings in the Player if you see any strange character!<br>
+> Your settings will be applied and saved for the next time.
+> 
+> – Subtitles are now stored in cache so you won't download them twice in a row
+> 
+> – Added more keyboard shortcuts<br>
+> On the iPad, press Cmd to see them all for a given screen
+> 
+> – Free In-App Purchase fixes included
+> – Simplified options for sharing links
+> – Improved Settings pane
+> – UI tweaks
+> 
+> Feel free to rate the app if you like it!
+> You can contact me on Twitter for any feedback: @tomn94
 
 ###v1.4 · 03/06/2016
 > Subtle Subtitles has found many users, thank you all!
