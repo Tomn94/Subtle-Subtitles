@@ -70,6 +70,7 @@ Later
 - ~~Fix UIDocumentInteractionController arrow direction for Open In UITableViewRowAction on iPad~~
 - UI/icon
 - Website / Twitter account
+- Contact [The Subs](http://www.thesubs.be)
 
 <sup>~~Abc~~ = iOS SDK does not allow it at this moment</sup>
 
