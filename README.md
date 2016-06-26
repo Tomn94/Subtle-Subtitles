@@ -62,6 +62,8 @@ Later
 - Support `&#x27;` characters in SRT files
 - Support for other subtitles file formats
 - Display 2 languages in Player
+- VoiceOver support
+- Russian localization
 - ~~Keyboard shortcuts in search bar while typing~~
 - ~~Always display search scopes~~
 - ~~Fix UIDocumentInteractionController arrow direction for Open In UITableViewRowAction on iPad~~
