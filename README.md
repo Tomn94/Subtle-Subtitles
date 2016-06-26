@@ -55,6 +55,7 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 Up Next
 - Open files from other apps
 - Subtitle library
+- Typeface, font size and color in the Font menu
 - New App Store screenshots + localized
 
 Later
