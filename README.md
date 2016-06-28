@@ -52,23 +52,30 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 
 ## TODO
+Up Next
 - Open files from other apps
 - Subtitle library
+- Typeface, font size and color in the Font menu
+- New App Store screenshots + localized
+
+Later
 - Share a punchline (© Euryale)
 - Support `&#x27;` characters in SRT files
 - Support for other subtitles file formats
 - Display 2 languages in Player
+- VoiceOver support
+- Russian localization
 - ~~Keyboard shortcuts in search bar while typing~~
 - ~~Always display search scopes~~
 - ~~Fix UIDocumentInteractionController arrow direction for Open In UITableViewRowAction on iPad~~
 - UI/icon
-- New App Store screenshots + localized
 - Website / Twitter account
+- Contact [The Subs](http://www.thesubs.be)
 
-<sup>~~Abc~~ = iOS SDK doesn't allow it at the moment</sup>
+<sup>~~Abc~~ = iOS SDK does not allow it at this moment</sup>
 
 ## Release notes
-###v1.5 · 2?/06/2016
+###v1.5 · 25/06/2016
 > Subtle Subtitles has found many users, thank you all!
 > 
 > - Download and Share subtitles right from the Search screen!<br>
