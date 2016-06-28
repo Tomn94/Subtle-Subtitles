@@ -18,6 +18,9 @@ extension String {
 
 extension NSString {
     func increaseNumber(season: Bool) -> NSString {
+        if self == "" {
+            return self;
+        }
         do {
             let regexS = try NSRegularExpression(pattern: "S[0-9]{1,2}", options: [.CaseInsensitive])
             let regexE = try NSRegularExpression(pattern: "E[0-9]{1,2}", options: [.CaseInsensitive])
