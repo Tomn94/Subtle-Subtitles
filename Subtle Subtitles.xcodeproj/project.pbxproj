@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3FCC13E20D128CC3784598E5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08A9A7D0B14129C80462E8EE /* libPods.a */; };
+		0A3854C419F4A0449E538469 /* libPods-Subtle Subtitles.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 472AB0DBD51DD56D6A17E171 /* libPods-Subtle Subtitles.a */; };
 		640C57F51CEB2D9100845807 /* KBTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640C57F31CEB2D9100845807 /* KBTableView.swift */; };
 		640C57F61CEB2D9100845807 /* UITableView+RowConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640C57F41CEB2D9100845807 /* UITableView+RowConvenience.swift */; };
 		64167DBE1CED371A0046B60D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64167DC01CED371A0046B60D /* Localizable.strings */; };
@@ -49,7 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		08A9A7D0B14129C80462E8EE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		14A21A5223DC81250582489D /* Pods-Subtle Subtitles.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Subtle Subtitles.release.xcconfig"; path = "Pods/Target Support Files/Pods-Subtle Subtitles/Pods-Subtle Subtitles.release.xcconfig"; sourceTree = "<group>"; };
+		472AB0DBD51DD56D6A17E171 /* libPods-Subtle Subtitles.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Subtle Subtitles.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		640C57F21CEB2D9000845807 /* Subtle Subtitles-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Subtle Subtitles-Bridging-Header.h"; sourceTree = "<group>"; };
 		640C57F31CEB2D9100845807 /* KBTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KBTableView.swift; sourceTree = "<group>"; };
 		640C57F41CEB2D9100845807 /* UITableView+RowConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+RowConvenience.swift"; sourceTree = "<group>"; };
@@ -88,8 +89,7 @@
 		64D8FBDE1CA77B790082ADA8 /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
 		64D8FBDF1CA77B790082ADA8 /* Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Data.m; sourceTree = "<group>"; };
 		64F880071D0C4B73004E1B1E /* LanguagesTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguagesTable.swift; sourceTree = "<group>"; };
-		DA171D11328EBC39F9D07E5F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		E939A2E308D74BFEA0DAD35A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B79DB9A993CFABDFDEC83183 /* Pods-Subtle Subtitles.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Subtle Subtitles.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Subtle Subtitles/Pods-Subtle Subtitles.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +98,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				649867051CF075B100600DAE /* libz.tbd in Frameworks */,
-				3FCC13E20D128CC3784598E5 /* libPods.a in Frameworks */,
+				0A3854C419F4A0449E538469 /* libPods-Subtle Subtitles.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,15 +119,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		61CA329D83F3C18E44DE64C1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				DA171D11328EBC39F9D07E5F /* Pods.debug.xcconfig */,
-				E939A2E308D74BFEA0DAD35A /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		640C57F71CEB2D9600845807 /* KBTableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -144,8 +135,8 @@
 				643859A11CA727CD00BE70FF /* Subtle SubtitlesTests */,
 				643859AC1CA727CD00BE70FF /* Subtle SubtitlesUITests */,
 				643859861CA727CD00BE70FF /* Products */,
-				61CA329D83F3C18E44DE64C1 /* Pods */,
 				FCFDD0BCF0D71AA3819832B3 /* Frameworks */,
+				C18FB67E10ED473C1FC2D5AA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -217,11 +208,20 @@
 			path = "Subtle SubtitlesUITests";
 			sourceTree = "<group>";
 		};
+		C18FB67E10ED473C1FC2D5AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B79DB9A993CFABDFDEC83183 /* Pods-Subtle Subtitles.debug.xcconfig */,
+				14A21A5223DC81250582489D /* Pods-Subtle Subtitles.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FCFDD0BCF0D71AA3819832B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				649867041CF075B100600DAE /* libz.tbd */,
-				08A9A7D0B14129C80462E8EE /* libPods.a */,
+				472AB0DBD51DD56D6A17E171 /* libPods-Subtle Subtitles.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -233,12 +233,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 643859B21CA727CD00BE70FF /* Build configuration list for PBXNativeTarget "Subtle Subtitles" */;
 			buildPhases = (
-				6F9BC4CEDB874C56DCDD8B27 /* Check Pods Manifest.lock */,
+				BB0FB9D1A13246E1034E2CF2 /* [CP] Check Pods Manifest.lock */,
 				643859811CA727CD00BE70FF /* Sources */,
 				643859821CA727CD00BE70FF /* Frameworks */,
 				643859831CA727CD00BE70FF /* Resources */,
-				5E279BAFAE34F5615D9FDF1F /* Embed Pods Frameworks */,
-				D087832996629C8DB587AAFA /* Copy Pods Resources */,
+				2340F9E6F35C68100FE2038A /* [CP] Embed Pods Frameworks */,
+				99FA3E3150E47E5317D52C77 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -291,12 +291,13 @@
 		6438597D1CA727CD00BE70FF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = Tomn;
 				TargetAttributes = {
 					643859841CA727CD00BE70FF = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 7HW87TV8LC;
+						LastSwiftMigration = 0810;
 					};
 					6438599D1CA727CD00BE70FF = {
 						CreatedOnToolsVersion = 7.3;
@@ -359,49 +360,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5E279BAFAE34F5615D9FDF1F /* Embed Pods Frameworks */ = {
+		2340F9E6F35C68100FE2038A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Subtle Subtitles/Pods-Subtle Subtitles-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6F9BC4CEDB874C56DCDD8B27 /* Check Pods Manifest.lock */ = {
+		99FA3E3150E47E5317D52C77 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Subtle Subtitles/Pods-Subtle Subtitles-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB0FB9D1A13246E1034E2CF2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		D087832996629C8DB587AAFA /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -502,6 +503,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -512,8 +514,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -547,6 +551,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -557,8 +562,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -577,6 +584,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -584,14 +592,14 @@
 		};
 		643859B31CA727CD00BE70FF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA171D11328EBC39F9D07E5F /* Pods.debug.xcconfig */;
+			baseConfigurationReference = B79DB9A993CFABDFDEC83183 /* Pods-Subtle Subtitles.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Subtle Subtitles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -599,25 +607,27 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Subtle Subtitles/Subtle Subtitles-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		643859B41CA727CD00BE70FF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E939A2E308D74BFEA0DAD35A /* Pods.release.xcconfig */;
+			baseConfigurationReference = 14A21A5223DC81250582489D /* Pods-Subtle Subtitles.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "Subtle Subtitles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tomn.Subtle-Subtitles";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Subtle Subtitles/Subtle Subtitles-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

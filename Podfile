@@ -1,3 +1,5 @@
+target "Subtle Subtitles" do
+
 source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, '8.0'
@@ -9,3 +11,5 @@ pod 'AFNetworking', '~> 3.1'
 pod 'TUSafariActivity', '~> 1.0'
 pod 'DZNEmptyDataSet', '~> 1.8'
 pod 'BGTableViewRowActionWithImage'
+
+end

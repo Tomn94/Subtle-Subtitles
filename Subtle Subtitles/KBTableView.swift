@@ -8,19 +8,19 @@
 
 import UIKit
 
-@objc public class KBTableView : UITableView {
+@objc open class KBTableView : UITableView {
 	
-	var onSelection: ((NSIndexPath) -> Void)?
-	var onFocus: ((current: NSIndexPath?, previous: NSIndexPath?) -> Void)?
-	public var currentlyFocussedIndex: NSIndexPath?
+	var onSelection: ((IndexPath) -> Void)?
+	var onFocus: ((_ current: IndexPath?, _ previous: IndexPath?) -> Void)?
+	open var currentlyFocussedIndex: IndexPath?
 	
-	override public var keyCommands: [UIKeyCommand]?{
+	override open var keyCommands: [UIKeyCommand]?{
         if #available(iOS 9.0, *) {/*
             let upCommand = UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: [], action: #selector(KBTableView.upCommand), discoverabilityTitle: "Move Up")
             let downCommand = UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: [], action: #selector(KBTableView.downCommand), discoverabilityTitle: "Move Down")
             let returnCommand = UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(KBTableView.returnCommand), discoverabilityTitle: "Enter")*/
 //            let escCommand = UIKeyCommand(input: UIKeyInputEscape, modifierFlags: [], action: #selector(KBTableView.escapeCommand)/*, discoverabilityTitle: "Deselect"*/)
-            let otherEscCommand = UIKeyCommand(input: "d", modifierFlags: [.Command], action: #selector(KBTableView.escapeCommand)/*, discoverabilityTitle: "Deselect"*/)
+            let otherEscCommand = UIKeyCommand(input: "d", modifierFlags: [.command], action: #selector(KBTableView.escapeCommand)/*, discoverabilityTitle: "Deselect"*/)
             
             var commands: [UIKeyCommand] = []// = [upCommand, downCommand]
             if let _ = currentlyFocussedIndex{
@@ -31,99 +31,99 @@ import UIKit
         return nil
 	}
 	
-	public func stopHighlighting(){
-		onFocus?(current: nil, previous: currentlyFocussedIndex)
+	open func stopHighlighting(){
+		onFocus?(nil, currentlyFocussedIndex)
 		currentlyFocussedIndex = nil
 	}
 	
-	@objc public func escapeCommand(){
+	@objc open func escapeCommand(){
 		stopHighlighting()
 	}
 	
-	@objc public func upCommand(){
+	@objc open func upCommand(){
 		guard let previouslyFocussedIndex = currentlyFocussedIndex else {
 			currentlyFocussedIndex = indexPathForAbsoluteRow(numberOfTotalRows() - 1)
-			onFocus?(current: currentlyFocussedIndex, previous: nil)
+			onFocus?(currentlyFocussedIndex, nil)
 			return
 		}
 		
 		if previouslyFocussedIndex.row > 0{
-			currentlyFocussedIndex = NSIndexPath(forRow: previouslyFocussedIndex.row - 1, inSection: previouslyFocussedIndex.section)
+			currentlyFocussedIndex = IndexPath(row: previouslyFocussedIndex.row - 1, section: previouslyFocussedIndex.section)
 		} else if previouslyFocussedIndex.section > 0{
 			var section = previouslyFocussedIndex.section - 1
 			while section >= 0{
-				if numberOfRowsInSection(section) > 0{
+				if numberOfRows(inSection: section) > 0{
 					break
 				} else {
 					section -= 1
 				}
 			}
 			if section >= 0{
-				currentlyFocussedIndex = NSIndexPath(forRow: numberOfRowsInSection(section) - 1, inSection: section)
+				currentlyFocussedIndex = IndexPath(row: numberOfRows(inSection: section) - 1, section: section)
 			} else {
 				currentlyFocussedIndex = indexPathForAbsoluteRow(numberOfTotalRows() - 1)
 			}
 		} else {
 			currentlyFocussedIndex = indexPathForAbsoluteRow(numberOfTotalRows() - 1)
 		}
-		onFocus?(current: currentlyFocussedIndex, previous: previouslyFocussedIndex)
+		onFocus?(currentlyFocussedIndex, previouslyFocussedIndex)
 	}
 	
-	@objc public func downCommand(){
+	@objc open func downCommand(){
 		guard let previouslyFocussedIndex = currentlyFocussedIndex else {
 			currentlyFocussedIndex = indexPathForAbsoluteRow(0)
-			onFocus?(current: currentlyFocussedIndex, previous: nil)
+			onFocus?(currentlyFocussedIndex, nil)
 			return
 		}
 		
-		if previouslyFocussedIndex.row < numberOfRowsInSection(previouslyFocussedIndex.section) - 1{
-			currentlyFocussedIndex = NSIndexPath(forRow: previouslyFocussedIndex.row + 1, inSection: previouslyFocussedIndex.section)
+		if previouslyFocussedIndex.row < numberOfRows(inSection: previouslyFocussedIndex.section) - 1{
+			currentlyFocussedIndex = IndexPath(row: previouslyFocussedIndex.row + 1, section: previouslyFocussedIndex.section)
 		} else if previouslyFocussedIndex.section < numberOfSections - 1{
 			var section = previouslyFocussedIndex.section + 1
 			while section < numberOfSections{
-				if numberOfRowsInSection(section) > 0{
+				if numberOfRows(inSection: section) > 0{
 					break
 				} else {
 					section += 1
 				}
 			}
 			if section < numberOfSections{
-				currentlyFocussedIndex = NSIndexPath(forRow: 0, inSection: section)
+				currentlyFocussedIndex = IndexPath(row: 0, section: section)
 			} else {
 				currentlyFocussedIndex = indexPathForAbsoluteRow(0)
 			}
 		} else {
 			currentlyFocussedIndex = indexPathForAbsoluteRow(0)
 		}
-		onFocus?(current: currentlyFocussedIndex, previous: previouslyFocussedIndex)
+		onFocus?(currentlyFocussedIndex, previouslyFocussedIndex)
 	}
 	
-	@objc public func returnCommand(){
+	@objc open func returnCommand(){
 		guard let currentlyFocussedIndex = currentlyFocussedIndex else { return }
 		onSelection?(currentlyFocussedIndex)
 	}
 	
-	public override func reloadData() {
-		onFocus?(current: currentlyFocussedIndex, previous: nil)
+	open override func reloadData() {
+		onFocus?(currentlyFocussedIndex, nil)
 		currentlyFocussedIndex = nil
 		super.reloadData()
 	}
 	
 	required public init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KBTableView.escapeCommand), name: UITableViewSelectionDidChangeNotification, object: self)
+		NotificationCenter.default.addObserver(self, selector: #selector(KBTableView.escapeCommand), name: NSNotification.Name.UITableViewSelectionDidChange, object: self)
 	}
 	
 	override public init(frame: CGRect, style: UITableViewStyle) {
 		super.init(frame: frame, style: style)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KBTableView.escapeCommand), name: UITableViewSelectionDidChangeNotification, object: self)
+		NotificationCenter.default.addObserver(self, selector: #selector(KBTableView.escapeCommand), name: NSNotification.Name.UITableViewSelectionDidChange, object: self)
 	}
 	
 	deinit{
-		NSNotificationCenter.defaultCenter().removeObserver(self)
+		NotificationCenter.default.removeObserver(self)
 	}
 	
-	public override func canBecomeFirstResponder() -> Bool {
+	open override var canBecomeFirstResponder : Bool {
 		return true
 	}
 	

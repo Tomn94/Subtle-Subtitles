@@ -17,57 +17,58 @@ extension String {
 }
 
 extension NSString {
-    func increaseNumber(season: Bool) -> NSString {
+    func increaseNumber(_ season: Bool) -> NSString {
         if self == "" {
             return self;
         }
         do {
-            let regexS = try NSRegularExpression(pattern: "S[0-9]{1,2}", options: [.CaseInsensitive])
-            let regexE = try NSRegularExpression(pattern: "E[0-9]{1,2}", options: [.CaseInsensitive])
+            let regexS = try NSRegularExpression(pattern: "S[0-9]{1,2}", options: [.caseInsensitive])
+            let regexE = try NSRegularExpression(pattern: "E[0-9]{1,2}", options: [.caseInsensitive])
             
             let regex = season ? regexS : regexE;
             let cc = self.length
             
-            var range = regex.rangeOfFirstMatchInString(self as String, options: [], range: NSRange(location: 0, length: cc))
+            var range = regex.rangeOfFirstMatch(in: self as String, options: [], range: NSRange(location: 0, length: cc))
             if range.location == NSNotFound || range.location + 1 >= cc { // Pas trouvé
                 if season {     // Si bouton S+1
                     // Si on a au moins l'épisode
-                    range = regexE.rangeOfFirstMatchInString(self as String, options: [], range: NSRange(location: 0, length: cc))
+                    range = regexE.rangeOfFirstMatch(in: self as String, options: [], range: NSRange(location: 0, length: cc))
                     if range.location != NSNotFound && range.location + 1 < cc {
                         // On rajoute la saison 1
-                        let result = (self as NSString).substringWithRange(range)
-                        return regexE.stringByReplacingMatchesInString(self as String, options: [],
+                        let result = (self as NSString).substring(with: range)
+                        return regexE.stringByReplacingMatches(in: self as String, options: [],
                                                                        range: NSRange(location: 0, length: cc),
-                                                                       withTemplate: "S01" + result)
+                                                                       withTemplate: "S01" + result) as NSString
                     }
                 } else {        // Si bouton E+1
                     // Si on a au moins la saison
-                    range = regexS.rangeOfFirstMatchInString(self as String, options: [], range:NSRange(location: 0, length: cc))
+                    range = regexS.rangeOfFirstMatch(in: self as String, options: [], range:NSRange(location: 0, length: cc))
                     if range.location != NSNotFound && range.location + 1 < cc {
                         // On rajoute l'épisode 1
-                        let result = (self as NSString).substringWithRange(range)
-                        return regexS.stringByReplacingMatchesInString(self as String, options: [],
+                        let result = (self as NSString).substring(with: range)
+                        return regexS.stringByReplacingMatches(in: self as String, options: [],
                                                                        range:NSRange(location: 0, length: cc),
-                                                                       withTemplate: result + "E01")
+                                                                       withTemplate: result + "E01") as NSString
                     }
                 }
                 
                 var res = self
                 // S'il n'y a ni Sxx ni Exx
                 if !hasSuffix(" ") {
-                    res = res.stringByAppendingString(" ")
+                    res = res.appending(" ") as NSString
                 }
-                res = res.stringByAppendingString("S01E01")
+                res = res.appending("S01E01") as NSString
                 return res
             } else {
-                let result = (self as NSString).substringWithRange(NSRange(location: range.location + 1, length: range.length - 1))
+                let result = (self as NSString).substring(with: NSRange(location: range.location + 1, length: range.length - 1))
                 var intVal = Int(result) ?? 0
                 if intVal < 99 {
                     intVal += 1
                 }
                 
-                return regex.stringByReplacingMatchesInString(self as String, options: [], range:NSRange(location: 0, length: cc),
-                                                              withTemplate: String(format: "%@%02d", season ? "S" : "E", intVal))
+                let letter = season ? "S" : "E"
+                return regex.stringByReplacingMatches(in: self as String, options: [], range:NSRange(location: 0, length: cc),
+                                                              withTemplate: String(format: "%@%02d", letter, intVal)) as NSString
             }
         } catch {}
         return self
@@ -86,19 +87,19 @@ class SuggestionsTable: UITableViewController {
             return [
                 UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(search(_:)),
                     discoverabilityTitle: "Search".localized),
-                UIKeyCommand(input: "\r", modifierFlags: [.Shift], action: #selector(search(_:)),
+                UIKeyCommand(input: "\r", modifierFlags: [.shift], action: #selector(search(_:)),
                     discoverabilityTitle: "Search English Subtitles".localized),
-                UIKeyCommand(input: "\r", modifierFlags: [.Alternate], action: #selector(search(_:)),
+                UIKeyCommand(input: "\r", modifierFlags: [.alternate], action: #selector(search(_:)),
                     discoverabilityTitle: "Search using Second Language".localized),
                 
-                UIKeyCommand(input: "f", modifierFlags: [.Command, .Shift], action: #selector(switchLang(_:)),
+                UIKeyCommand(input: "f", modifierFlags: [.command, .shift], action: #selector(switchLang(_:)),
                     discoverabilityTitle: "Switch to English".localized),
-                UIKeyCommand(input: "f", modifierFlags: [.Command, .Alternate], action: #selector(switchLang(_:)),
+                UIKeyCommand(input: "f", modifierFlags: [.command, .alternate], action: #selector(switchLang(_:)),
                     discoverabilityTitle: "Switch to Second Language".localized),
                 
-                UIKeyCommand(input: "s", modifierFlags: [.Command], action: #selector(increase(_:)),
+                UIKeyCommand(input: "s", modifierFlags: [.command], action: #selector(increase(_:)),
                 discoverabilityTitle: "Increase Season number".localized),
-                UIKeyCommand(input: "e", modifierFlags: [.Command], action: #selector(increase(_:)),
+                UIKeyCommand(input: "e", modifierFlags: [.command], action: #selector(increase(_:)),
                     discoverabilityTitle: "Increase Episode number".localized),
                 
                 UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: [], action: #selector(keyArrow(_:)),
@@ -107,10 +108,10 @@ class SuggestionsTable: UITableViewController {
                 UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: [], action: #selector(keyArrow(_:)),
                     discoverabilityTitle: "Select Next Suggestion".localized),
                 
-                UIKeyCommand(input: "\r", modifierFlags: [.Command], action: #selector(enterKey),
+                UIKeyCommand(input: "\r", modifierFlags: [.command], action: #selector(enterKey),
                     discoverabilityTitle: "Choose Suggestion".localized),
                 
-                UIKeyCommand(input: "f", modifierFlags: [.Command], action: #selector(exit)),
+                UIKeyCommand(input: "f", modifierFlags: [.command], action: #selector(exit)),
                 UIKeyCommand(input: UIKeyInputEscape, modifierFlags: [], action: #selector(exit),
                     discoverabilityTitle: "Exit Search".localized)
             ]
@@ -119,13 +120,13 @@ class SuggestionsTable: UITableViewController {
         }
     }
     
-    class func simplerQuery(query: String) -> String {
+    class func simplerQuery(_ query: String) -> String {
         do {
-            let regex = try NSRegularExpression(pattern: "S\\d{1,2}E\\d{1,2}", options: [.CaseInsensitive])
-            let res = regex.stringByReplacingMatchesInString(query, options: [],
+            let regex = try NSRegularExpression(pattern: "S\\d{1,2}E\\d{1,2}", options: [.caseInsensitive])
+            let res = regex.stringByReplacingMatches(in: query, options: [],
                                                              range: NSRange(location: 0, length: query.characters.count),
                                                              withTemplate: "")
-            return res.stringByTrimmingCharactersInSet(.whitespaceCharacterSet())
+            return res.trimmingCharacters(in: .whitespaces)
             
         } catch {}
         return query;
@@ -137,14 +138,14 @@ class SuggestionsTable: UITableViewController {
         
         let betterTableView = KBTableView(frame: tableView.frame, style: tableView.style)
         betterTableView.onSelection = { indexPath in
-            self.tableView(betterTableView, didSelectRowAtIndexPath: indexPath)
+            self.tableView(betterTableView, didSelectRowAt: indexPath as IndexPath)
         }
         betterTableView.onFocus = { current, previous in
             if let previous = previous {
-                betterTableView.deselectRowAtIndexPath(previous, animated: false)
+                betterTableView.deselectRow(at: previous as IndexPath, animated: false)
             }
             if let current = current {
-                betterTableView.selectRowAtIndexPath(current, animated: false, scrollPosition: .Middle)
+                betterTableView.selectRow(at: current as IndexPath, animated: false, scrollPosition: .middle)
             }
         }
         tableView = betterTableView
@@ -152,37 +153,37 @@ class SuggestionsTable: UITableViewController {
         let backView = UIView()
         backView.backgroundColor = UIColor(white: 0.2, alpha: 1)
         tableView.backgroundView = backView
-        tableView.separatorColor = .darkGrayColor()
+        tableView.separatorColor = .darkGray
 
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "suggestCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "suggestCell")
     }
     
     func exit() {
-        if let sb = searchBar where sb.isFirstResponder() {
+        if let sb = searchBar, sb.isFirstResponder {
             sb.resignFirstResponder()
         } else if let sc = searchController {
-            sc.active = false
+            sc.isActive = false
         }
     }
     
-    func switchLang(sender: UIKeyCommand) {
+    func switchLang(_ sender: UIKeyCommand) {
         if let sb = searchBar {
-            sb.selectedScopeButtonIndex = (sender.modifierFlags == [.Command, .Alternate]) ? 1 : 0
+            sb.selectedScopeButtonIndex = (sender.modifierFlags == [.command, .alternate]) ? 1 : 0
         }
     }
     
-    func increase(sender: UIKeyCommand) {
+    func increase(_ sender: UIKeyCommand) {
         if let sb = searchBar {
             let txt = sb.text! as NSString
             sb.text = txt.increaseNumber(sender.input == "s") as String
         }
     }
     
-    func search(sender: UIKeyCommand) {
+    func search(_ sender: UIKeyCommand) {
         if let sb = searchBar {
-            if sender.modifierFlags == [.Shift] {
+            if sender.modifierFlags == [.shift] {
                 sb.selectedScopeButtonIndex = 0
-            } else if sender.modifierFlags == [.Alternate] {
+            } else if sender.modifierFlags == [.alternate] {
                 sb.selectedScopeButtonIndex = 1
             }
             
@@ -193,34 +194,34 @@ class SuggestionsTable: UITableViewController {
     }
     
     
-    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+        if UIDevice.current.userInterfaceIdiom == .phone {
             if let sb = searchBar {
-                let statusBar: CGFloat = UIApplication.sharedApplication().statusBarFrame.size.height
+                let statusBar: CGFloat = UIApplication.shared.statusBarFrame.size.height
                 tableView.contentInset = UIEdgeInsets(top: sb.frame.size.height + statusBar, left: 0, bottom: 0, right: 0)
                 automaticallyAdjustsScrollViewInsets = false
             }
         }
     }
     
-    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if let sb = searchBar {
             sb.resignFirstResponder()
         }
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return suggestions.count
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         // Aucune recherche précédemment stockée
-        if let previous = NSUserDefaults.standardUserDefaults().objectForKey("previousSearches") where previous.count == 0 {
+        if let previous = UserDefaults.standard.object(forKey: "previousSearches"), (previous as AnyObject).count == 0 {
             return "No Previous Searches".localized
         }
         // Recherches stockées
@@ -237,39 +238,39 @@ class SuggestionsTable: UITableViewController {
         return "No Previous Matching".localized
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("suggestCell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "suggestCell", for: indexPath)
         
-        cell.textLabel?.text = suggestions[indexPath.row].capitalizedString
-        cell.textLabel?.textColor = .lightGrayColor()
+        cell.textLabel?.text = suggestions[indexPath.row].capitalized
+        cell.textLabel?.textColor = .lightGray
         cell.backgroundColor = UIColor(white: 0.2, alpha: 1)
         cell.selectedBackgroundView = UIView(frame: cell.bounds)
-        cell.selectedBackgroundView!.backgroundColor = .darkGrayColor()
+        cell.selectedBackgroundView!.backgroundColor = .darkGray
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchBar?.text = suggestions[indexPath.row] + " "
         searchBar?.becomeFirstResponder()
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            let defaults = NSUserDefaults.standardUserDefaults();
-            if var previous = defaults.objectForKey("previousSearches") as? [String] {
-                if let index = previous.indexOf(suggestions[indexPath.row]) {
-                    previous.removeAtIndex(index)
-                    defaults.setObject(previous, forKey: "previousSearches")
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let defaults = UserDefaults.standard;
+            if var previous = defaults.object(forKey: "previousSearches") as? [String] {
+                if let index = previous.index(of: suggestions[indexPath.row]) {
+                    previous.remove(at: index)
+                    defaults.set(previous, forKey: "previousSearches")
                 }
             }
-            suggestions.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            suggestions.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
             if suggestions.isEmpty {
                 tableView.reloadData()
             }
@@ -278,7 +279,7 @@ class SuggestionsTable: UITableViewController {
     
     // MARK: - Keyboard
     
-    func keyArrow(sender: UIKeyCommand) {
+    func keyArrow(_ sender: UIKeyCommand) {
         let kbTableView = tableView as! KBTableView
         if sender.input == UIKeyInputUpArrow {
             kbTableView.upCommand()
