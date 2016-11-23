@@ -76,6 +76,17 @@ Later
 <sup>~~Abc~~ = iOS SDK does not allow it at this moment</sup>
 
 ## Release notes
+###v1.6 · 2016
+> - Don't add S01E01 to an empty string
+> - New tint color
+> - French quotes fix if No Results
+> - Monospaced font fix for player
+> - New Contact button, redirects to Twitter
+> - New tips and rephrased old ones
+> - 3D Touch shortcuts on app icon
+> - Don't animate scrolling for 2nd Search Langage
+> - Vibration feedbacks on the iPhone 7 for S+1 & E+1 buttons
+
 ###v1.5 · 25/06/2016
 > Subtle Subtitles has found many users, thank you all!
 > 
