@@ -65,6 +65,7 @@ Later
 - Display 2 languages in Player
 - VoiceOver support
 - Russian localization
+- What's New, list of new subtitles in a specified langage
 - ~~Keyboard shortcuts in search bar while typing~~
 - ~~Always display search scopes~~
 - ~~Fix UIDocumentInteractionController arrow direction for Open In UITableViewRowAction on iPad~~
