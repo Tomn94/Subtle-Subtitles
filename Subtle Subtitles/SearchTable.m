@@ -525,6 +525,26 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         }]];
     }
     
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Contact", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSURL *twitter = [NSURL URLWithString:@"twitter://user?screen_name=tomn94"];
+        NSURL *url     = [NSURL URLWithString:@"https://twitter.com/tomn94"];
+        if ([[UIApplication sharedApplication] canOpenURL:twitter])
+            [[UIApplication sharedApplication] openURL:twitter];
+        else if ([SFSafariViewController class])
+        {
+            SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:url
+                                                                 entersReaderIfAvailable:NO];
+            if ([SFSafariViewController instancesRespondToSelector:@selector(preferredBarTintColor)])
+            {
+                safari.preferredBarTintColor = [UIColor colorWithWhite:31/255. alpha:1];
+                safari.preferredControlTintColor = [UINavigationBar appearance].tintColor;
+            }
+            [self presentViewController:safari animated:YES completion:nil];
+        }
+        else
+            [[UIApplication sharedApplication] openURL:url];
+    }]];
+    
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"") style:UIAlertActionStyleCancel handler:nil]];
     
     [self presentViewController:alert animated:YES completion:nil];

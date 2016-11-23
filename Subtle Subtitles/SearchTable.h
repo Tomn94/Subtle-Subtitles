@@ -16,6 +16,7 @@
 #import "Settings.h"
 #import "BGTableViewRowActionWithImage.h"
 #import <UIScrollView+EmptyDataSet.h>
+#import <SafariServices/SafariServices.h>
 
 @interface SearchTable : UITableViewController <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {

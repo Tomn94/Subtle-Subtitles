@@ -62,8 +62,9 @@
 "Error when downloading SRT file" = "Erreur lors du téléchargement du fichier SRT";
 
 "Searches through OpenSubtitles.org thanks to OROpenSubtitleDownloader framework\n\nTip 1: S+1 and E+1 buttons help you find the next episode if you type something like “Archer S03E05”\nTip 2: Pinch to resize subtitles\n\nContact: @tomn94" =
-"Recherche sur OpenSubtitles.org grâce à OROpenSubtitleDownloader.\n\nAstuce №1 : les boutons S+1 et E+1 permettent de trouver l'épisode suivant si vous tapez quelque chose comme « Archer S03E05 »\nAstuce №2 : modifiez les paramètres d'encodage (bouton A) si des caractères n'apparaissent pas correctement\nAstuce №3: Utilisez les raccourcis clavier sur iPad (touche ⌘) !\n\nContact : @tomn94";
+"Recherche sur OpenSubtitles.org grâce à OROpenSubtitleDownloader.\n\nAstuces:\n1⃝ Les boutons S+1 et E+1 permettent de trouver le bon épisode et de passer rapidement au suivant\n2⃝ Modifiez l'encodage (bouton A) si des caractères n'apparaissent pas correctement\n3⃝ Via le bouton Partager, transférez rapidement vos sous-titres sur Mac avec AirDrop, ou sur votre Bureau avec iCloud Drive\n4⃝ De même, envoyez-en à vos amis en choisissant Messenger/WhatsApp/…\n5⃝ Pressez ⌘ pour voir les raccourcis clavier disponibles sur iPad";
 "Remove Ads" = "Supprimer les publicités";
+"Contact" = "Contacter";
 "Remove ads for a small amount" = "Retirer les pubs à petit prix";
 "The developer will be so happy for your donation especially knowing that you won't have to bear ads anymore!" =
 "Le développeur sera tellement ravi de votre don, surtout parce qu'il saura que vous n'aurez plus à supporter les pubs !";
