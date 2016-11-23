@@ -85,7 +85,6 @@ class FontSettings: UITableViewController {
         backView.backgroundColor = UIColor(white: 0.2, alpha: 1)
         tableView.backgroundView = backView
         tableView.separatorColor = UIColor.darkGray
-        tableView.tintColor      = UIColor.lightGray
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "fontSettingsCell")
     }

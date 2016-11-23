@@ -15,6 +15,11 @@
 - (BOOL)          application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    UIColor *tintColor = [UIColor colorWithRed:1 green:65/255. blue:80/255. alpha:1];
+    _window.tintColor = tintColor;
+    [UIView appearance].tintColor = tintColor;
+    [UINavigationBar appearance].tintColor = tintColor;
+    [UISearchBar appearance].barTintColor = [UIColor colorWithWhite:0.25 alpha:1];
     [[Data sharedData] updateNetwork:0];
     
     [CJPAdController sharedInstance].adNetworks = @[@(CJPAdNetworkAdMob)];

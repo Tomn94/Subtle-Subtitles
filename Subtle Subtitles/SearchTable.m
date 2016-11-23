@@ -35,8 +35,6 @@
     search.searchBar.placeholder = NSLocalizedString(@"Search movies or series", @"");
     search.searchBar.scopeButtonTitles = @[ NSLocalizedString(@"English", @""), [Settings localize:[defaults stringForKey:@"langName"]], @"S+1", @"E+1" ];
     search.searchBar.barStyle = UIBarStyleBlack;
-    search.searchBar.tintColor = [UIColor lightGrayColor];
-    search.searchBar.barTintColor = [UIColor colorWithWhite:0.25 alpha:1];
     search.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
     search.dimsBackgroundDuringPresentation = YES;
     search.searchBar.enablesReturnKeyAutomatically = NO;
@@ -458,7 +456,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                                                                  }];
     UITableViewRowAction *fileAction = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault
                                                                                    title:@"   "
-                                                                         backgroundColor:[UIColor lightGrayColor]
+                                                                         backgroundColor:self.tableView.tintColor
                                                                                    image:[UIImage imageNamed:@"share"]
                                                                            forCellHeight:67
                                                                                  handler:^(UITableViewRowAction *action,

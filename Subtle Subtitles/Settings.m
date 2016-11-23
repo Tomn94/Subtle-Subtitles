@@ -122,7 +122,7 @@
     {
         cell.textLabel.text = NSLocalizedString(@"Clear Search History", @"");
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = [UIColor lightGrayColor];
+        cell.textLabel.textColor = self.tableView.tintColor;
         cell.accessoryType = UITableViewCellAccessoryNone;
         return cell;
     }

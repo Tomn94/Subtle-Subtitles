@@ -64,7 +64,7 @@ class LanguagesTable: UITableViewController {
         backView.backgroundColor = UIColor(white: 0.2, alpha: 1)
         tableView.backgroundView = backView
         tableView.separatorColor = .darkGray
-        tableView.tintColor      = .lightGray
+//        tableView.tintColor      = .lightGray
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshLangs))
         
