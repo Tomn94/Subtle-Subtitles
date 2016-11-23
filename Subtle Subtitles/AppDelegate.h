@@ -10,9 +10,13 @@
 
 @import UIKit;
 #import "Data.h"
+#import "SearchTable.h"
 #import "CJPAdController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+{
+    UINavigationController *navController;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 

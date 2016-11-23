@@ -15,11 +15,13 @@
 #import "OROpenSubtitleDownloader.h"
 
 #define ADS_ID @"com.tomn.SubtleSubtitles.ads"
+#define QUICKACTIONS_ID @"com.tomn.Subtle-Subtitles.previousSearchesShortcut"
 
 @interface Data : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver, OROpenSubtitleDownloaderDelegate>
 
 + (Data *) sharedData;
 + (BOOL) hasCachedFile:(NSString *)name;
++ (void) updateDynamicShortcutItems;
 
 @property (strong, nonatomic) NSArray *langNames;
 @property (strong, nonatomic) NSArray *langIDs;

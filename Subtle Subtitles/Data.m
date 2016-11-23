@@ -37,6 +37,8 @@
         [defaults removeObjectForKey:@"lastSearch"];
         [defaults synchronize];
         
+        [Data updateDynamicShortcutItems];
+        
         // Nettoyage des données précédentes
         NSString *extension = @"srt";
         NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -104,6 +106,29 @@
         }*/
         [[Data sharedData] updateNetwork:-1];
     }];
+}
+
+#pragma mark - 3D Touch shortcuts
+
+/** Add previous searches to 3D Touch shortcuts */
++ (void) updateDynamicShortcutItems
+{
+    NSArray *previous = [[NSUserDefaults standardUserDefaults] arrayForKey:@"previousSearches"];
+    NSMutableArray *shortcutItems = [NSMutableArray array];
+    
+    int nbr = 0, max = 5;   // Some kind of watchdog
+    for (NSString *previousSearch in previous) {
+        [shortcutItems addObject:[[UIApplicationShortcutItem alloc] initWithType:QUICKACTIONS_ID
+                                                                  localizedTitle:previousSearch.capitalizedString
+                                                               localizedSubtitle:nil
+                                                                            icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeSearch]
+                                                                        userInfo:nil]];
+        nbr++;
+        if (nbr > max)
+            break;
+    }
+    
+    [UIApplication sharedApplication].shortcutItems = shortcutItems;
 }
 
 #pragma mark - In-App Purchase

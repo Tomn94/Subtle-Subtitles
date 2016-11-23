@@ -29,7 +29,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [[CJPAdController sharedInstance] setTestDeviceIDs:@[@"7bf93d1f07cb039c3a523bc37ba84bdd"]]; // TEST_EMULATOR pour avoir l'ID
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UINavigationController *navController = (UINavigationController*)[storyboard instantiateInitialViewController];
+    navController = (UINavigationController*)[storyboard instantiateInitialViewController];
     [[CJPAdController sharedInstance] startWithViewController:navController];
     self.window.rootViewController = [CJPAdController sharedInstance];
     
@@ -38,6 +38,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
 - (void) applicationWillResignActive:(UIApplication *)application
 {
+    [Data updateDynamicShortcutItems];
+    
     // ENABLE THIS IF YOU WANT TO FREEZE THE TEXT WHEN THE APP LOSES FOCUS
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"stopTimerSub" object:nil];
 }
@@ -57,6 +59,34 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)         application:(UIApplication *)application
+performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
+           completionHandler:(void (^)(BOOL))completionHandler
+{
+    if ([shortcutItem.type isEqualToString:QUICKACTIONS_ID]) {
+        NSArray *vcs = navController.viewControllers;
+        if ([vcs.lastObject isKindOfClass:[SearchTable class]]) {
+            /* Target view controller found */
+            SearchTable *table = (SearchTable *)vcs.lastObject;
+            
+            /* Don't dismiss search (bar) if already open, otherwise dismiss any dialog or pushed VC */
+            if (![table isSearchOpen]) {
+                [navController.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+                [navController popToRootViewControllerAnimated:YES];
+            }
+            
+            /* Search for Shortcut Title, with a delay if app launches */
+            double delayInSeconds = 0.1;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^{
+                [table searchFor:[NSString stringWithFormat:@"%@ ", shortcutItem.localizedTitle]];
+            });
+        }
+    }
+    
+    completionHandler(YES);
 }
 
 @end

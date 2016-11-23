@@ -555,6 +555,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     [search.searchBar becomeFirstResponder];
 }
 
+- (BOOL) isSearchOpen
+{
+    return search.searchBar.isFirstResponder;
+}
+
+- (void) searchFor:(NSString *)query
+{
+    [self openSearch];
+    [search.searchBar setText:query];
+}
+
 - (void) openLanguage
 {
     [self performSegueWithIdentifier:@"settingsSegue" sender:self.navigationItem.leftBarButtonItem];

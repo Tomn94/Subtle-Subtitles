@@ -34,6 +34,8 @@
 - (IBAction) infos:(id)sender;
 
 - (void) openSearch;
+- (BOOL) isSearchOpen;
+- (void) searchFor:(NSString *)query;
 - (void) openLanguage;
 - (void) increaseNumber:(UIKeyCommand *)sender;
 - (void) selectLanguage:(UIKeyCommand *)sender;
