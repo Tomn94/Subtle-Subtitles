@@ -78,12 +78,12 @@ class LanguagesTable: UITableViewController {
                                                          name: NSNotification.Name(rawValue: "updateLangages"), object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         let indexPath = IndexPath(row: lastSel, section: 0)
         (tableView as! KBTableView).currentlyFocussedIndex = indexPath
-        tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
     }
     
     func loadLanguages() {
