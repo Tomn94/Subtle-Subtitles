@@ -23,7 +23,7 @@
     srt = nil;
     
     maxTimeLabel = @"00:00";
-    if ([UIFont instancesRespondToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)])
+    if ([UIFont respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)])
     {
         _stepperValue.font = [UIFont monospacedDigitSystemFontOfSize:_stepperValue.font.pointSize
                                                               weight:UIFontWeightRegular];
@@ -153,7 +153,7 @@
 - (void) viewDidDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self stop];
+    [self stop];    // TODO: Don't stop playing if Font preferences view controller on iPhone is displayed
 }
 
 - (void) viewWillTransitionToSize:(CGSize)size

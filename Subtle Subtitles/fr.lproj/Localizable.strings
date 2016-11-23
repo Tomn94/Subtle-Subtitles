@@ -55,7 +55,7 @@
 "Choose Suggestion" = "Sélectionner la suggestion";
 
 "Unable to fetch available languages" = "Impossible de récupérer les langues disponibles";
-"No results for “%@”" = "Aucun résultat pour « %@ »";
+"No results for “%@”" = "Aucun résultat pour « %@ »";
 "Search error" = "Erreur lors de la recherche";
 "SUB files are not supported" = "Les fichiers SUB ne sont pas supportés";
 "Sorry, search for SRT files, please." = "Merci de rechercher des fichiers SRT";
