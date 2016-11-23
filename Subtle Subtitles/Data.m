@@ -131,6 +131,23 @@
     [UIApplication sharedApplication].shortcutItems = shortcutItems;
 }
 
+#pragma mark - Taptic Engine
+
++ (void) feedbackAfterAction:(UINotificationFeedbackType)feedbackType
+{
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"10" options:NSNumericSearch] != NSOrderedAscending) {
+        if (feedbackType == UINotificationFeedbackTypeSuccess) {
+            UISelectionFeedbackGenerator *generator = [UISelectionFeedbackGenerator new];
+            [generator prepare];
+            [generator selectionChanged];
+        } else {
+            UINotificationFeedbackGenerator *generator = [UINotificationFeedbackGenerator new];
+            [generator prepare];
+            [generator notificationOccurred:feedbackType];
+        }
+    }
+}
+
 #pragma mark - In-App Purchase
 
 - (void) startPurchase

@@ -22,6 +22,7 @@
 + (Data *) sharedData;
 + (BOOL) hasCachedFile:(NSString *)name;
 + (void) updateDynamicShortcutItems;
++ (void) feedbackAfterAction:(UINotificationFeedbackType)feedbackType;
 
 @property (strong, nonatomic) NSArray *langNames;
 @property (strong, nonatomic) NSArray *langIDs;
