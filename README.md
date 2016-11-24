@@ -1,6 +1,6 @@
 # Subtle Subtitles
 
-[![Version](https://img.shields.io/badge/version-1.5-green.svg)](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
+[![Version](https://img.shields.io/badge/version-2.0-green.svg)](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
 ![Code](https://img.shields.io/badge/code-Objective--C + Swift-orange.svg)
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
 [![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
