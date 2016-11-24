@@ -18,22 +18,31 @@ Coded in few hours so be clement! (✿◠‿◠)
 
 > Super simple Subtitle player: Search & Play!
 > 
-> #### SEARCH
+> #### FIND
 > - Search movies and TV series through the huge OpenSubtitles.org online database
-> - Find the subtitles in your preferred language (OpenSubtitles.org offers 70+ languages)
-> - Binge watching? Tired to write? Get to the next episode and even the next season quickly with E+1 and S+1 buttons.
+> - Or import your own subtitles!
+> - Find subtitles in your preferred language (OpenSubtitles.org offers 70+ languages)
+> - Binge watching? Tired to write? Get to the next episode and even to the next season quickly with E+1 and S+1 buttons.
 > 
 > #### PLAY!
-> - The subtitle file starts playing right after you choose it in the list
-> - Full-screen experience
-> - Play/Pause button if you need a break
-> - Use the scrub bar to find your favorite scene
-> - Delay or advance in time, so you stay synced with your video
-> - Share subtitles to any other app or friend
+> – The subtitle file starts playing right after you choose it in the list
+> – Full-screen experience
+> – Play/Pause button if you need a break
+> – Use the scrub bar to find your favorite scene
+> – Delay or advance in time, so you stay synced with your video
+> – Pinch to resize the text of the subtitles
+> – Change the encoding
+>
+> #### SHARE
+> - Send the subtitles with any messaging app (WhatsApp, Messenger…) to share them with your friends!
+> - Export to any other app, such as video players
+> - Quick share with AirDrop or iCloud Drive to find them on your Mac/PC
 > 
 > #### TIPS
 > - Perfect if you do not want to see the subtitles spoiling the screen on top of your movie/TV series!
 > - This is also useful to perfect your English (or any foreign language depending on the original version), since you focus on the voices more than reading every word, especially if the subtitles are translated. Put your iOS device somewhere near, you'll get used to check the subtitles only when you'd be lost!
+> - Use a keyboard on iPad to make it stand in front of you, and navigate easier with the keyboard shortcuts
+> - Get back to your ongoing show with 3D Touch actions on the app icon
 > 
 > Completely free and unlimited, with ads that can be easily removed.<br>
 > Enjoy, feel free to send your feedback: @tomn94
@@ -52,13 +61,7 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 
 ## TODO
-Up Next
-- Open files from other apps
 - Subtitle library
-- Typeface, font size and color in the Font menu
-- New App Store screenshots + localized
-
-Later
 - Share a punchline (© Euryale)
 - Support `&#x27;` characters in SRT files
 - Support for other subtitles file formats
@@ -69,14 +72,17 @@ Later
 - ~~Keyboard shortcuts in search bar while typing~~
 - ~~Always display search scopes~~
 - ~~Fix UIDocumentInteractionController arrow direction for Open In UITableViewRowAction on iPad~~
-- UI/icon
+- Icon
 - Website / Twitter account
 - Contact [The Subs](http://www.thesubs.be)
 
 <sup>~~Abc~~ = iOS SDK does not allow it at this moment</sup>
 
 ## Release notes
-###v1.6 · 2016
+###v2.0 · 2016
+> - Typeface, font size and color in the Font menu
+> - New App Store screenshots + localized
+> - Open files from other apps
 > - Don't add S01E01 to an empty string
 > - New tint color
 > - French quotes fix if No Results
