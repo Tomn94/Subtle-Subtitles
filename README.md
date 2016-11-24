@@ -25,13 +25,13 @@ Coded in few hours so be clement! (✿◠‿◠)
 > - Binge watching? Tired to write? Get to the next episode and even to the next season quickly with E+1 and S+1 buttons.
 > 
 > #### PLAY!
-> – The subtitle file starts playing right after you choose it in the list
-> – Full-screen experience
-> – Play/Pause button if you need a break
-> – Use the scrub bar to find your favorite scene
-> – Delay or advance in time, so you stay synced with your video
-> – Pinch to resize the text of the subtitles
-> – Change the encoding
+> - The subtitle file starts playing right after you choose it in the list
+> - Full-screen experience
+> - Play/Pause button if you need a break
+> - Use the scrub bar to find your favorite scene
+> - Delay or advance in time, so you stay synced with your video
+> - Pinch to resize the text of the subtitles
+> - Change the encoding
 >
 > #### SHARE
 > - Send the subtitles with any messaging app (WhatsApp, Messenger…) to share them with your friends!
