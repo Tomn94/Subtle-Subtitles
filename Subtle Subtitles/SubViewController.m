@@ -150,6 +150,12 @@
     [self showControls];
 }
 
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
 - (void) viewDidDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
