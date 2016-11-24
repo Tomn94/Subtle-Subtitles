@@ -23,6 +23,12 @@
     srt = nil;
     
     maxTimeLabel = @"00:00";
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
     if ([UIFont respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)])
     {
         _stepperValue.font = [UIFont monospacedDigitSystemFontOfSize:_stepperValue.font.pointSize
@@ -43,10 +49,18 @@
     
     NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:fileName];
     
-    
-    docAct = [[UIActivityViewController alloc] initWithActivityItems:@[[[ActivityLinkProvider alloc] initWithPlaceholderItem:subFile.subtitlePage],
-                                                                       [[ActivityTextProvider alloc] initWithPlaceholderItem:subFile.subtitleDownloadAddress]]
-                                               applicationActivities:@[[SafariActivity new], [DownActivity new]]];
+    // Imported SRTs have no link
+    if ([subFile.subtitlePage isEqualToString:@""] && [subFile.subtitleDownloadAddress isEqualToString:@""]) {
+        docAct = nil;
+        NSMutableArray *items = [self.navigationItem.rightBarButtonItems mutableCopy];
+        if (items.count > 2)
+            [items removeObjectAtIndex:1];
+        self.navigationItem.rightBarButtonItems = items;
+    }
+    else
+        docAct = [[UIActivityViewController alloc] initWithActivityItems:@[[[ActivityLinkProvider alloc] initWithPlaceholderItem:subFile.subtitlePage],
+                                                                           [[ActivityTextProvider alloc] initWithPlaceholderItem:subFile.subtitleDownloadAddress]]
+                                                   applicationActivities:@[[SafariActivity new], [DownActivity new]]];
     doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:path]];
     
     [self loadWithEncoding];
@@ -422,6 +436,9 @@
 
 - (IBAction) share:(UIBarButtonItem *)sender
 {
+    if (docAct == nil)
+        return;
+    
     forceShowControls = YES;
     [self showControls];
     UIBarButtonItem *item = self.navigationItem.rightBarButtonItems[1];

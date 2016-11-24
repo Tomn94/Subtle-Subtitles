@@ -24,6 +24,7 @@
 		649867051CF075B100600DAE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 649867041CF075B100600DAE /* libz.tbd */; };
 		649867081CF0BFC500600DAE /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 6498670A1CF0BFC500600DAE /* Localizable.stringsdict */; };
 		64B9A0301D16F8BD00C6ABBE /* FontSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B9A02F1D16F8BD00C6ABBE /* FontSettings.swift */; };
+		64D178D71DE758700068C33E /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D178D61DE758700068C33E /* NavigationController.swift */; };
 		64D8FBD71CA735F00082ADA8 /* SearchTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBD61CA735F00082ADA8 /* SearchTable.m */; };
 		64D8FBDA1CA74BBC0082ADA8 /* SubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBD91CA74BBC0082ADA8 /* SubViewController.m */; };
 		64D8FBDD1CA7797C0082ADA8 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBDC1CA7797C0082ADA8 /* Settings.m */; };
@@ -80,6 +81,7 @@
 		649867091CF0BFC500600DAE /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		6498670C1CF0BFF400600DAE /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		64B9A02F1D16F8BD00C6ABBE /* FontSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontSettings.swift; sourceTree = "<group>"; };
+		64D178D61DE758700068C33E /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		64D8FBD51CA735F00082ADA8 /* SearchTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTable.h; sourceTree = "<group>"; };
 		64D8FBD61CA735F00082ADA8 /* SearchTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTable.m; sourceTree = "<group>"; };
 		64D8FBD81CA74BBC0082ADA8 /* SubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubViewController.h; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				64D8FBDC1CA7797C0082ADA8 /* Settings.m */,
 				64F880071D0C4B73004E1B1E /* LanguagesTable.swift */,
 				64B9A02F1D16F8BD00C6ABBE /* FontSettings.swift */,
+				64D178D61DE758700068C33E /* NavigationController.swift */,
 				643859911CA727CD00BE70FF /* Main.storyboard */,
 				643859941CA727CD00BE70FF /* Assets.xcassets */,
 				643859961CA727CD00BE70FF /* LaunchScreen.storyboard */,
@@ -417,6 +420,7 @@
 				64725A591CFDC7740057AC4A /* SearchTableCell.swift in Sources */,
 				64B9A0301D16F8BD00C6ABBE /* FontSettings.swift in Sources */,
 				64D8FBD71CA735F00082ADA8 /* SearchTable.m in Sources */,
+				64D178D71DE758700068C33E /* NavigationController.swift in Sources */,
 				64D8FBDD1CA7797C0082ADA8 /* Settings.m in Sources */,
 				6438598A1CA727CD00BE70FF /* main.m in Sources */,
 				64F880081D0C4B73004E1B1E /* LanguagesTable.swift in Sources */,

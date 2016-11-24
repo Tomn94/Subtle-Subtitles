@@ -71,6 +71,11 @@
 "Please, remove them" = "Please, remove them";
 "Restore purchase" = "Restore purchase";
 
+/* Import file */
+"ImportSRTIOErrorTitle" = "Unable to import subtitles";
+"ImportSRTIOErrorMessage" = "The file can't be moved to the Subtle Subtitles folder.";
+"ImportSRTIOErrorButton" = "OK";
+
 
 /* Player */
 "Play/Pause" = "Play/Pause";

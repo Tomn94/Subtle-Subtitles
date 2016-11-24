@@ -12,6 +12,7 @@
 #import "Data.h"
 #import "SearchTable.h"
 #import "CJPAdController.h"
+#import "Subtle Subtitles-Bridging-Header.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {

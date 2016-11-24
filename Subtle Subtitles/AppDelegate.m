@@ -61,6 +61,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - 3D Touch
+
 - (void)         application:(UIApplication *)application
 performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
            completionHandler:(void (^)(BOOL))completionHandler
@@ -87,6 +89,77 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
     }
     
     completionHandler(YES);
+}
+
+#pragma mark - Import with…
+
+- (BOOL) application:(UIApplication *)application
+             openURL:(NSURL *)url
+   sourceApplication:(NSString *)sourceApplication
+          annotation:(id)annotation
+{
+    NSString *format = url.pathExtension.lowercaseString;
+    
+    /* Only support SRT files */
+    BOOL fileOK = [format isEqualToString:@"srt"];
+    if (fileOK) {
+        /* Copy the file from Documents/Inbox to Library/Caches/ */
+        NSError *error = nil;
+        NSString *path = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *fileName = url.lastPathComponent;
+        NSURL  *newURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@", path, fileName]];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        // Overwrite if already exists
+        if ([fileManager fileExistsAtPath:newURL.path])
+            [fileManager removeItemAtURL:newURL error:&error];
+        if (error == nil)
+            [fileManager moveItemAtURL:url toURL:newURL error:&error];
+        
+        if (error == nil) {
+            /* Create the subtitles object */
+            NSDictionary *subInfo = @{ @"IDSubtitleFile": @"",
+                                       @"IDMovieImdb": @"",
+                                       @"SubLanguageID": @"",
+                                       @"SubFileName": fileName,
+                                       @"SubRating": @0.0,
+                                       @"SubFormat": format,
+                                       @"IDMovieImdb": @"",
+                                       @"MovieYear": @"",
+                                       @"ISO639": @"",
+                                       @"SubDownloadLink": @"",
+                                       @"SubtitlesLink": @"",
+                                       @"SubHearingImpaired": @"0",
+                                       @"SubDownloadsCnt": @0,
+                                       @"SubBad": @"0",
+                                       @"MovieName": @"",
+                                       @"SubLastTS": @"",
+                                       @"SubSize": @"",
+                                       @"SubHD": @"0",
+                                       @"SubAddDate": @"" };
+            OpenSubtitleSearchResult *fileInfo = [OpenSubtitleSearchResult resultFromDictionary:subInfo];
+            
+            /* Load the subtitles */
+            [[Data sharedData] setCurrentFile:fileInfo];
+            [navController popToRootViewControllerWithCompletion:^{
+                [navController performSegueWithIdentifier:@"detailSegue" sender:self];
+            }];
+        } else {
+            /* I/O error */
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"ImportSRTIOErrorTitle", @"Error opening file")
+                                                                           message:[NSString stringWithFormat:@"%@\n\n%@",
+                                                                                    NSLocalizedString(@"ImportSRTIOErrorMessage", @"Can't be moved"),
+                                                                                    error.localizedDescription]
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"ImportSRTIOErrorButton", @"OK")
+                                                      style:UIAlertActionStyleCancel handler:nil]];
+            if (navController.presentedViewController != nil)
+                [navController.presentedViewController presentViewController:alert animated:YES completion:nil];
+            else
+                [navController presentViewController:alert animated:YES completion:nil];
+        }
+    }
+    
+    return fileOK;
 }
 
 @end
