@@ -203,12 +203,20 @@
 
 
 /* Encodings */
-"Encoding Settings" = "Encoding Settings";
-"Tip: Pinch to change the text size of the subtitles" = "Tip: Pinch to change the text size of the subtitles\n";
-"Select Previous Encoding" = "Select Previous Encoding";
-"Select Next Encoding" = "Select Next Encoding";
-"Choose Encoding" = "Choose Encoding";
-"Dismiss" = "Dismiss Preferences";
+"Text Settings Title" = "Display Settings";
+"Text Section Title" = "Text";
+"Encoding Section Title" = "Encoding";
+"Font menu" = "Font";
+"Color menu" = "Color";
+"Tip: Pinch to change the text size of the subtitles" = "Tip: Pinch the subtitles to change their size";
+"Select Previous Encoding" = "Select Previous";
+"Select Next Encoding" = "Select Next";
+"Choose Encoding" = "Choose";
+"Dismiss" = "Dismiss Settings";
+
+"Default font" = "Default";
+"Alert using custom font" = "Choosing a custom font from the list below may cause some display issues.";
+
 "UTF-8" = "UTF-8 (default)";
 "Western (Latin-1/ISO 8859-1)" = "Western (French · Latin-1/ISO 8859-1)";
 "Central European (Latin-2/ISO 8859-2)" = "Central European (Latin-2/ISO 8859-2)";

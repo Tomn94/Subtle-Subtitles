@@ -334,7 +334,12 @@
             curIndex = found;
             encodingReloaded = NO;
             
-            NSString *htmlForSub = [NSString stringWithFormat:@"<p style=\"color: white; text-align: center; font-family: '-apple-system', HelveticaNeue, Arial; font-size: %fpx\">", _subLabel.font.pointSize];
+            NSString *eventualCustomFontName = [[NSUserDefaults standardUserDefaults] stringForKey:[FontList settingsFontKey]];
+            if (eventualCustomFontName != nil)
+                eventualCustomFontName = [NSString stringWithFormat:@"'%@',", eventualCustomFontName];
+            else
+                eventualCustomFontName = @"";
+            NSString *htmlForSub = [NSString stringWithFormat:@"<p style=\"color: white; text-align: center; font-family: %@'-apple-system', HelveticaNeue, Arial; font-size: %fpx\">", eventualCustomFontName, _subLabel.font.pointSize];
             NSString *txt = [NSString stringWithFormat:@"%@%@</p>", htmlForSub, srt[curIndex][@"text"]];
             _subLabel.attributedText = [[NSAttributedString alloc] initWithData:[txt dataUsingEncoding:encoding]
                                                                         options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }

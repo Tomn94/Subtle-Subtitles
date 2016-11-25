@@ -27,7 +27,7 @@
 "Vtg-AB-otZ.text" = "0:00:00/2:00:00";
 
 /* Class = "UILabel"; text = "Erreur"; ObjectID = "gMS-YV-O2Q"; */
-"gMS-YV-O2Q.text" = "Erreur";
+"gMS-YV-O2Q.text" = "Erreur lors du chargement du fichier";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "hkT-ck-jM3"; */
 "hkT-ck-jM3.text" = "Nom";
@@ -37,3 +37,8 @@
 
 /* Class = "UINavigationItem"; title = "Second Search Language"; ObjectID = "vGP-b0-AKn"; */
 "vGP-b0-AKn.title" = "Préférences";
+
+/* Class = "UILabel"; text = "Size" */
+"bjE-gg-ZPM.text" = "Taille";
+
+"rPl-4R-ept.title" = "Police";

@@ -11,6 +11,7 @@
 @import UIKit;
 #import <TUSafariActivity.h>
 #import "Data.h"
+#import "Subtle_Subtitles-Swift.h"
 
 #define MIN_FONT_SIZE  10
 #define MAX_FONT_SIZE 200

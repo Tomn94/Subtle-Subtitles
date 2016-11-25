@@ -12,6 +12,7 @@ import UIKit
 
 class FontSettings: UITableViewController {
     
+    /// Available encodings
     var encodings: [(name: String, value: String.Encoding)] = [
         ("UTF-8".localized, String.Encoding.utf8),
         ("Western (Latin-1/ISO 8859-1)".localized, .isoLatin1),
@@ -38,6 +39,7 @@ class FontSettings: UITableViewController {
     ]
     var lastSel = 0
     
+    /// Set iPad keyboard shortcuts
     override var keyCommands: [UIKeyCommand]? {
         if #available(iOS 9, *) {
             return [
@@ -61,8 +63,9 @@ class FontSettings: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Encoding Settings".localized
+        title = "Text Settings Title".localized
         
+        /* Init shortcuts */
         let betterTableView = tableView as! KBTableView
         betterTableView.onSelection = { (indexPath: IndexPath) in
             self.tableView(betterTableView, didSelectRowAt: indexPath)
@@ -76,17 +79,14 @@ class FontSettings: UITableViewController {
             }
         }
         
+        /* Init selected encoding with saved value */
         let selectedLanguage = UInt(UserDefaults.standard.integer(forKey: "preferredEncoding"))
-        lastSel = encodings.index { (encoding: (name: String, value: String.Encoding)) -> Bool in
-            encoding.value.rawValue == selectedLanguage
-        } ?? 0
+        lastSel = encodings.index { $0.value.rawValue == selectedLanguage } ?? 0
         
+        /* Init view */
         let backView = UIView()
-        backView.backgroundColor = UIColor(white: 0.2, alpha: 1)
+        backView.backgroundColor = UIColor(white: 0.23, alpha: 1)
         tableView.backgroundView = backView
-        tableView.separatorColor = UIColor.darkGray
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "fontSettingsCell")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -94,59 +94,113 @@ class FontSettings: UITableViewController {
         
         let indexPath = IndexPath(row: lastSel, section: 0)
         (tableView as! KBTableView).currentlyFocussedIndex = indexPath
-        tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
     }
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 3
+        }
         return encodings.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Tip: Pinch to change the text size of the subtitles".localized
-    }
-    
-    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        if let tableViewHeaderFooterView = view as? UITableViewHeaderFooterView {
-            tableViewHeaderFooterView.textLabel?.text = self.tableView(tableView, titleForHeaderInSection: section)
+        if section == 0 {
+            return "Text Section Title".localized
         }
+        return "Encoding Section Title".localized
     }
     
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == 0 {
+            return "Tip: Pinch to change the text size of the subtitles".localized
+        }
+        return nil
+    }
+    
+    
+    /// Set tableView content
+    ///   Section 1: Font, Color, Size
+    ///   Section 2: Encodings
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "fontSettingsCell", for: indexPath)
-        
-        let encoding = encodings[indexPath.row]
+        /* BASIC SETUP */
+        var identifier = "fontSettingsCell"
+        if indexPath.section == 0 {
+            if indexPath.row == 2 {
+                identifier += "Size"
+            } else {
+                identifier += "Menu"
+            }
+        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        let defaults = UserDefaults.standard
         
         cell.backgroundColor = UIColor(white:0.2, alpha:1) // iPad fix
         cell.selectedBackgroundView = UIView(frame: cell.bounds)
         cell.selectedBackgroundView!.backgroundColor = UIColor.darkGray
         cell.textLabel!.textColor = UIColor.white
-        cell.textLabel!.text = encoding.name.localized
         
-        let defaults = UserDefaults.standard
-        cell.accessoryType = encoding.value.rawValue == UInt(defaults.integer(forKey: "preferredEncoding")) ? .checkmark : .none
+        /* ADEQUATE SETUP */
+        /* Text */
+        if indexPath.section == 0 {
+            /* Font */
+            if indexPath.row == 0 {
+                cell.textLabel?.text = "Font menu".localized
+                if let preferredFont = defaults.string(forKey: FontList.settingsFontKey) {
+                    cell.detailTextLabel?.text = preferredFont
+                } else {
+                    cell.detailTextLabel?.text = "Default font".localized;
+                }
+            }
+            /* Color */
+            else if indexPath.row == 1 {
+                cell.textLabel?.text = "Color menu".localized
+                cell.detailTextLabel?.text = defaults.string(forKey: "preferredColor")
+            }
+            /* Size */
+            else {
+                
+            }
+        }
+        /* Encodings */
+        else {
+            // Display each name and check the selected
+            let encoding = encodings[indexPath.row]
+            cell.textLabel?.text = encoding.name.localized
+            cell.accessoryType = encoding.value.rawValue == UInt(defaults.integer(forKey: "preferredEncoding")) ? .checkmark : .none
+        }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.cellForRow(at: IndexPath(row: lastSel, section: 0))?.accessoryType = .none
-        tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        lastSel = indexPath.row;
-        
-        let language = encodings[indexPath.row];
-        let defaults = UserDefaults.standard
-        defaults.setValue(language.value.rawValue, forKey: "preferredEncoding")
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                self.performSegue(withIdentifier: "fontSettingsDetailSegue", sender: self)
+            } else if indexPath.row == 2 {
+                
+            }
+        } else {
+            /* Change checkmarks ✓ */
+            tableView.cellForRow(at: IndexPath(row: lastSel, section: 0))?.accessoryType = .none
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            lastSel = indexPath.row;
+            
+            /* Validate setting */
+            let language = encodings[indexPath.row];
+            let defaults = UserDefaults.standard
+            defaults.setValue(language.value.rawValue, forKey: "preferredEncoding")
+            
+            /* Apply on text */
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "updateEncoding"), object: nil)
+        }
         
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "updateEncoding"), object: nil)
-        close()
     }
     
     // MARK: - Keyboard
