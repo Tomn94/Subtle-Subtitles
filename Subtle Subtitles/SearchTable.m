@@ -400,7 +400,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     }
     
     SearchTableCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [cell.progress setProgress:0.9 animated:YES];
+    [cell.progress setProgress:0.75 animated:YES];
     
     if ([Data hasCachedFile:result.subtitleName])
     {
@@ -415,7 +415,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         [down downloadSubtitlesForResult:result
                                   toPath:[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:[NSString stringWithFormat:@"/%@", result.subtitleName]]
                               onProgress:^(float progress) {
-                                  [cell.progress setProgress:progress animated:YES];
+                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                      [cell.progress setProgress:0.75 + (progress / 4.) animated:YES];
+                                  });
                               }
                                         :^(NSString *path, NSError *error) {
                                             if (error == nil)
