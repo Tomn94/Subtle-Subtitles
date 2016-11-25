@@ -79,6 +79,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showControls) name:@"showControls" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openIn:) name:@"openIn" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWithEncoding) name:@"updateEncoding" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadText) name:@"updateDisplaySettings" object:nil];
     
     if ([UIKeyCommand instancesRespondToSelector:@selector(setDiscoverabilityTitle:)])
     {
@@ -254,7 +255,7 @@
     else
         self.navigationItem.rightBarButtonItems = nil;
     
-    encodingReloaded = YES;
+    forceTextRedraw = YES;
 }
 
 - (void) playTapped:(id)sender
@@ -341,17 +342,23 @@
     
     if (found != -1)
     {
-        if (curIndex != found || encodingReloaded)
+        if (curIndex != found || forceTextRedraw)
         {
             curIndex = found;
-            encodingReloaded = NO;
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            CGFloat textSize = _subLabel.font.pointSize;
+            if (forceTextRedraw)
+            {
+                textSize = [defaults floatForKey:[FontSettings settingsFontSizeKey]] * self.view.frame.size.width / 667;
+                forceTextRedraw = NO;
+            }
             
-            NSString *eventualCustomFontName = [[NSUserDefaults standardUserDefaults] stringForKey:[FontSettings settingsFontNameKey]];
+            NSString *eventualCustomFontName = [defaults stringForKey:[FontSettings settingsFontNameKey]];
             if (eventualCustomFontName != nil)
                 eventualCustomFontName = [NSString stringWithFormat:@"'%@',", eventualCustomFontName];
             else
                 eventualCustomFontName = @"";
-            NSString *htmlForSub = [NSString stringWithFormat:@"<p style=\"color: white; text-align: center; font-family: %@'-apple-system', HelveticaNeue, Arial; font-size: %fpx\">", eventualCustomFontName, _subLabel.font.pointSize];
+            NSString *htmlForSub = [NSString stringWithFormat:@"<p style=\"color: white; text-align: center; font-family: %@'-apple-system', HelveticaNeue, Arial; font-size: %fpx\">", eventualCustomFontName, textSize];
             NSString *txt = [NSString stringWithFormat:@"%@%@</p>", htmlForSub, srt[curIndex][@"text"]];
             _subLabel.attributedText = [[NSAttributedString alloc] initWithData:[txt dataUsingEncoding:encoding]
                                                                         options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }
@@ -617,6 +624,12 @@
     
     [defaults setFloat:settingsSize
                 forKey:[FontSettings settingsFontSizeKey]];
+}
+
+- (void) reloadText
+{
+    forceTextRedraw = YES;
+    [self updateText];
 }
 
 @end

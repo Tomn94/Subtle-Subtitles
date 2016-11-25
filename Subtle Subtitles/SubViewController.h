@@ -34,7 +34,7 @@ typedef enum : NSUInteger {
     NSString *maxTimeLabel;
     NSStringEncoding encoding;
     BOOL forceShowControls;
-    BOOL encodingReloaded;
+    BOOL forceTextRedraw;
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *playButton;

@@ -103,6 +103,9 @@ import UIKit
             UserDefaults.standard.set(selectedFont, forKey: FontSettings.settingsFontNameKey)
         }
         
+        /* Apply on text */
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "updateDisplaySettings"), object: nil)
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 

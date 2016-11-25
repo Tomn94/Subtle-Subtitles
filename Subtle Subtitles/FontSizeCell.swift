@@ -28,6 +28,9 @@ class FontSizeCell: UITableViewCell {
         /* Update label with new size */
         self.sizeLabel.text = String(Int(stepper.value)) + " pt"
         UserDefaults.standard.set(Float(stepper.value), forKey: FontSettings.settingsFontSizeKey)
+        
+        /* Apply on text */
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "updateDisplaySettings"), object: nil)
     }
     
 }
