@@ -99,14 +99,17 @@
                                                 modifierFlags:0
                                                        action:@selector(enterKey)
                                          discoverabilityTitle:NSLocalizedString(@"Play Selection", @"")]];
-        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"o"
-                                                modifierFlags:UIKeyModifierCommand
-                                                       action:@selector(openInKey)
-                                         discoverabilityTitle:NSLocalizedString(@"Open Selection in App…", @"")]];
+        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputRightArrow
+                                                modifierFlags:0
+                                                       action:@selector(enterKey)]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"l"
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(shareKey)
                                          discoverabilityTitle:NSLocalizedString(@"Share Selection…", @"")]];
+        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"o"
+                                                modifierFlags:UIKeyModifierCommand
+                                                       action:@selector(openInKey)
+                                         discoverabilityTitle:NSLocalizedString(@"Open Selection in App…", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputEscape
                                                 modifierFlags:0
                                                        action:@selector(escapeKey)]];

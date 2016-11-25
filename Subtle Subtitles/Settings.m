@@ -53,6 +53,9 @@
                                                 modifierFlags:0
                                                        action:@selector(enterKey)
                                          discoverabilityTitle:NSLocalizedString(@"Choose Language", @"")]];
+        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputRightArrow
+                                                modifierFlags:0
+                                                       action:@selector(enterKey)]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:UIKeyInputEscape
                                                 modifierFlags:0
                                                        action:@selector(close)

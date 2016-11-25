@@ -56,7 +56,8 @@ class FontSettings: UITableViewController {
                     discoverabilityTitle: "Select Next Encoding".localized),
                 
                 UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(enterKey),
-                    discoverabilityTitle: "Choose Encoding".localized),
+                             discoverabilityTitle: "Choose Encoding".localized),
+                UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: [], action: #selector(enterKey)),
                 
                 UIKeyCommand(input: UIKeyInputEscape, modifierFlags: [], action: #selector(close),
                     discoverabilityTitle: "Dismiss".localized)
@@ -93,13 +94,8 @@ class FontSettings: UITableViewController {
         let backView = UIView()
         backView.backgroundColor = UIColor(white: 0.23, alpha: 1)
         tableView.backgroundView = backView
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
-        let indexPath = IndexPath(row: lastSel, section: 0)
-        (tableView as! KBTableView).currentlyFocussedIndex = indexPath
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name(rawValue: "fontChanged"), object: nil)
     }
     
     // MARK: - Table view data source
@@ -197,7 +193,7 @@ class FontSettings: UITableViewController {
             }
         } else {
             /* Change checkmarks ✓ */
-            tableView.cellForRow(at: IndexPath(row: lastSel, section: 0))?.accessoryType = .none
+            tableView.cellForRow(at: IndexPath(row: lastSel, section: 1))?.accessoryType = .none
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
             lastSel = indexPath.row;
             
@@ -211,6 +207,11 @@ class FontSettings: UITableViewController {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func reload() {
+        self.tableView.reloadData()
+        (tableView as! KBTableView).currentlyFocussedIndex = IndexPath(row: 0, section: 0)
     }
     
     // MARK: - Keyboard

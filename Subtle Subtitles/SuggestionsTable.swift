@@ -113,8 +113,9 @@ class SuggestionsTable: UITableViewController {
                 UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: [], action: #selector(keyArrow(_:)),
                     discoverabilityTitle: "Select Next Suggestion".localized),
                 
-                UIKeyCommand(input: "\r", modifierFlags: [.command], action: #selector(enterKey),
-                    discoverabilityTitle: "Choose Suggestion".localized),
+                UIKeyCommand(input: "\r", modifierFlags: [.command], action: #selector(enterKey)),
+                UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: [], action: #selector(enterKey),
+                             discoverabilityTitle: "Choose Suggestion".localized),
                 
                 UIKeyCommand(input: "f", modifierFlags: [.command], action: #selector(exit)),
                 UIKeyCommand(input: UIKeyInputEscape, modifierFlags: [], action: #selector(exit),

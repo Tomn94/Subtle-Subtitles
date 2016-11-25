@@ -14,6 +14,31 @@ import UIKit
     
     private var fonts = [String]()
     private var selectedFont: String?
+    
+    /// Set iPad keyboard shortcuts
+    override var keyCommands: [UIKeyCommand]? {
+        if #available(iOS 9, *) {
+            return [
+                UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: [], action: #selector(keyArrow(_:)),
+                             discoverabilityTitle: "Select Previous Font".localized),
+                
+                UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: [], action: #selector(keyArrow(_:)),
+                             discoverabilityTitle: "Select Next Font".localized),
+                
+                UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(enterKey),
+                             discoverabilityTitle: "Choose Font".localized),
+                UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: [], action: #selector(enterKey)),
+                
+                UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: [], action: #selector(keyArrow(_:)),
+                             discoverabilityTitle: "Back to Display Settings".localized),
+                
+                UIKeyCommand(input: UIKeyInputEscape, modifierFlags: [], action: #selector(close),
+                             discoverabilityTitle: "Dismiss".localized)
+            ]
+        } else {
+            return []
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,15 +56,39 @@ import UIKit
         let backView = UIView()
         backView.backgroundColor = UIColor(white: 0.23, alpha: 1)
         tableView.backgroundView = backView
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "fontCell")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         /* Scroll to selected font */
         if let selectedFont = selectedFont,
            let index = fonts.index(of: selectedFont) {
-            self.tableView.scrollToRow(at: IndexPath(row: index, section: 1), at: .middle, animated: false)
+            let indexPath = IndexPath(row: index, section: 1)
+            self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+            (tableView as! KBTableView).currentlyFocussedIndex = indexPath
+        } else {
+            (tableView as! KBTableView).currentlyFocussedIndex = IndexPath(row: 0, section: 0)
+        }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        /* Init shortcuts */
+        let betterTableView = tableView as! KBTableView
+        betterTableView.onSelection = { (indexPath: IndexPath) in
+            self.tableView(betterTableView, didSelectRowAt: indexPath)
+        }
+        betterTableView.onFocus = { (current: IndexPath?, previous: IndexPath?) in
+            if let previous = previous {
+                betterTableView.deselectRow(at: previous, animated: false)
+            }
+            if let current = current {
+                betterTableView.selectRow(at: current, animated: false, scrollPosition: .middle)
+            }
         }
     }
 
@@ -65,9 +114,11 @@ import UIKit
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "fontCell", for: indexPath)
+        cell.backgroundColor = UIColor(white:0.2, alpha:1) // iPad fix
         cell.selectedBackgroundView = UIView(frame: cell.bounds)
         cell.selectedBackgroundView!.backgroundColor = UIColor.darkGray
-
+        cell.textLabel!.textColor = UIColor.white
+        
         if indexPath.section == 0 {
             cell.textLabel?.text = "Default font".localized
             cell.textLabel?.font = UIFont.systemFont(ofSize: cell.textLabel!.font.pointSize)
@@ -105,8 +156,31 @@ import UIKit
         
         /* Apply on text */
         NotificationCenter.default.post(name: Notification.Name(rawValue: "updateDisplaySettings"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "fontChanged"), object: nil)
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // MARK: - Keyboard
+    
+    func keyArrow(_ sender: UIKeyCommand) {
+        let kbTableView = tableView as! KBTableView
+        if sender.input == UIKeyInputUpArrow {
+            kbTableView.upCommand()
+        } else if sender.input == UIKeyInputLeftArrow {
+            _ = self.navigationController?.popViewController(animated: true)
+        } else {
+            kbTableView.downCommand()
+        }
+    }
+    
+    func enterKey() {
+        let kbTableView = tableView as! KBTableView
+        kbTableView.returnCommand()
+    }
+    
+    @IBAction func close() {
+        dismiss(animated: true, completion: nil)
     }
 
 }

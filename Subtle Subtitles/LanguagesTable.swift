@@ -27,7 +27,8 @@ class LanguagesTable: UITableViewController {
                     discoverabilityTitle: "Select Next Language".localized),
                 
                 UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(enterKey),
-                    discoverabilityTitle: "Choose Language".localized),
+                             discoverabilityTitle: "Choose Language".localized),
+                UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: [], action: #selector(enterKey)),
                 
                 UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: [.command], action: #selector(back),
                     discoverabilityTitle: "Back to Settings".localized),

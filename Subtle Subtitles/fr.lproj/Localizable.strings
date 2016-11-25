@@ -47,8 +47,8 @@
 "Switch to English" = "Choisir la langue anglaise";
 "Switch to Second Language" = "Choisir la 2nde langue";
 
-"Open Selection in App…" = "Ouvrir la sélection dans l'app…";
-"Share Selection…" = "Partager la sélection…";
+"Open Selection in App…" = "Exporter la sélection…";
+"Share Selection…" = "Partager le lien…";
 
 "Select Previous Suggestion" = "Suggestion précédente";
 "Select Next Suggestion" = "Suggestion suivante";
@@ -90,12 +90,13 @@
 "Enlarge Text Size" = "Grossir le texte";
 "Reduce Text Size" = "Réduire le texte";
 "Show/Hide Controls" = "Afficher/masquer les contrôles";
-"Export Subtitle" = "Exporter";
+"Display Settings" = "Réglages d'affichage…";
+"Get Link" = "Lien de téléchargement…";
+"Export Subtitle" = "Exporter…";
 "Go back to Search" = "Retour à la recherche";
 "%.1fs" = "Retard : %.1f s";
 "View on OpenSubtitles.org" = "Voir sur OpenSubtitles.org";
 "Copy Download Link" = "Copier le lien vers le fichier";
-"Export to app…" = "Exporter vers l'app…";
 
 
 /* 2nd Language */
@@ -216,6 +217,10 @@
 
 "Default font" = "Par défaut";
 "Alert using custom font" = "Des problèmes d'affichage peuvent apparaître en choisissant une police personnalisée dans la liste ci-dessous.";
+"Select Previous Font" = "Sélectionner la police précédente";
+"Select Next Font" = "Sélectionner la police suivante";
+"Back to Display Settings" = "Retour aux préférences d'affichage";
+"Choose Font" = "Choisir la police sélectionnée";
 
 "UTF-8" = "UTF-8 (par défaut)";
 "Western (Latin-1/ISO 8859-1)" = "Occidental (Latin-1/ISO 8859-1)";

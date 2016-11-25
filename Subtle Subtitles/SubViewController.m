@@ -139,13 +139,26 @@
                                                        action:@selector(showControls)
                                          discoverabilityTitle:NSLocalizedString(@"Show/Hide Controls", @"")]];
         
-        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"e"
+        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@","
+                                                modifierFlags:UIKeyModifierCommand
+                                                       action:@selector(settings)
+                                         discoverabilityTitle:NSLocalizedString(@"Display Settings", @"")]];
+        
+        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"l"
                                                 modifierFlags:UIKeyModifierCommand
                                                        action:@selector(share:)
+                                         discoverabilityTitle:NSLocalizedString(@"Get Link", @"")]];
+        
+        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"o"
+                                                modifierFlags:UIKeyModifierCommand
+                                                       action:@selector(openIn:)
                                          discoverabilityTitle:NSLocalizedString(@"Export Subtitle", @"")]];
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"s"
                                                 modifierFlags:UIKeyModifierCommand
-                                                       action:@selector(share:)]];
+                                                       action:@selector(openIn:)]];
+        [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"e"
+                                                modifierFlags:UIKeyModifierCommand
+                                                       action:@selector(openIn:)]];
         
         [self addKeyCommand:[UIKeyCommand keyCommandWithInput:@"f"
                                                 modifierFlags:UIKeyModifierCommand
@@ -456,6 +469,13 @@
     self.stepperValue.text = [NSString stringWithFormat:NSLocalizedString(@"%.1fs", @""), delay];
     forceShowControls = YES;
     [self showControls];
+}
+
+- (void) settings
+{
+    forceShowControls = YES;
+    [self showControls];
+    [self performSegueWithIdentifier:@"fontSegue" sender:self];
 }
 
 - (IBAction) share:(UIBarButtonItem *)sender

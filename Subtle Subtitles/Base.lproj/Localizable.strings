@@ -47,8 +47,8 @@
 "Switch to English" = "Switch to English";
 "Switch to Second Language" = "Switch to Second Language";
 
-"Open Selection in App…" = "Open Selection in App…";
-"Share Selection…" = "Share Selection…";
+"Open Selection in App…" = "Export Selection…";
+"Share Selection…" = "Share Link to Selection…";
 
 "Select Previous Suggestion" = "Select Previous Suggestion";
 "Select Next Suggestion" = "Select Next Suggestion";
@@ -90,12 +90,13 @@
 "Enlarge Text Size" = "Enlarge Text Size";
 "Reduce Text Size" = "Reduce Text Size";
 "Show/Hide Controls" = "Show/Hide Controls";
-"Export Subtitle" = "Export Subtitle";
+"Display Settings" = "Display Settings…";
+"Get Link" = "Get Download Link…";
+"Export Subtitle" = "Export Subtitle…";
 "Go back to Search" = "Go back to Search";
 "%.1fs" = "Delay: %.1fs";
 "View on OpenSubtitles.org" = "View on OpenSubtitles.org";
 "Copy Download Link" = "Copy Link to File";
-"Export to app…" = "Export to app…";
 
 
 /* 2nd Language */
@@ -216,6 +217,10 @@
 
 "Default font" = "Default";
 "Alert using custom font" = "Choosing a custom font from the list below may cause some display issues.";
+"Select Previous Font" = "Select Previous Font";
+"Select Next Font" = "Select Next Font";
+"Back to Display Settings" = "Back to Display Settings";
+"Choose Font" = "Choose Font";
 
 "UTF-8" = "UTF-8 (default)";
 "Western (Latin-1/ISO 8859-1)" = "Western (French · Latin-1/ISO 8859-1)";
