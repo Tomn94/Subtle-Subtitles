@@ -21,7 +21,7 @@
 "Hyz-lc-1cc.title" = "Recherche";
 
 /* Class = "UILabel"; text = "0 s"; ObjectID = "LMd-tB-Usv"; */
-"LMd-tB-Usv.text" = "0 s";
+"LMd-tB-Usv.text" = "Retard : 0 s";
 
 /* Class = "UILabel"; text = "0:00:00/2:00:00"; ObjectID = "Vtg-AB-otZ"; */
 "Vtg-AB-otZ.text" = "0:00:00/2:00:00";

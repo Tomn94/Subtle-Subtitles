@@ -92,7 +92,7 @@
 "Show/Hide Controls" = "Afficher/masquer les contrôles";
 "Export Subtitle" = "Exporter";
 "Go back to Search" = "Retour à la recherche";
-"%.1fs" = "%.1f s";
+"%.1fs" = "Retard : %.1f s";
 "View on OpenSubtitles.org" = "Voir sur OpenSubtitles.org";
 "Copy Download Link" = "Copier le lien vers le fichier";
 "Export to app…" = "Exporter vers l'app…";
