@@ -12,6 +12,12 @@ import UIKit
 
 class FontSettings: UITableViewController {
     
+    public static let settingsFontNameKey = "preferredFont"
+    public static let settingsFontColorKey = "preferredColor"
+    public static let settingsFontSizeKey = "defaultPointSize"  // !!!: Changing this needs changing registerDefaults in Data
+    public static let settingsFontSizeMin: Double = 10
+    public static let settingsFontSizeMax: Double = 200
+    
     /// Available encodings
     var encodings: [(name: String, value: String.Encoding)] = [
         ("UTF-8".localized, String.Encoding.utf8),
@@ -151,7 +157,7 @@ class FontSettings: UITableViewController {
             /* Font */
             if indexPath.row == 0 {
                 cell.textLabel?.text = "Font menu".localized
-                if let preferredFont = defaults.string(forKey: FontList.settingsFontKey) {
+                if let preferredFont = defaults.string(forKey: FontSettings.settingsFontNameKey) {
                     cell.detailTextLabel?.text = preferredFont
                 } else {
                     cell.detailTextLabel?.text = "Default font".localized;
@@ -164,7 +170,11 @@ class FontSettings: UITableViewController {
             }
             /* Size */
             else {
-                
+                let sizeCell = cell as! FontSizeCell
+                sizeCell.stepper.maximumValue = FontSettings.settingsFontSizeMax
+                sizeCell.stepper.value = round(Double(UserDefaults.standard.float(forKey: FontSettings.settingsFontSizeKey)))
+                sizeCell.stepper.minimumValue = FontSettings.settingsFontSizeMin
+                sizeCell.updateLabel()
             }
         }
         /* Encodings */

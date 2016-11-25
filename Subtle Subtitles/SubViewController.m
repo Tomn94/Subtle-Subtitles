@@ -160,6 +160,7 @@
 {
     [super viewDidAppear:animated];
     autohideTimer = [NSTimer scheduledTimerWithTimeInterval:6 target:self selector:@selector(hideControls) userInfo:nil repeats:NO];
+    [_playButton setImage:[UIImage imageNamed:(!playing) ? @"play" : @"pause"] forState:UIControlStateNormal];
     forceShowControls = YES;
     [self showControls];
 }
@@ -180,8 +181,14 @@
         withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    CGFloat txtSize = [[NSUserDefaults standardUserDefaults] floatForKey:@"defaultPointSize"];
-    _subLabel.font = [UIFont systemFontOfSize:txtSize * size.width / 667];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    CGFloat txtSize = [defaults floatForKey:[FontSettings settingsFontSizeKey]];
+    NSString *fontName = [defaults stringForKey:[FontSettings settingsFontNameKey]];
+    if (fontName != nil)
+        _subLabel.font = [UIFont fontWithName:fontName size:txtSize * size.width / 667];
+    else
+        _subLabel.font = [UIFont systemFontOfSize:txtSize * size.width / 667];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle
@@ -222,8 +229,13 @@
     if (htmlString != nil)
     {
         self.subLabel.text = @"";
-        CGFloat txtSize = [[NSUserDefaults standardUserDefaults] floatForKey:@"defaultPointSize"];
-        _subLabel.font = [UIFont systemFontOfSize:txtSize * self.view.frame.size.width / 667];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        CGFloat txtSize = [defaults floatForKey:[FontSettings settingsFontSizeKey]] * self.view.frame.size.width / 667;
+        NSString *fontName = [defaults stringForKey:[FontSettings settingsFontNameKey]];
+        if (fontName != nil)
+            _subLabel.font = [UIFont fontWithName:fontName size:txtSize];
+        else
+            _subLabel.font = [UIFont systemFontOfSize:txtSize];
         
         srt = [self parse:htmlString];
         unsigned long maxTime = [[srt lastObject][@"to"] integerValue];
@@ -334,7 +346,7 @@
             curIndex = found;
             encodingReloaded = NO;
             
-            NSString *eventualCustomFontName = [[NSUserDefaults standardUserDefaults] stringForKey:[FontList settingsFontKey]];
+            NSString *eventualCustomFontName = [[NSUserDefaults standardUserDefaults] stringForKey:[FontSettings settingsFontNameKey]];
             if (eventualCustomFontName != nil)
                 eventualCustomFontName = [NSString stringWithFormat:@"'%@',", eventualCustomFontName];
             else
@@ -509,12 +521,22 @@
 
 - (void) pinch:(UIPinchGestureRecognizer *)g
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     CGFloat newSize = _subLabel.font.pointSize * g.scale;
-    if (newSize > MIN_FONT_SIZE && newSize < MAX_FONT_SIZE)
-        _subLabel.font = [UIFont systemFontOfSize:newSize];
+    CGFloat newSettingsSize = newSize / self.view.frame.size.width * 667;
+    
+    if (newSettingsSize >= [FontSettings settingsFontSizeMin] && newSettingsSize <= [FontSettings settingsFontSizeMax])
+    {
+        NSString *fontName = [defaults stringForKey:[FontSettings settingsFontNameKey]];
+        if (fontName != nil)
+            _subLabel.font = [UIFont fontWithName:fontName size:newSize];
+        else
+            _subLabel.font = [UIFont systemFontOfSize:newSize];
+    }
     g.scale = 1;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSUserDefaults standardUserDefaults] setFloat:_subLabel.font.pointSize forKey:@"defaultPointSize"];
+        [defaults setFloat:newSettingsSize
+                    forKey:[FontSettings settingsFontSizeKey]];
     });
 }
 
@@ -574,12 +596,27 @@
 
 - (void) zoomText:(UIKeyCommand *)sender
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *fontName = [defaults stringForKey:[FontSettings settingsFontNameKey]];
+    
     CGFloat size = _subLabel.font.pointSize;
-    if ([sender.input isEqualToString:@"+"] && size < MAX_FONT_SIZE)
-        _subLabel.font = [UIFont systemFontOfSize:size + 10];
-    else if ([sender.input isEqualToString:@"-"] && size > MIN_FONT_SIZE)
-        _subLabel.font = [UIFont systemFontOfSize:size - 10];
-    [[NSUserDefaults standardUserDefaults] setFloat:_subLabel.font.pointSize forKey:@"defaultPointSize"];
+    CGFloat settingsSize = size / self.view.frame.size.width * 667;
+    
+    if ([sender.input isEqualToString:@"+"]) {
+        if (fontName != nil)
+            _subLabel.font = [UIFont fontWithName:fontName size:MIN(size + 10, [FontSettings settingsFontSizeMax])];
+        else
+            _subLabel.font = [UIFont systemFontOfSize:MIN(size + 10, [FontSettings settingsFontSizeMax])];
+    }
+    else if ([sender.input isEqualToString:@"-"]) {
+        if (fontName != nil)
+            _subLabel.font = [UIFont fontWithName:fontName size:MAX(size - 10, [FontSettings settingsFontSizeMin])];
+        else
+            _subLabel.font = [UIFont systemFontOfSize:MAX(size - 10, [FontSettings settingsFontSizeMin])];
+    }
+    
+    [defaults setFloat:settingsSize
+                forKey:[FontSettings settingsFontSizeKey]];
 }
 
 @end

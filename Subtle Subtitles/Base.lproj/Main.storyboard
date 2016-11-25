@@ -289,7 +289,7 @@
                         <color key="separatorColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fontSettingsCell" textLabel="1Ss-hG-o2z" style="IBUITableViewCellStyleDefault" id="Sv7-B2-DMv">
-                                <rect key="frame" x="0.0" y="56" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="55" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sv7-B2-DMv" id="Kbb-tc-CPb">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
@@ -308,7 +308,7 @@
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="fontSettingsCellMenu" textLabel="dUa-sN-gQr" detailTextLabel="YJe-7S-Tja" style="IBUITableViewCellStyleValue1" id="F1Q-dq-Gep">
-                                <rect key="frame" x="0.0" y="100" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="99" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="F1Q-dq-Gep" id="IyN-oE-yga">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
@@ -333,8 +333,8 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="fontSettingsCellSize" id="yxx-hU-6sn">
-                                <rect key="frame" x="0.0" y="144" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="fontSettingsCellSize" id="yxx-hU-6sn" customClass="FontSizeCell" customModule="Subtle_Subtitles" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="143" width="375" height="45"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yxx-hU-6sn" id="6hN-em-gDh">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
@@ -368,6 +368,10 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="sizeLabel" destination="0fd-Mg-utQ" id="ZRd-yT-L29"/>
+                                    <outlet property="stepper" destination="vOT-ec-TlA" id="lbl-tf-FPZ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

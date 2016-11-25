@@ -2,15 +2,16 @@
 //  FontList.swift
 //  Subtle Subtitles
 //
-//  Created by Tomn on 26/11/2016.
-//  Copyright © 2016 Tomn. All rights reserved.
+//  Created by Thomas Naudet on 26/11/2016.
+//  Copyright © 2016 Thomas Naudet. All rights reserved.
+//  This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+//  To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/
 //
 
 import UIKit
 
 @objc class FontList: UITableViewController {
     
-    public static let settingsFontKey = "preferredFont"
     private var fonts = [String]()
     private var selectedFont: String?
 
@@ -24,7 +25,7 @@ import UIKit
         }
         
         /* Init selected encoding with saved value */
-        selectedFont = UserDefaults.standard.string(forKey: FontList.settingsFontKey)
+        selectedFont = UserDefaults.standard.string(forKey: FontSettings.settingsFontNameKey)
         
         /* Init view */
         let backView = UIView()
@@ -96,10 +97,10 @@ import UIKit
         /* Validate change */
         if indexPath.section == 0 {
             selectedFont = nil
-            UserDefaults.standard.removeObject(forKey: FontList.settingsFontKey)
+            UserDefaults.standard.removeObject(forKey: FontSettings.settingsFontNameKey)
         } else {
             selectedFont = fonts[indexPath.row]
-            UserDefaults.standard.set(selectedFont, forKey: FontList.settingsFontKey)
+            UserDefaults.standard.set(selectedFont, forKey: FontSettings.settingsFontNameKey)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)

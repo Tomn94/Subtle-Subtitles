@@ -30,6 +30,7 @@
 		64D8FBDD1CA7797C0082ADA8 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBDC1CA7797C0082ADA8 /* Settings.m */; };
 		64D8FBE01CA77B790082ADA8 /* Data.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D8FBDF1CA77B790082ADA8 /* Data.m */; };
 		64E5A44B1DE8AAD3008B1786 /* FontList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E5A44A1DE8AAD3008B1786 /* FontList.swift */; };
+		64E5A44D1DE8BD73008B1786 /* FontSizeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E5A44C1DE8BD73008B1786 /* FontSizeCell.swift */; };
 		64F880081D0C4B73004E1B1E /* LanguagesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F880071D0C4B73004E1B1E /* LanguagesTable.swift */; };
 /* End PBXBuildFile section */
 
@@ -92,6 +93,7 @@
 		64D8FBDE1CA77B790082ADA8 /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
 		64D8FBDF1CA77B790082ADA8 /* Data.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Data.m; sourceTree = "<group>"; };
 		64E5A44A1DE8AAD3008B1786 /* FontList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontList.swift; sourceTree = "<group>"; };
+		64E5A44C1DE8BD73008B1786 /* FontSizeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontSizeCell.swift; sourceTree = "<group>"; };
 		64F880071D0C4B73004E1B1E /* LanguagesTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguagesTable.swift; sourceTree = "<group>"; };
 		B79DB9A993CFABDFDEC83183 /* Pods-Subtle Subtitles.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Subtle Subtitles.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Subtle Subtitles/Pods-Subtle Subtitles.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -170,8 +172,7 @@
 				64D8FBDB1CA7797C0082ADA8 /* Settings.h */,
 				64D8FBDC1CA7797C0082ADA8 /* Settings.m */,
 				64F880071D0C4B73004E1B1E /* LanguagesTable.swift */,
-				64B9A02F1D16F8BD00C6ABBE /* FontSettings.swift */,
-				64E5A44A1DE8AAD3008B1786 /* FontList.swift */,
+				64E5A44E1DE8BE40008B1786 /* A button */,
 				64D178D61DE758700068C33E /* NavigationController.swift */,
 				643859911CA727CD00BE70FF /* Main.storyboard */,
 				643859941CA727CD00BE70FF /* Assets.xcassets */,
@@ -212,6 +213,16 @@
 				643859AF1CA727CD00BE70FF /* Info.plist */,
 			);
 			path = "Subtle SubtitlesUITests";
+			sourceTree = "<group>";
+		};
+		64E5A44E1DE8BE40008B1786 /* A button */ = {
+			isa = PBXGroup;
+			children = (
+				64B9A02F1D16F8BD00C6ABBE /* FontSettings.swift */,
+				64E5A44A1DE8AAD3008B1786 /* FontList.swift */,
+				64E5A44C1DE8BD73008B1786 /* FontSizeCell.swift */,
+			);
+			name = "A button";
 			sourceTree = "<group>";
 		};
 		C18FB67E10ED473C1FC2D5AA /* Pods */ = {
@@ -418,11 +429,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64B9A0301D16F8BD00C6ABBE /* FontSettings.swift in Sources */,
 				640C57F61CEB2D9100845807 /* UITableView+RowConvenience.swift in Sources */,
 				6438598D1CA727CD00BE70FF /* AppDelegate.m in Sources */,
 				64E5A44B1DE8AAD3008B1786 /* FontList.swift in Sources */,
 				64725A591CFDC7740057AC4A /* SearchTableCell.swift in Sources */,
-				64B9A0301D16F8BD00C6ABBE /* FontSettings.swift in Sources */,
+				64D8FBE01CA77B790082ADA8 /* Data.m in Sources */,
 				64D8FBD71CA735F00082ADA8 /* SearchTable.m in Sources */,
 				64D178D71DE758700068C33E /* NavigationController.swift in Sources */,
 				64D8FBDD1CA7797C0082ADA8 /* Settings.m in Sources */,
@@ -432,7 +444,7 @@
 				640C57F51CEB2D9100845807 /* KBTableView.swift in Sources */,
 				6446B18B1CFDF21E00EA2D7F /* SuggestionsTable.swift in Sources */,
 				649867031CF0748E00600DAE /* OROpenSubtitleDownloader.m in Sources */,
-				64D8FBE01CA77B790082ADA8 /* Data.m in Sources */,
+				64E5A44D1DE8BD73008B1786 /* FontSizeCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
