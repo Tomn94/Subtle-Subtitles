@@ -25,6 +25,16 @@ class ColorList: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name(rawValue: "colorChangedToList"), object: nil)
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        /* Set Collection View width */
+        if let collectionVC = self.childViewControllers.first as? ColorCollection {
+            collectionVC.itemWidth = (self.tableView.frame.size.width / collectionVC.itemsPerRow) - 1
+            collectionVC.collectionViewLayout.invalidateLayout()
+        }
+    }
+    
     func reload() {
         tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.accessoryType = UserDefaults.standard.color(forKey: FontSettings.settingsFontColorKey) == .white ? .checkmark : .none
     }

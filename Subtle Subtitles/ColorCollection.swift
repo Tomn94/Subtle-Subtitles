@@ -16,6 +16,7 @@ class ColorCollection: UICollectionViewController, UICollectionViewDelegateFlowL
     let itemsPerRow: CGFloat = 12
     var itemWidth: CGFloat = 32
     var itemHeight: CGFloat = 32
+    var parentWidth: CGFloat = UIScreen.main.bounds.size.width
     var selectedIndexPath = IndexPath(item: -1, section: -1)
 
     override func viewDidLoad() {
@@ -29,13 +30,6 @@ class ColorCollection: UICollectionViewController, UICollectionViewDelegateFlowL
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name(rawValue: "colorChangedToCollection"), object: nil)
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-        itemWidth = (size.width / itemsPerRow) - 1
-        self.collectionView?.collectionViewLayout.invalidateLayout()
     }
     
     func loadColorsFile() {
