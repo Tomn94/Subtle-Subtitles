@@ -1,5 +1,5 @@
 //
-//  NavigationController.swift
+//  Utils.swift
 //  Subtle Subtitles
 //
 //  Created by Thomas Naudet on 25/11/2016.
@@ -17,4 +17,24 @@ extension UINavigationController {
         self.popViewController(animated: true)
         CATransaction.commit()
     }
+}
+
+extension UserDefaults {
+    
+    func color(forKey key: String) -> UIColor {
+        var color = UIColor.white
+        if let colorData = data(forKey: key) {
+            color = NSKeyedUnarchiver.unarchiveObject(with: colorData) as? UIColor ?? color
+        }
+        return color
+    }
+    
+    func set(_ color: UIColor?, forKey key: String) {
+        var colorData: NSData?
+        if let color = color {
+            colorData = NSKeyedArchiver.archivedData(withRootObject: color) as NSData?
+        }
+        set(colorData, forKey: key)
+    }
+    
 }
