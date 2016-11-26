@@ -472,9 +472,10 @@
                         s = [t[2] componentsSeparatedByString:@","];
                         NSTimeInterval fin = ([t[0] intValue] * 3600) + ([t[1] intValue] * 60) + [s[0] intValue] + ([s[1] intValue] / 1000);
                         
-                        curText = [curText stringByReplacingOccurrencesOfString:@"&#x27;" withString:@"'"];
+                        /* Decode hard coded entities */
+                        curText = [curText decodeEntities];
                         
-                        // Convert text (but not the tags) to HTML entities
+                        /* Convert text like 'A©' (but not the tags) to HTML entities */
                         NSMutableString *htmlString = [NSMutableString string];
                         NSString *dontReplace = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789<>/' =#-_;%!\"";
                         for (int i = 0 ; i < curText.length ; i++)
