@@ -56,8 +56,6 @@ import UIKit
         let backView = UIView()
         backView.backgroundColor = UIColor(white: 0.23, alpha: 1)
         tableView.backgroundView = backView
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "fontCell")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -103,6 +101,13 @@ import UIKit
             return 1
         }
         return fonts.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 1 {
+            return "Custom font header".localized
+        }
+        return nil
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {

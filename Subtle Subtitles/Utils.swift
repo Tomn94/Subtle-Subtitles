@@ -21,6 +21,7 @@ extension UINavigationController {
 
 extension UserDefaults {
     
+    /// Stored color or returns white
     func color(forKey key: String) -> UIColor {
         var color = UIColor.white
         if let colorData = data(forKey: key) {
@@ -37,4 +38,15 @@ extension UserDefaults {
         set(colorData, forKey: key)
     }
     
+}
+
+extension UIColor {
+    var isTooBright: Bool {
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        getRed(&r, green: &g, blue: &b, alpha: &a)
+        
+        let score = (r + g + b) / 3
+        
+        return score > (192 / 255)
+    }
 }

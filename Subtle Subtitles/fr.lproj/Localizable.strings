@@ -215,11 +215,15 @@
 "Dismiss" = "Masquer les préférences";
 
 "Default font" = "Par défaut";
+"Custom font header" = "Polices personnalisées";
 "Alert using custom font" = "Des problèmes d'affichage peuvent apparaître en choisissant une police personnalisée dans la liste ci-dessous.";
 "Select Previous Font" = "Sélectionner la police précédente";
 "Select Next Font" = "Sélectionner la police suivante";
 "Back to Display Settings" = "Retour aux préférences d'affichage";
 "Choose Font" = "Choisir la police sélectionnée";
+
+"Custom color header" = "Couleurs personnalisées";
+"Alert using custom color" = "Les couleurs incluses dans les sous-titres ne sont pas impactées par le choix d'une couleur personnalisée.";
 
 "UTF-8" = "UTF-8 (par défaut)";
 "Western (Latin-1/ISO 8859-1)" = "Occidental (Latin-1/ISO 8859-1)";

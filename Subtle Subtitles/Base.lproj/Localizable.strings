@@ -215,11 +215,15 @@
 "Dismiss" = "Dismiss Settings";
 
 "Default font" = "Default";
+"Custom font header" = "Custom fonts";
 "Alert using custom font" = "Choosing a custom font from the list below may cause some display issues.";
 "Select Previous Font" = "Select Previous Font";
 "Select Next Font" = "Select Next Font";
 "Back to Display Settings" = "Back to Display Settings";
 "Choose Font" = "Choose Font";
+
+"Custom color header" = "Custom color";
+"Alert using custom color" = "Choosing a custom color does not override colors embedded in subtitles.";
 
 "UTF-8" = "UTF-8 (default)";
 "Western (Latin-1/ISO 8859-1)" = "Western (French · Latin-1/ISO 8859-1)";

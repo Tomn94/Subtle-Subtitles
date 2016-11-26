@@ -359,6 +359,8 @@
         {
             curIndex = found;
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            
+            /* Get Size */
             CGFloat textSize = _subLabel.font.pointSize;
             if (forceTextRedraw)
             {
@@ -366,12 +368,24 @@
                 forceTextRedraw = NO;
             }
             
+            /* Get Font */
             NSString *eventualCustomFontName = [defaults stringForKey:[FontSettings settingsFontNameKey]];
             if (eventualCustomFontName != nil)
                 eventualCustomFontName = [NSString stringWithFormat:@"'%@',", eventualCustomFontName];
             else
                 eventualCustomFontName = @"";
-            NSString *htmlForSub = [NSString stringWithFormat:@"<p style=\"color: white; text-align: center; font-family: %@'-apple-system', HelveticaNeue, Arial; font-size: %fpx\">", eventualCustomFontName, textSize];
+            
+            /* Get Color */
+            NSString *color = @"white";
+            if ([defaults colorForKey:[FontSettings settingsFontColorKey]]) {
+                UIColor *customColor = [defaults colorForKey:[FontSettings settingsFontColorKey]];
+                CGFloat red = 0, green = 0, blue = 0, alpha = 0;
+                [customColor getRed:&red green:&green blue:&blue alpha:&alpha];
+                color = [NSString stringWithFormat:@"rgb(%d,%d,%d)", (int)(red * 255), (int)(green * 255), (int)(blue * 255)];
+            }
+            
+            /* Create HTML for text */
+            NSString *htmlForSub = [NSString stringWithFormat:@"<p style=\"color: %@; text-align: center; font-family: %@'-apple-system', HelveticaNeue, Arial; font-size: %fpx\">", color, eventualCustomFontName, textSize];
             NSString *txt = [NSString stringWithFormat:@"%@%@</p>", htmlForSub, srt[curIndex][@"text"]];
             _subLabel.attributedText = [[NSAttributedString alloc] initWithData:[txt dataUsingEncoding:encoding]
                                                                         options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType }

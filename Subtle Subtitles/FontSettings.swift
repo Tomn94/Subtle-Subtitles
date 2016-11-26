@@ -96,6 +96,7 @@ class FontSettings: UITableViewController {
         tableView.backgroundView = backView
         
         NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name(rawValue: "fontChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reload), name: Notification.Name(rawValue: "colorChanged"), object: nil)
     }
     
     // MARK: - Table view data source
@@ -190,8 +191,8 @@ class FontSettings: UITableViewController {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 self.performSegue(withIdentifier: "fontSettingsDetailSegue", sender: self)
-            } else if indexPath.row == 2 {
-                
+            } else if indexPath.row == 1 {
+                self.performSegue(withIdentifier: "colorSettingsDetailSegue", sender: self)
             }
         } else {
             /* Change checkmarks ✓ */
