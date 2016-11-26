@@ -38,6 +38,9 @@
 /* Class = "UINavigationItem"; title = "Second Search Language"; ObjectID = "vGP-b0-AKn"; */
 "vGP-b0-AKn.title" = "Préférences";
 
+/* Class = "UILabel"; text = "Color" */
+"nwy-cX-Pot.text" = "Couleur";
+
 /* Class = "UILabel"; text = "Size" */
 "bjE-gg-ZPM.text" = "Taille";
 

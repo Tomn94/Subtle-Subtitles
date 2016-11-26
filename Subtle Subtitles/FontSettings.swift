@@ -133,10 +133,12 @@ class FontSettings: UITableViewController {
         /* BASIC SETUP */
         var identifier = "fontSettingsCell"
         if indexPath.section == 0 {
-            if indexPath.row == 2 {
-                identifier += "Size"
-            } else {
+            if indexPath.row == 0 {
                 identifier += "Menu"
+            } else if indexPath.row == 1 {
+                identifier += "Color"
+            } else {
+                identifier += "Size"
             }
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
@@ -161,8 +163,8 @@ class FontSettings: UITableViewController {
             }
             /* Color */
             else if indexPath.row == 1 {
-                cell.textLabel?.text = "Color menu".localized
-                cell.detailTextLabel?.text = defaults.string(forKey: "preferredColor")
+                let colorCell = cell as! FontColorCell
+                colorCell.display(color: defaults.color(forKey: FontSettings.settingsFontColorKey))
             }
             /* Size */
             else {
@@ -209,9 +211,11 @@ class FontSettings: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    /// Reload font settings after change in sub-menus
     func reload() {
+        let currentKeyboardSelection = (tableView as! KBTableView).currentlyFocussedIndex
         self.tableView.reloadData()
-        (tableView as! KBTableView).currentlyFocussedIndex = IndexPath(row: 0, section: 0)
+        (tableView as! KBTableView).currentlyFocussedIndex = currentKeyboardSelection
     }
     
     // MARK: - Keyboard
