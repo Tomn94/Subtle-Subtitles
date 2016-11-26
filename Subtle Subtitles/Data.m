@@ -113,22 +113,24 @@
 /** Add previous searches to 3D Touch shortcuts */
 + (void) updateDynamicShortcutItems
 {
-    NSArray *previous = [[NSUserDefaults standardUserDefaults] arrayForKey:@"previousSearches"];
-    NSMutableArray *shortcutItems = [NSMutableArray array];
-    
-    int nbr = 0, max = 5;   // Some kind of watchdog
-    for (NSString *previousSearch in previous) {
-        [shortcutItems addObject:[[UIApplicationShortcutItem alloc] initWithType:QUICKACTIONS_ID
-                                                                  localizedTitle:previousSearch.capitalizedString
-                                                               localizedSubtitle:nil
-                                                                            icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeSearch]
-                                                                        userInfo:nil]];
-        nbr++;
-        if (nbr > max)
-            break;
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"9" options:NSNumericSearch] != NSOrderedAscending) {
+        NSArray *previous = [[NSUserDefaults standardUserDefaults] arrayForKey:@"previousSearches"];
+        NSMutableArray *shortcutItems = [NSMutableArray array];
+        
+        int nbr = 0, max = 5;   // Some kind of watchdog
+        for (NSString *previousSearch in previous) {
+            [shortcutItems addObject:[[UIApplicationShortcutItem alloc] initWithType:QUICKACTIONS_ID
+                                                                      localizedTitle:previousSearch.capitalizedString
+                                                                   localizedSubtitle:nil
+                                                                                icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeSearch]
+                                                                            userInfo:nil]];
+            nbr++;
+            if (nbr > max)
+                break;
+        }
+        
+        [UIApplication sharedApplication].shortcutItems = shortcutItems;
     }
-    
-    [UIApplication sharedApplication].shortcutItems = shortcutItems;
 }
 
 #pragma mark - Taptic Engine

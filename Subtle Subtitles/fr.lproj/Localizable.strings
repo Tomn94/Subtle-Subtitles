@@ -209,10 +209,10 @@
 "Encoding Section Title" = "Encodage";
 "Font menu" = "Police";
 "Tip: Pinch to change the text size of the subtitles" = "Astuce : agrandissez les sous-titres en écartant 2 doigts";
-"Select Previous Encoding" = "Sélectionner précédent";
-"Select Next Encoding" = "Sélectionner suivant";
-"Choose Encoding" = "Choisir";
-"Dismiss" = "Masquer les préférences";
+"Select Previous Encoding" = "Sélectionner la ligne précédente";
+"Select Next Encoding" = "Sélectionner la ligne suivante";
+"Choose Encoding" = "Valider la sélection";
+"Dismiss Display Settings" = "Masquer les préférences";
 
 "Default font" = "Par défaut";
 "Custom font header" = "Polices personnalisées";

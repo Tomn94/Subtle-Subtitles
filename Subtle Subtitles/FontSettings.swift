@@ -53,14 +53,19 @@ class FontSettings: UITableViewController {
                     discoverabilityTitle: "Select Previous Encoding".localized),
                 
                 UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: [], action: #selector(keyArrow(_:)),
-                    discoverabilityTitle: "Select Next Encoding".localized),
+                             discoverabilityTitle: "Select Next Encoding".localized),
                 
                 UIKeyCommand(input: "\r", modifierFlags: [], action: #selector(enterKey),
                              discoverabilityTitle: "Choose Encoding".localized),
                 UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: [], action: #selector(enterKey)),
                 
+                UIKeyCommand(input: "+", modifierFlags: [.command], action: #selector(zoomText(_:)),
+                             discoverabilityTitle: "Enlarge Text Size".localized),
+                UIKeyCommand(input: "-", modifierFlags: [.command], action: #selector(zoomText(_:)),
+                             discoverabilityTitle: "Reduce Text Size".localized),
+                
                 UIKeyCommand(input: UIKeyInputEscape, modifierFlags: [], action: #selector(close),
-                    discoverabilityTitle: "Dismiss".localized)
+                    discoverabilityTitle: "Dismiss Display Settings".localized)
             ]
         } else {
             return []
@@ -238,6 +243,15 @@ class FontSettings: UITableViewController {
     @IBAction func close() {
         dismiss(animated: true, completion: nil)
         NotificationCenter.default.post(name: Notification.Name(rawValue: "fontSettingsDismissed"), object: nil)
+    }
+    
+    func zoomText(_ sender: UIKeyCommand) {
+        let stepperIndexPath = IndexPath(row: 2, section: 0)
+        if let sizeCell = self.tableView(tableView, cellForRowAt: stepperIndexPath) as? FontSizeCell {
+            sizeCell.stepper.value += sender.input == "-" ? -1 : 1
+            sizeCell.updateLabel()
+            self.tableView.reloadRows(at: [stepperIndexPath], with: .none)
+        }
     }
     
 }

@@ -12,6 +12,21 @@ import UIKit
 
 class ColorList: UITableViewController {
     
+    /// Set iPad keyboard shortcuts
+    override var keyCommands: [UIKeyCommand]? {
+        if #available(iOS 9, *) {
+            return [
+                UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: [], action: #selector(keyArrow(_:)),
+                             discoverabilityTitle: "Back to Display Settings".localized),
+                
+                UIKeyCommand(input: UIKeyInputEscape, modifierFlags: [], action: #selector(close),
+                             discoverabilityTitle: "Dismiss".localized)
+            ]
+        } else {
+            return []
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,6 +99,18 @@ class ColorList: UITableViewController {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // MARK: - Keyboard
+    
+    func keyArrow(_ sender: UIKeyCommand) {
+        if sender.input == UIKeyInputLeftArrow {
+            _ = self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    @IBAction func close() {
+        dismiss(animated: true, completion: nil)
     }
     
 }

@@ -209,10 +209,10 @@
 "Encoding Section Title" = "Encoding";
 "Font menu" = "Font";
 "Tip: Pinch to change the text size of the subtitles" = "Tip: Pinch the subtitles to change their size";
-"Select Previous Encoding" = "Select Previous";
-"Select Next Encoding" = "Select Next";
-"Choose Encoding" = "Choose";
-"Dismiss" = "Dismiss Settings";
+"Select Previous Encoding" = "Select Previous Row";
+"Select Next Encoding" = "Select Next Row";
+"Choose Encoding" = "Validate Selection";
+"Dismiss Display Settings" = "Dismiss Settings";
 
 "Default font" = "Default";
 "Custom font header" = "Custom fonts";
