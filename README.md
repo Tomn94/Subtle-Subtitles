@@ -31,7 +31,7 @@ Coded in few hours so be clement! (✿◠‿◠)
 > - Use the scrub bar to find your favorite scene
 > - Delay or advance in time, so you stay synced with your video
 > - Pinch to resize the text of the subtitles
-> - Change the encoding
+> - Change the font, color, size, encoding
 >
 > #### SHARE
 > - Send the subtitles with any messaging app (WhatsApp, Messenger…) to share them with your friends!
@@ -62,13 +62,12 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 ## TODO
 - Subtitle library
-- Share a punchline (© Euryale)
-- Support `&#x27;` characters in SRT files
 - Support for other subtitles file formats
+- Share a punchline (© Euryale)
+- What's New, list of new subtitles in a specified langage
 - Display 2 languages in Player
 - VoiceOver support
 - Russian localization
-- What's New, list of new subtitles in a specified langage
 - ~~Keyboard shortcuts in search bar while typing~~
 - ~~Always display search scopes~~
 - ~~Fix UIDocumentInteractionController arrow direction for Open In UITableViewRowAction on iPad~~
@@ -92,6 +91,7 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 > - 3D Touch shortcuts on app icon
 > - Don't animate scrolling for 2nd Search Langage
 > - Vibration feedbacks on the iPhone 7 for S+1 & E+1 buttons
+> - Support `&#x27;` characters in SRT files
 
 ###v1.5 · 25/06/2016
 > Subtle Subtitles has found many users, thank you all!
