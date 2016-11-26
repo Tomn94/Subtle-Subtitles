@@ -237,6 +237,7 @@ class FontSettings: UITableViewController {
     
     @IBAction func close() {
         dismiss(animated: true, completion: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "fontSettingsDismissed"), object: nil)
     }
     
 }

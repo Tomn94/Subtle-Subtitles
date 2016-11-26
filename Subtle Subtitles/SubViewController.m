@@ -62,6 +62,7 @@
                                                                            [[ActivityTextProvider alloc] initWithPlaceholderItem:subFile.subtitleDownloadAddress]]
                                                    applicationActivities:@[[SafariActivity new], [DownActivity new]]];
     doc = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:path]];
+    doc.delegate = self;
     
     [self loadWithEncoding];
     
@@ -80,6 +81,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openIn:) name:@"openIn" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWithEncoding) name:@"updateEncoding" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadText) name:@"updateDisplaySettings" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startAutoHideControlsTimer) name:@"fontSettingsDismissed" object:nil]; // from OK button
     
     if ([UIKeyCommand instancesRespondToSelector:@selector(setDiscoverabilityTitle:)])
     {
@@ -173,7 +175,8 @@
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    autohideTimer = [NSTimer scheduledTimerWithTimeInterval:6 target:self selector:@selector(hideControls) userInfo:nil repeats:NO];
+    
+    [self startAutoHideControlsTimer];
     [_playButton setImage:[UIImage imageNamed:(!playing) ? @"play" : @"pause"] forState:UIControlStateNormal];
     forceShowControls = YES;
     [self showControls];
@@ -188,7 +191,7 @@
 - (void) viewDidDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self stop];    // TODO: Don't stop playing if Font preferences view controller on iPhone is displayed
+    [self stop];
 }
 
 - (void) viewWillTransitionToSize:(CGSize)size
@@ -208,6 +211,26 @@
 - (UIStatusBarStyle) preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+
+#pragma mark - Pop over delegates
+
+/// Dismiss Link Sharing or Display Settings (except its OK button)
+- (void) popoverPresentationControllerDidDismissPopover:(UIPopoverPresentationController *)popoverPresentationController
+{
+    [self startAutoHideControlsTimer];
+}
+
+/// Dismiss [Open In]/Options
+- (void) documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *)controller
+{
+    [self startAutoHideControlsTimer];
+}
+
+/// Dismiss Open In/[Options]
+- (void) documentInteractionControllerDidDismissOptionsMenu:(UIDocumentInteractionController *)controller
+{
+    [self startAutoHideControlsTimer];
 }
 
 #pragma mark - Actions
@@ -310,6 +333,11 @@
     [self updateTime];
     forceShowControls = YES;
     [self showControls];
+}
+
+- (void) startAutoHideControlsTimer
+{
+    autohideTimer = [NSTimer scheduledTimerWithTimeInterval:6 target:self selector:@selector(hideControls) userInfo:nil repeats:NO];
 }
 
 - (void) timer
@@ -487,6 +515,10 @@
 
 - (void) settings
 {
+    /* Disallow multiple popovers */
+    if (self.presentedViewController != nil)
+        return;
+    
     forceShowControls = YES;
     [self showControls];
     [self performSegueWithIdentifier:@"fontSegue" sender:self];
@@ -495,6 +527,9 @@
 - (IBAction) share:(UIBarButtonItem *)sender
 {
     if (docAct == nil)
+        return;
+    /* Disallow multiple popovers */
+    if (self.presentedViewController != nil)
         return;
     
     forceShowControls = YES;
@@ -505,13 +540,19 @@
     if (item == nil)
         return;
     
-    if ([docAct respondsToSelector:@selector(popoverPresentationController)])
+    if ([docAct respondsToSelector:@selector(popoverPresentationController)]) {
         docAct.popoverPresentationController.barButtonItem = item;
+        docAct.popoverPresentationController.delegate = self;
+    }
     [self presentViewController:docAct animated:YES completion:nil];
 }
 
 - (IBAction) openIn:(UIBarButtonItem *)sender
 {
+    /* Disallow multiple popovers */
+    if (self.presentedViewController != nil)
+        return;
+    
     forceShowControls = YES;
     [self showControls];
     UIBarButtonItem *item = self.navigationItem.rightBarButtonItems[0];
@@ -526,6 +567,11 @@
 
 - (void) hideControls
 {
+    /* Don't hide if there's a popover */
+    if (self.presentedViewController != nil) {
+        return;
+    }
+    
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [UIView animateWithDuration:0.7
                      animations:^{
@@ -664,6 +710,25 @@
 {
     forceTextRedraw = YES;
     [self updateText];
+}
+
+#pragma mark - Segue config for Font Menu
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"fontSegue"])
+    {
+        UINavigationController *dest = segue.destinationViewController;
+        dest.popoverPresentationController.delegate = self;
+    }
+}
+
+- (BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    /* Disallow multiple popovers */
+    if ([identifier isEqualToString:@"fontSegue"])
+        return self.presentedViewController == nil;
+    return YES;
 }
 
 @end
