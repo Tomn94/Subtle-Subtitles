@@ -39,6 +39,11 @@
         
         [Data updateDynamicShortcutItems];
         
+        if (__UI_TESTING__)
+            [defaults setObject:@[@"Guardians of the Galaxy", @"Game of Thrones", @"Breaking Bad", @"South Park", @"Homeland", @"Brooklyn Nine Nine",
+                                  @"Atlanta", @"Banshee", @"American Beauty", @"Parks and Recreation", @"The Office", @"Daria",
+                                  @"Master of None", @"Sens8", @"Silicon Valley"] forKey:@"previousSearches"];
+        
         // Nettoyage des données précédentes
         NSString *extension = @"srt";
         NSFileManager *fileManager = [NSFileManager defaultManager];

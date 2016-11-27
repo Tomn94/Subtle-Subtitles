@@ -27,6 +27,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [CJPAdController sharedInstance].initialDelay = 2.0;
     [CJPAdController sharedInstance].adMobUnitID = @"ca-app-pub-5043679231014485/5228181857";
     [[CJPAdController sharedInstance] setTestDeviceIDs:@[@"7bf93d1f07cb039c3a523bc37ba84bdd"]]; // TEST_EMULATOR pour avoir l'ID
+    if (__UI_TESTING__)
+        [CJPAdController sharedInstance].adsRemoved = YES;
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     navController = (UINavigationController*)[storyboard instantiateInitialViewController];
