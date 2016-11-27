@@ -8,8 +8,10 @@
 
 Download : [App Store](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
 
-<img src="/App Store/6/1.png" height="370" />
-<img src="/App Store/6/2.png" height="370" />
+<img src="/App Store/v2/EN/iPad 1.png?raw=true" height="325" />
+<img src="/App Store/v2/EN/iPad 2.png?raw=true" height="325" />
+<img src="/App Store/v2/EN/iPhone 4.png?raw=true" height="325" />
+<img src="/App Store/v2/iPhone colors.png?raw=true" height="325" />
 
 ## Description
 
@@ -172,4 +174,7 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 > Feel free to contact me on Twitter if you have some ideas too: @tomn94
 
 ###v1.0 · 07/04/2016
+
+<img src="/App Store/6/1.png?raw=true" height="370" />
+<img src="/App Store/6/2.png?raw=true" height="370" />
 > *Original publication*
