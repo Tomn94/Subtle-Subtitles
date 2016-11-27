@@ -79,19 +79,23 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 
 ## Release notes
 ###v2.0 · 2016
-> - Typeface, font size and color in the Font menu
-> - New App Store screenshots + localized
-> - Open files from other apps
-> - Don't add S01E01 to an empty string
-> - New tint color
-> - French quotes fix if No Results
-> - Monospaced font fix for player
-> - New Contact button, redirects to Twitter
-> - New tips and rephrased old ones
-> - 3D Touch shortcuts on app icon
-> - Don't animate scrolling for 2nd Search Langage
-> - Vibration feedbacks on the iPhone 7 for S+1 & E+1 buttons
-> - Support `&#x27;` characters in SRT files
+> Subtle Subtitles has found many users, thank you all!
+> 
+> - Open files from other apps!<br>
+> Import subtitles from iCloud Drive, or any app that has a Share button
+> 
+> - Find your ongoing TV show quickly!<br>
+> Deep press the app icon on the iPhone 6s/7/+
+> 
+> - Adjust the font, color and size of the subtitles in the new Player Display Settings
+>
+> - Better support of HTML special characters
+> - Haptic feedbacks on the iPhone 7
+> - New tips and Contact under the Info button
+> - Tint color change, UI tweaks and bug fixes
+> 
+> Feel free to rate the app if you like it!<br>
+> You can contact me on Twitter for any feedback: @tomn94
 
 ###v1.5 · 25/06/2016
 > Subtle Subtitles has found many users, thank you all!
