@@ -257,7 +257,7 @@ class SuggestionsTable: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        searchBar?.text = suggestions[indexPath.row] + " "
+        searchBar?.text = suggestions[indexPath.row].capitalized + " "
         searchBar?.becomeFirstResponder()
         tableView.deselectRow(at: indexPath, animated: true)
     }
