@@ -1,21 +1,18 @@
 # Subtle Subtitles
 
 [![Version](https://img.shields.io/badge/version-2.0-green.svg)](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
-![Code](https://img.shields.io/badge/code-Objective--C + Swift-orange.svg)
+![Code](https://img.shields.io/badge/code-Objective--C%20+%20Swift-orange.svg)
 [![Platform](https://img.shields.io/badge/platform-iOS-red.svg)](http://www.apple.com/ios/)
-[![Contributors](https://img.shields.io/badge/contributors-Thomas NAUDET-blue.svg)](http://twitter.com/tomn94)
-[![Licence](https://img.shields.io/badge/licence-CC BY--NC--ND 4.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
+[![Contributors](https://img.shields.io/badge/contributors-Thomas%20NAUDET-blue.svg)](http://twitter.com/tomn94)
+[![Licence](https://img.shields.io/badge/licence-CC%20BY--NC--ND%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by-nc-nd/4.0/)
 
 Download : [App Store](https://itunes.apple.com/app/apple-store/id1099663304?pt=104224803&ct=GitHub&mt=8)
 
-<img src="/App Store/v2/EN/iPad 1.png?raw=true" height="325" />
-<img src="/App Store/v2/EN/iPad 2.png?raw=true" height="325" />
-<img src="/App Store/v2/EN/iPhone 4.png?raw=true" height="325" />
-<img src="/App Store/v2/iPhone colors.png?raw=true" height="325" />
+<img src="/App Store/v2/EN/iPad 1.png?raw=true" height="325" /> <img src="/App Store/v2/EN/iPad 2.png?raw=true" height="325" /> <img src="/App Store/v2/EN/iPhone 4.png?raw=true" height="325" /> <img src="/App Store/v2/iPhone colors.png?raw=true" height="325" />
 
 ## Description
 
-Repository for my simple iOS app suiting my needs about movie/series subtitles<br>
+Repository for my simple iOS app suiting my needs about movie/series subtitles\
 Coded in few hours so be clement! (✿◠‿◠) 
 
 > Super simple Subtitle player: Search & Play!
@@ -46,7 +43,7 @@ Coded in few hours so be clement! (✿◠‿◠)
 > - Use a keyboard on iPad to make it stand in front of you, and navigate easier with the keyboard shortcuts
 > - Get back to your ongoing show with 3D Touch actions on the app icon
 > 
-> Completely free and unlimited, with ads that can be easily removed.<br>
+> Completely free and unlimited, with ads that can be easily removed.\
 > Enjoy, feel free to send your feedback: @tomn94
 
 
@@ -80,13 +77,13 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 <sup>~~Abc~~ = iOS SDK does not allow it at this moment</sup>
 
 ## Release notes
-###v2.0 · 2016
+### v2.0 · 2016
 > Subtle Subtitles has found many users, thank you all!
 > 
-> - Open files from other apps!<br>
+> - Open files from other apps!\
 > Import subtitles from iCloud Drive, or any app that has a Share button
 > 
-> - Find your ongoing TV show quickly!<br>
+> - Find your ongoing TV show quickly!\
 > Deep press the app icon on the iPhone 6s/7/+
 > 
 > - Adjust the font, color and size of the subtitles in the new Player Display Settings
@@ -96,22 +93,22 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 > - New tips and Contact under the Info button
 > - Tint color change, UI tweaks and bug fixes
 > 
-> Feel free to rate the app if you like it!<br>
+> Feel free to rate the app if you like it!\
 > You can contact me on Twitter for any feedback: @tomn94
 
-###v1.5 · 25/06/2016
+### v1.5 · 25/06/2016
 > Subtle Subtitles has found many users, thank you all!
 > 
-> - Download and Share subtitles right from the Search screen!<br>
+> - Download and Share subtitles right from the Search screen!\
 > Long press or swipe on a search result to reveal these actions.
 > 
-> - Fix for Non-Latin Languages, including Russian and Greek<br>
-> Be sure to check Encoding Settings in the Player if you see any strange character!<br>
+> - Fix for Non-Latin Languages, including Russian and Greek\
+> Be sure to check Encoding Settings in the Player if you see any strange character!\
 > Your settings will be applied and saved for the next time.
 > 
 > - Subtitles are now stored in cache so you won't download them twice in a row
 > 
-> - Added more keyboard shortcuts<br>
+> - Added more keyboard shortcuts\
 > On the iPad, press Cmd to see them all for a given screen
 > 
 > - Free In-App Purchase fixes included
@@ -122,14 +119,14 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 > Feel free to rate the app if you like it!
 > You can contact me on Twitter for any feedback: @tomn94
 
-###v1.4 · 03/06/2016
+### v1.4 · 03/06/2016
 > Subtle Subtitles has found many users, thank you all!
 >
 >- Improved Welcome and No Results screens
->- Better Search v2:<br>
->Displays suggestions based on your previous searches<br>
+>- Better Search v2:\
+>Displays suggestions based on your previous searches\
 >Clear all your recent searches or just one
->- S+1 and E+1 buttons to jump to the next episode are slightly more clever<br>
+>- S+1 and E+1 buttons to jump to the next episode are slightly more clever\
 >They are now available above the iPad keyboard too
 >- Subtitle download indicator
 >- Separated export menus: one to simply export the SRT file, one to share the link to OpenSubtitles.org download page
@@ -137,13 +134,13 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 >
 >Feel free to contact me on Twitter if you have some other ideas: @tomn94
 
-###v1.3 · 23/05/2016
+### v1.3 · 23/05/2016
 > Subtle Subtitles has found many users, thank you all!
 >
 >- Pinch to change the text size of the subtitles
->- Better Search:<br>
+>- Better Search:\
 >Many data added when searching to find the better subtitles way faster, with customizable options (includes closed captions, based on user request)
->- UI Improvement on iPad:<br>
+>- UI Improvement on iPad:\
 >Text size of the subtitles now optimized for every screen size, including Split View
 >- New features to download and share subtitles in the Export menu
 >- Keyboard shortcuts on iOS 9
@@ -151,7 +148,7 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 >
 >Feel free to contact me on Twitter if you have some other ideas: @tomn94
 
-###v1.2 · 18/05/2016
+### v1.2 · 18/05/2016
 > Subtle Subtitles has found many users, thank you all!
 >
 > - Enhanced UI for player controls, now displaying the current time and easier to scrub
@@ -164,7 +161,7 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 > 
 > Feel free to contact me on Twitter if you have some other ideas: @tomn94
 
-###v1.1 · 16/05/2016
+### v1.1 · 16/05/2016
 > Subtle Subtitles has found many users, thank you all!
 >
 > Some of you made suggestions, here they are:
@@ -173,8 +170,7 @@ Uses [OpenSubtitles.org](http://www.opensubtitles.org/) database.
 > 
 > Feel free to contact me on Twitter if you have some ideas too: @tomn94
 
-###v1.0 · 07/04/2016
+### v1.0 · 07/04/2016
 
-<img src="/App Store/6/1.png?raw=true" height="370" />
-<img src="/App Store/6/2.png?raw=true" height="370" />
+<img src="/App Store/6/1.png?raw=true" height="370" /> <img src="/App Store/6/2.png?raw=true" height="370" />
 > *Original publication*
