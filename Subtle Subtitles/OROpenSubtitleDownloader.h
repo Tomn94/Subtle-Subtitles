@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 ortatherox.com. All rights reserved.
 //
 
-#import <XMLRPC/XMLRPC.h>
+#import <xmlrpc/XMLRPC.h>
 
 @class OROpenSubtitleDownloader, OpenSubtitleSearchResult;
 

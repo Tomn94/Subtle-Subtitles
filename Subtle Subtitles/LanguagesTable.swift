@@ -87,7 +87,7 @@ class LanguagesTable: UITableViewController {
         tableView.scrollToRow(at: indexPath, at: .middle, animated: false)
     }
     
-    func loadLanguages() {
+    @objc func loadLanguages() {
         if let languagesNames = Data.shared().langNames,
             let languagesIDs  = Data.shared().langIDs {
             let langs: [(id: String, name: String)] = Array(zip(languagesIDs as! [String], languagesNames as! [String]))
@@ -153,7 +153,7 @@ class LanguagesTable: UITableViewController {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "updateLanguage"), object: nil)
     }
     
-    func refreshLangs() {
+    @objc func refreshLangs() {
         let currentTime = Date.timeIntervalSinceReferenceDate
         if currentTime - lastAskLang > minTimeAskLang {
             if let downloader = Data.shared().downloader {
@@ -165,7 +165,7 @@ class LanguagesTable: UITableViewController {
     
     // MARK: - Keyboard
     
-    func keyArrow(_ sender: UIKeyCommand) {
+    @objc func keyArrow(_ sender: UIKeyCommand) {
         let kbTableView = tableView as! KBTableView
         if sender.input == UIKeyInputUpArrow {
             kbTableView.upCommand()
@@ -174,18 +174,18 @@ class LanguagesTable: UITableViewController {
         }
     }
     
-    func enterKey() {
+    @objc func enterKey() {
         let kbTableView = tableView as! KBTableView
         kbTableView.returnCommand()
     }
     
-    func back() {
+    @objc func back() {
         if let nav = self.navigationController {
             nav.popViewController(animated: true)
         }
     }
     
-    func close() {
+    @objc func close() {
         dismiss(animated: true, completion: nil)
     }
 

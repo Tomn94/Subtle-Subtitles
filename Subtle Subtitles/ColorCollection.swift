@@ -61,7 +61,7 @@ class ColorCollection: UICollectionViewController, UICollectionViewDelegateFlowL
         }
     }
     
-    func reload() {
+    @objc func reload() {
         selectedIndexPath = IndexPath(item: -1, section: -1)
         self.collectionView?.reloadData()
     }

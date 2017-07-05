@@ -19,12 +19,12 @@ class FontSizeCell: UITableViewCell {
         super.awakeFromNib()
         
         if #available(iOS 9.0, *) {
-            self.sizeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: self.sizeLabel.font.pointSize, weight: UIFontWeightRegular)
+            self.sizeLabel.font = UIFont.monospacedDigitSystemFont(ofSize: self.sizeLabel.font.pointSize, weight: .regular)
         }
         self.stepper.addTarget(self, action: #selector(updateLabel), for: .valueChanged)
     }
     
-    func updateLabel() {
+    @objc func updateLabel() {
         /* Update label with new size */
         self.sizeLabel.text = String(Int(stepper.value)) + " pt"
         UserDefaults.standard.set(Float(stepper.value), forKey: FontSettings.settingsFontSizeKey)

@@ -17,7 +17,7 @@ extension String {
 }
 
 extension NSString {
-    func increaseNumber(_ season: Bool) -> NSString {
+    @objc func increaseNumber(_ season: Bool) -> NSString {
         if self == "" {
             Data.feedback(afterAction: .error)
             return self;
@@ -81,11 +81,12 @@ extension NSString {
 }
 
 
+@objc
 class SuggestionsTable: UITableViewController {
     
-    var suggestions: [String] = []
-    var searchController: UISearchController?
-    var searchBar: UISearchBar?
+    @objc var suggestions: [String] = []
+    @objc var searchController: UISearchController?
+    @objc var searchBar: UISearchBar?
     
     override var keyCommands: [UIKeyCommand]? {
         if #available(iOS 9.0, *) {
@@ -126,7 +127,7 @@ class SuggestionsTable: UITableViewController {
         }
     }
     
-    class func simplerQuery(_ query: String) -> String {
+    @objc class func simplerQuery(_ query: String) -> String {
         do {
             let regex = try NSRegularExpression(pattern: "S\\d{1,2}E\\d{1,2}", options: [.caseInsensitive])
             let res = regex.stringByReplacingMatches(in: query, options: [],
@@ -164,7 +165,7 @@ class SuggestionsTable: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "suggestCell")
     }
     
-    func exit() {
+    @objc func exit() {
         if let sb = searchBar, sb.isFirstResponder {
             sb.resignFirstResponder()
         } else if let sc = searchController {
@@ -172,20 +173,20 @@ class SuggestionsTable: UITableViewController {
         }
     }
     
-    func switchLang(_ sender: UIKeyCommand) {
+    @objc func switchLang(_ sender: UIKeyCommand) {
         if let sb = searchBar {
             sb.selectedScopeButtonIndex = (sender.modifierFlags == [.command, .alternate]) ? 1 : 0
         }
     }
     
-    func increase(_ sender: UIKeyCommand) {
+    @objc func increase(_ sender: UIKeyCommand) {
         if let sb = searchBar {
             let txt = sb.text! as NSString
             sb.text = txt.increaseNumber(sender.input == "s") as String
         }
     }
     
-    func search(_ sender: UIKeyCommand) {
+    @objc func search(_ sender: UIKeyCommand) {
         if let sb = searchBar {
             if sender.modifierFlags == [.shift] {
                 sb.selectedScopeButtonIndex = 0
@@ -285,7 +286,7 @@ class SuggestionsTable: UITableViewController {
     
     // MARK: - Keyboard
     
-    func keyArrow(_ sender: UIKeyCommand) {
+    @objc func keyArrow(_ sender: UIKeyCommand) {
         let kbTableView = tableView as! KBTableView
         if sender.input == UIKeyInputUpArrow {
             kbTableView.upCommand()
@@ -294,7 +295,7 @@ class SuggestionsTable: UITableViewController {
         }
     }
     
-    func enterKey() {
+    @objc func enterKey() {
         let kbTableView = tableView as! KBTableView
         kbTableView.returnCommand()
     }

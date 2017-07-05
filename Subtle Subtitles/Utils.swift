@@ -11,7 +11,7 @@
 import UIKit
 
 extension UINavigationController {
-    func popToRootViewController(completion: @escaping ()->()) {
+    @objc func popToRootViewController(completion: @escaping ()->()) {
         CATransaction.begin()
         CATransaction.setCompletionBlock(completion)
         self.popViewController(animated: true)
@@ -22,7 +22,7 @@ extension UINavigationController {
 extension UserDefaults {
     
     /// Stored color or returns white
-    func color(forKey key: String) -> UIColor {
+    @objc func color(forKey key: String) -> UIColor {
         var color = UIColor.white
         if let colorData = data(forKey: key) {
             color = NSKeyedUnarchiver.unarchiveObject(with: colorData) as? UIColor ?? color
@@ -92,7 +92,7 @@ extension NSString {
         return characterEntities[entity]
     }
     
-    func decodeEntities() -> NSString {
+    @objc func decodeEntities() -> NSString {
         var result = ""
         var position = 0
         var notFinished = true

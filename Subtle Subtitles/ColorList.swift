@@ -50,7 +50,7 @@ class ColorList: UITableViewController {
         }
     }
     
-    func reload() {
+    @objc func reload() {
         tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.accessoryType = UserDefaults.standard.color(forKey: FontSettings.settingsFontColorKey) == .white ? .checkmark : .none
     }
 
@@ -103,7 +103,7 @@ class ColorList: UITableViewController {
     
     // MARK: - Keyboard
     
-    func keyArrow(_ sender: UIKeyCommand) {
+    @objc func keyArrow(_ sender: UIKeyCommand) {
         if sender.input == UIKeyInputLeftArrow {
             _ = self.navigationController?.popViewController(animated: true)
         }

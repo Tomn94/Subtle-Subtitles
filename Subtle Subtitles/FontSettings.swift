@@ -12,11 +12,11 @@ import UIKit
 
 class FontSettings: UITableViewController {
     
-    public static let settingsFontNameKey = "preferredFont"
-    public static let settingsFontColorKey = "preferredColor"
-    public static let settingsFontSizeKey = "defaultPointSize"  // !!!: Changing this needs changing registerDefaults in Data
-    public static let settingsFontSizeMin: Double = 10
-    public static let settingsFontSizeMax: Double = 200
+    @objc public static let settingsFontNameKey = "preferredFont"
+    @objc public static let settingsFontColorKey = "preferredColor"
+    @objc public static let settingsFontSizeKey = "defaultPointSize"  // !!!: Changing this needs changing registerDefaults in Data
+    @objc public static let settingsFontSizeMin: Double = 10
+    @objc public static let settingsFontSizeMax: Double = 200
     
     /// Available encodings
     var encodings: [(name: String, value: String.Encoding)] = [
@@ -218,7 +218,7 @@ class FontSettings: UITableViewController {
     }
     
     /// Reload font settings after change in sub-menus
-    func reload() {
+    @objc func reload() {
         let currentKeyboardSelection = (tableView as! KBTableView).currentlyFocussedIndex
         self.tableView.reloadData()
         (tableView as! KBTableView).currentlyFocussedIndex = currentKeyboardSelection
@@ -226,7 +226,7 @@ class FontSettings: UITableViewController {
     
     // MARK: - Keyboard
     
-    func keyArrow(_ sender: UIKeyCommand) {
+    @objc func keyArrow(_ sender: UIKeyCommand) {
         let kbTableView = tableView as! KBTableView
         if sender.input == UIKeyInputUpArrow {
             kbTableView.upCommand()
@@ -235,7 +235,7 @@ class FontSettings: UITableViewController {
         }
     }
     
-    func enterKey() {
+    @objc func enterKey() {
         let kbTableView = tableView as! KBTableView
         kbTableView.returnCommand()
     }
@@ -245,7 +245,7 @@ class FontSettings: UITableViewController {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "fontSettingsDismissed"), object: nil)
     }
     
-    func zoomText(_ sender: UIKeyCommand) {
+    @objc func zoomText(_ sender: UIKeyCommand) {
         let stepperIndexPath = IndexPath(row: 2, section: 0)
         if let sizeCell = self.tableView(tableView, cellForRowAt: stepperIndexPath) as? FontSizeCell {
             sizeCell.stepper.value += sender.input == "-" ? -1 : 1

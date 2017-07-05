@@ -10,8 +10,8 @@ import UIKit
 
 @objc open class KBTableView : UITableView {
 	
-	var onSelection: ((IndexPath) -> Void)?
-	var onFocus: ((_ current: IndexPath?, _ previous: IndexPath?) -> Void)?
+	@objc var onSelection: ((IndexPath) -> Void)?
+	@objc var onFocus: ((_ current: IndexPath?, _ previous: IndexPath?) -> Void)?
 	open var currentlyFocussedIndex: IndexPath?
 	
 	override open var keyCommands: [UIKeyCommand]?{

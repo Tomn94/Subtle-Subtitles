@@ -162,7 +162,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     }
     else
     {
-        BOOL value;
+        BOOL value = NO;
         if (indexPath.section == 0)
         {
             if (indexPath.row == settings.count)

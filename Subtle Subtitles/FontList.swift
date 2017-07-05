@@ -168,7 +168,7 @@ import UIKit
     
     // MARK: - Keyboard
     
-    func keyArrow(_ sender: UIKeyCommand) {
+    @objc func keyArrow(_ sender: UIKeyCommand) {
         let kbTableView = tableView as! KBTableView
         if sender.input == UIKeyInputUpArrow {
             kbTableView.upCommand()
@@ -179,7 +179,7 @@ import UIKit
         }
     }
     
-    func enterKey() {
+    @objc func enterKey() {
         let kbTableView = tableView as! KBTableView
         kbTableView.returnCommand()
     }

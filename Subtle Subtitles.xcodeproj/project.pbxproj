@@ -326,7 +326,7 @@
 					643859841CA727CD00BE70FF = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 7HW87TV8LC;
-						LastSwiftMigration = 0810;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					6438599D1CA727CD00BE70FF = {
@@ -662,7 +662,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Subtle Subtitles/Subtle Subtitles-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -688,7 +689,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tomn.Subtle-Subtitles";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Subtle Subtitles/Subtle Subtitles-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
