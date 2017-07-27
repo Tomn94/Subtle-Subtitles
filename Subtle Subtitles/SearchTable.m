@@ -123,9 +123,11 @@
                                                        action:@selector(infos:)
                                          discoverabilityTitle:NSLocalizedString(@"Tips", @"")]];
         
-        UIBarButtonItem *seasonKey = [[UIBarButtonItem alloc] initWithTitle:@"S+1" style:UIBarButtonItemStylePlain
+        UIBarButtonItem *seasonKey = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"S+1", @"Increment Season Number")
+                                                                      style:UIBarButtonItemStylePlain
                                                                      target:self action:@selector(increaseNumberWithButton:)];
-        UIBarButtonItem *episodeKey = [[UIBarButtonItem alloc] initWithTitle:@"E+1" style:UIBarButtonItemStylePlain
+        UIBarButtonItem *episodeKey = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"E+1", @"Increment Episode Number")
+                                                                       style:UIBarButtonItemStylePlain
                                                                       target:self action:@selector(increaseNumberWithButton:)];
         UIBarButtonItem *plus1Buttons = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                                                       target:self action:nil];
