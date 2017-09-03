@@ -119,8 +119,9 @@
 "IAP unavailable message" = "In-App Purchase are disabled.\nPlease check your Restriction policies in:\nSettings app › General › Restrictions";
 "This purchase can't be bought" = "This purchase can't be bought";
 "No purchase are currently available for sale." = "No purchase are currently available for sale.";
-"Thanks !" = "Thanks !";
+"Thanks !" = "Thank you!";
 "Ads won't appear anymore on your devices." = "Ads won't appear anymore on your devices.";
+"You can continue to use the app while your purchase is pending an approval from your parent." = "You can continue to use the app while your purchase is pending an approval from your parent.";
 "Ads have been removed!" = "Ads have been removed!";
 "Your previous purchase has been restored." = "Your previous purchase has been restored.";
 "Great" = "Great";

@@ -230,8 +230,18 @@
                     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
                     break;
                 }
-                case SKPaymentTransactionStateFailed:
                 case SKPaymentTransactionStateDeferred:
+                {
+                    [self updateNetwork:-1];
+                    
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Thanks !", @"")
+                                                                                   message:NSLocalizedString(@"You can continue to use the app while your purchase is pending an approval from your parent.", @"")
+                                                                            preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Great", @"") style:UIAlertActionStyleCancel handler:nil]];
+                    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
+                    break;
+                }
+                case SKPaymentTransactionStateFailed:
                     [self updateNetwork:-1];
                     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                     break;
