@@ -53,10 +53,11 @@ class LanguagesTable: UITableViewController {
         }
         betterTableView.onFocus = { current, previous in
             if let previous = previous {
-                betterTableView.deselectRow(at: previous as IndexPath, animated: false)
+                betterTableView.deselectRow(at: previous, animated: false)
             }
-            if let current = current {
-                betterTableView.selectRow(at: current as IndexPath, animated: false, scrollPosition: .middle)
+            if let current  = current,
+               current.row >= self.tableView.numberOfRows(inSection: 0) {
+                betterTableView.selectRow(at: current, animated: false, scrollPosition: .middle)
             }
         }
         tableView = betterTableView
