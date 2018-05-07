@@ -131,7 +131,7 @@ class SuggestionsTable: UITableViewController {
         do {
             let regex = try NSRegularExpression(pattern: "S\\d{1,2}E\\d{1,2}", options: [.caseInsensitive])
             let res = regex.stringByReplacingMatches(in: query, options: [],
-                                                             range: NSRange(location: 0, length: query.characters.count),
+                                                             range: NSRange(location: 0, length: query.count),
                                                              withTemplate: "")
             return res.trimmingCharacters(in: .whitespaces)
             
