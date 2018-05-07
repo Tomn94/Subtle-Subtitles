@@ -39,7 +39,16 @@
     search.dimsBackgroundDuringPresentation = YES;
     search.searchBar.enablesReturnKeyAutomatically = NO;
     [search.searchBar sizeToFit];
-    self.tableView.tableHeaderView = search.searchBar;
+    if (@available(iOS 11.0, *))
+    {
+        self.navigationItem.searchController = search;
+        self.navigationItem.hidesSearchBarWhenScrolling = NO;
+        self.definesPresentationContext = YES;
+    }
+    else
+    {
+        self.tableView.tableHeaderView = search.searchBar;
+    }
     suggestionsTable.searchController = search;
     suggestionsTable.searchBar = search.searchBar;
     

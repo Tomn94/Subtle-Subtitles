@@ -203,11 +203,14 @@ class SuggestionsTable: UITableViewController {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if let sb = searchBar {
-                let statusBar: CGFloat = UIApplication.shared.statusBarFrame.size.height
-                tableView.contentInset = UIEdgeInsets(top: sb.frame.size.height + statusBar, left: 0, bottom: 0, right: 0)
-                automaticallyAdjustsScrollViewInsets = false
+        if #available(iOS 11.0, *) {
+        } else {
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                if let sb = searchBar {
+                    let statusBar: CGFloat = UIApplication.shared.statusBarFrame.size.height
+                    tableView.contentInset = UIEdgeInsets(top: sb.frame.size.height + statusBar, left: 0, bottom: 0, right: 0)
+                    automaticallyAdjustsScrollViewInsets = false
+                }
             }
         }
     }
