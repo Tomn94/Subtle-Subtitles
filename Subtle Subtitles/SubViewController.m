@@ -765,10 +765,10 @@
     
     // Detect position of the tap.
     // Scrub on sides, play/pause in center.
-    if (location.x < viewWidth * 0.1 ||
-        location.x > viewWidth * 0.9)
+    if (location.x < viewWidth * 0.3 ||
+        location.x > viewWidth * 0.7)
     {
-        self.slider.value += (location.x > viewWidth * 0.9) ? 3 : -3;  // scrub 3s back or forward
+        self.slider.value += (location.x > viewWidth * 0.7) ? 3 : -3;  // scrub 3s back or forward
         [self scrub:nil];
         
         [UIView animateWithDuration:0.2
