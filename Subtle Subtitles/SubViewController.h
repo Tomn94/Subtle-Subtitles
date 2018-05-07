@@ -9,6 +9,7 @@
 //
 
 @import UIKit;
+@import CoreText;
 #import <TUSafariActivity.h>
 #import "Data.h"
 #import "Subtle_Subtitles-Swift.h"

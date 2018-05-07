@@ -31,10 +31,16 @@
     
     if ([UIFont respondsToSelector:@selector(monospacedDigitSystemFontOfSize:weight:)])
     {
-        _stepperValue.font = [UIFont monospacedDigitSystemFontOfSize:_stepperValue.font.pointSize
-                                                              weight:UIFontWeightRegular];
-        _timeLabel.font = [UIFont monospacedDigitSystemFontOfSize:_timeLabel.font.pointSize
-                                                           weight:UIFontWeightRegular];
+        _stepperValue.font = [UIFont fontWithDescriptor:[_stepperValue.font.fontDescriptor fontDescriptorByAddingAttributes:
+                                                         @{ UIFontDescriptorFeatureSettingsAttribute :
+                                                                @[ @{ UIFontFeatureTypeIdentifierKey:     @(kNumberSpacingType),
+                                                                      UIFontFeatureSelectorIdentifierKey: @(kMonospacedNumbersSelector)}]
+                                                            }] size:0];
+        _timeLabel.font = [UIFont fontWithDescriptor:[_timeLabel.font.fontDescriptor fontDescriptorByAddingAttributes:
+                                                         @{ UIFontDescriptorFeatureSettingsAttribute :
+                                                                @[ @{ UIFontFeatureTypeIdentifierKey:     @(kNumberSpacingType),
+                                                                      UIFontFeatureSelectorIdentifierKey: @(kMonospacedNumbersSelector)}]
+                                                            }] size:0];
     }
     [self.slider setThumbImage:[UIImage imageNamed:@"thumb"] forState:UIControlStateNormal];
     

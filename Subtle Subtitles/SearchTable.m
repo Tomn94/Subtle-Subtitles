@@ -740,7 +740,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     if (nothingFound)
         text = [NSString stringWithFormat:NSLocalizedString(@"No results for “%@”", @""), search.searchBar.text];
     
-    NSDictionary *attributes = @{NSFontAttributeName: [UIFont boldSystemFontOfSize:18.0],
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline],
                                  NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];

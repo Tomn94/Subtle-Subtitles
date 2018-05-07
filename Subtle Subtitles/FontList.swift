@@ -126,7 +126,7 @@ import UIKit
         
         if indexPath.section == 0 {
             cell.textLabel?.text = "Default font".localized
-            cell.textLabel?.font = UIFont.systemFont(ofSize: cell.textLabel!.font.pointSize)
+            cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .body)
             cell.accessoryType = selectedFont == nil ? .checkmark : .none
         } else {
             let fontName = fonts[indexPath.row]
