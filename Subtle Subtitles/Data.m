@@ -23,6 +23,10 @@
         });
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if ([defaults objectForKey:@"lastUsedVersion"] == nil)
+        {
+            [defaults removeObjectForKey:@"preferredEncoding"];
+        }
         [defaults registerDefaults:@{ @"langID": @"fre",
                                       @"langName": @"French",
                                       @"langIndex": @0,
@@ -34,6 +38,8 @@
                                       @"rememberLastSearch" : @YES,
                                       @"previousSearches" : @[],
                                       @"preferredEncoding" : @(0) }];  // automatic
+        [defaults setObject:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
+                     forKey:@"lastUsedVersion"];
         [defaults removeObjectForKey:@"lastSearch"];
         [defaults synchronize];
         
