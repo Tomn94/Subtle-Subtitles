@@ -237,32 +237,52 @@
 
 - (void) loadWithEncoding
 {
+    // Get file data
     NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingString:fileName];
+    NSData *fileData = [NSData dataWithContentsOfFile:path];
     
-    encoding = (NSUInteger)[[NSUserDefaults standardUserDefaults] integerForKey:@"preferredEncoding"];
-    NSString *htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
+    // Get user encoding settings (0 = automatic, otherwise NSStringEncoding raw value)
+    NSUInteger encodingSetting = [[NSUserDefaults standardUserDefaults] integerForKey:@"preferredEncoding"];
     
-    if (htmlString == nil)
+    if (encodingSetting == 0)
+    {
+        // If automatic, then compute the encoding from file data.
+        // Falls backs on UTF8 if encoding couldn't be determined.
+        NSStringEncoding autoEncoding = [NSString stringEncodingForData:fileData
+                                                        encodingOptions:nil
+                                                        convertedString:nil
+                                                    usedLossyConversion:nil];
+        encoding = (autoEncoding == 0) ? NSUTF8StringEncoding : autoEncoding;
+    }
+    else
+    {
+        encoding = encodingSetting;  // by default, use user-provided string encoding
+    }
+    
+    // Try reading the file data as text, and use fallbacks
+    NSString *htmlString = [[NSString alloc] initWithData:fileData encoding:encoding];
+    if (htmlString == nil && encoding != NSUTF8StringEncoding)
     {
         encoding = NSUTF8StringEncoding;
-        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
+        htmlString = [[NSString alloc] initWithData:fileData encoding:encoding];
     }
     if (htmlString == nil)
     {
         encoding = NSISOLatin1StringEncoding;
-        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
+        htmlString = [[NSString alloc] initWithData:fileData encoding:encoding];
     }
     if (htmlString == nil)
     {
         encoding = NSWindowsCP1251StringEncoding;
-        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
+        htmlString = [[NSString alloc] initWithData:fileData encoding:encoding];
     }
     if (htmlString == nil)
     {
         encoding = NSASCIIStringEncoding;
-        htmlString = [NSString stringWithContentsOfFile:path encoding:encoding error:nil];
+        htmlString = [[NSString alloc] initWithData:fileData encoding:encoding];
     }
     
+    // If read successfully
     if (htmlString != nil)
     {
         self.subLabel.text = @"";

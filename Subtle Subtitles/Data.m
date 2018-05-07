@@ -33,7 +33,7 @@
                                       @"hd" : @NO,
                                       @"rememberLastSearch" : @YES,
                                       @"previousSearches" : @[],
-                                      @"preferredEncoding" : @(NSUTF8StringEncoding) }];
+                                      @"preferredEncoding" : @(0) }];  // automatic
         [defaults removeObjectForKey:@"lastSearch"];
         [defaults synchronize];
         

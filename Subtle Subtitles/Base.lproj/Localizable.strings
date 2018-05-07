@@ -210,6 +210,7 @@
 "Text Settings Title" = "Display Settings";
 "Text Section Title" = "Text";
 "Encoding Section Title" = "Encoding";
+"Automatic Encoding" = "Detect Automatically";
 "Font menu" = "Font";
 "Tip: Pinch to change the text size of the subtitles" = "Tip: Pinch the subtitles to change their size";
 "Select Previous Encoding" = "Select Previous Row";
@@ -228,7 +229,7 @@
 "Custom color header" = "Custom color";
 "Alert using custom color" = "Choosing a custom color does not override colors embedded in subtitles.";
 
-"UTF-8" = "UTF-8 (default)";
+"UTF-8" = "UTF-8";
 "Western (Latin-1/ISO 8859-1)" = "Western (French · Latin-1/ISO 8859-1)";
 "Central European (Latin-2/ISO 8859-2)" = "Central European (Latin-2/ISO 8859-2)";
 "Central European (Windows 1250)" = "Central European (Windows 1250)";

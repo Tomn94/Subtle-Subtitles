@@ -19,29 +19,30 @@ class FontSettings: UITableViewController {
     @objc public static let settingsFontSizeMax: Double = 200
     
     /// Available encodings
-    var encodings: [(name: String, value: String.Encoding)] = [
-        ("UTF-8".localized, String.Encoding.utf8),
-        ("Western (Latin-1/ISO 8859-1)".localized, .isoLatin1),
-        ("Central European (Latin-2/ISO 8859-2)".localized, .isoLatin2),
-        ("Central European (Windows 1250)".localized, .windowsCP1250),
-        ("Cyrillic (Windows 1251)".localized, .windowsCP1251),
-        ("Western (Windows 1252)".localized, .windowsCP1252),
-        ("Greek (Windows 1253)".localized, .windowsCP1253),
-        ("Turkish (Windows 1254)".localized, .windowsCP1254),
-        ("Japanese (EUC-JP)".localized, .japaneseEUC),
-        ("Japanese (Shift JIS)".localized, .shiftJIS),
-        ("Japanese (ISO 2022)".localized, .iso2022JP),
-        ("ASCII".localized, .ascii),
-        ("ASCII (Non-Lossy)".localized, .nonLossyASCII),
-        ("Unicode/UTF-16".localized, .unicode),
-        ("UTF-16 BE".localized, .utf16BigEndian),
-        ("UTF-16 LE".localized, .utf16LittleEndian),
-        ("UTF-32".localized, .utf32),
-        ("UTF-32 BE".localized, .utf32BigEndian),
-        ("UTF-32 LE".localized, .utf32LittleEndian),
-        ("Classic Mac OS".localized, .macOSRoman),
-        ("NEXTSTEP".localized, .nextstep),
-        ("Adobe Symbol".localized, .symbol)
+    var encodings: [(name: String, value: UInt)] = [
+        ("Automatic Encoding".localized, 0),
+        ("UTF-8".localized, String.Encoding.utf8.rawValue),
+        ("Western (Latin-1/ISO 8859-1)".localized, String.Encoding.isoLatin1.rawValue),
+        ("Central European (Latin-2/ISO 8859-2)".localized, String.Encoding.isoLatin2.rawValue),
+        ("Central European (Windows 1250)".localized, String.Encoding.windowsCP1250.rawValue),
+        ("Cyrillic (Windows 1251)".localized, String.Encoding.windowsCP1251.rawValue),
+        ("Western (Windows 1252)".localized, String.Encoding.windowsCP1252.rawValue),
+        ("Greek (Windows 1253)".localized, String.Encoding.windowsCP1253.rawValue),
+        ("Turkish (Windows 1254)".localized, String.Encoding.windowsCP1254.rawValue),
+        ("Japanese (EUC-JP)".localized, String.Encoding.japaneseEUC.rawValue),
+        ("Japanese (Shift JIS)".localized, String.Encoding.shiftJIS.rawValue),
+        ("Japanese (ISO 2022)".localized, String.Encoding.iso2022JP.rawValue),
+        ("ASCII".localized, String.Encoding.ascii.rawValue),
+        ("ASCII (Non-Lossy)".localized, String.Encoding.nonLossyASCII.rawValue),
+        ("Unicode/UTF-16".localized, String.Encoding.unicode.rawValue),
+        ("UTF-16 BE".localized, String.Encoding.utf16BigEndian.rawValue),
+        ("UTF-16 LE".localized, String.Encoding.utf16LittleEndian.rawValue),
+        ("UTF-32".localized, String.Encoding.utf32.rawValue),
+        ("UTF-32 BE".localized, String.Encoding.utf32BigEndian.rawValue),
+        ("UTF-32 LE".localized, String.Encoding.utf32LittleEndian.rawValue),
+        ("Classic Mac OS".localized, String.Encoding.macOSRoman.rawValue),
+        ("NEXTSTEP".localized, String.Encoding.nextstep.rawValue),
+        ("Adobe Symbol".localized, String.Encoding.symbol.rawValue)
     ]
     var lastSel = 0
     
@@ -93,7 +94,7 @@ class FontSettings: UITableViewController {
         
         /* Init selected encoding with saved value */
         let selectedLanguage = UInt(UserDefaults.standard.integer(forKey: "preferredEncoding"))
-        lastSel = encodings.index { $0.value.rawValue == selectedLanguage } ?? 0
+        lastSel = encodings.index { $0.value == selectedLanguage } ?? 0
         
         /* Init view */
         let backView = UIView()
@@ -186,7 +187,7 @@ class FontSettings: UITableViewController {
             // Display each name and check the selected
             let encoding = encodings[indexPath.row]
             cell.textLabel?.text = encoding.name.localized
-            cell.accessoryType = encoding.value.rawValue == UInt(defaults.integer(forKey: "preferredEncoding")) ? .checkmark : .none
+            cell.accessoryType = encoding.value == UInt(defaults.integer(forKey: "preferredEncoding")) ? .checkmark : .none
         }
         
         return cell
@@ -207,8 +208,7 @@ class FontSettings: UITableViewController {
             
             /* Validate setting */
             let language = encodings[indexPath.row];
-            let defaults = UserDefaults.standard
-            defaults.setValue(language.value.rawValue, forKey: "preferredEncoding")
+            UserDefaults.standard.setValue(language.value, forKey: "preferredEncoding")
             
             /* Apply on text */
             NotificationCenter.default.post(name: Notification.Name(rawValue: "updateEncoding"), object: nil)
