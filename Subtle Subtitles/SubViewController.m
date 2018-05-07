@@ -78,8 +78,12 @@
     
     UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
     [self.view addGestureRecognizer:pinch];
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
+    [doubleTap setNumberOfTapsRequired:2];
+    [self.view addGestureRecognizer:doubleTap];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showControls)];
     [tap requireGestureRecognizerToFail:pinch];
+    [tap requireGestureRecognizerToFail:doubleTap];
     [self.view addGestureRecognizer:tap];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stop) name:@"stopTimerSub" object:nil];
@@ -339,8 +343,11 @@
         [timer invalidate];
     
     [_playButton setImage:[UIImage imageNamed:(!playing) ? @"play" : @"pause"] forState:UIControlStateNormal];
-    forceShowControls = YES;
-    [self showControls];
+    if (sender != nil)
+    {
+        forceShowControls = YES;
+        [self showControls];
+    }
 }
 
 - (void) stop
@@ -358,7 +365,10 @@
     [self updateText];
     [self updateTime];
     forceShowControls = YES;
-    [self showControls];
+    if (sender != nil)
+    {
+        [self showControls];
+    }
 }
 
 - (void) startAutoHideControlsTimer
@@ -536,8 +546,11 @@
 {
     delay = self.stepper.value / 10;
     self.stepperValue.text = [NSString stringWithFormat:NSLocalizedString(@"%.1fs", @""), delay];
-    forceShowControls = YES;
-    [self showControls];
+    if (sender != nil)
+    {
+        forceShowControls = YES;
+        [self showControls];
+    }
 }
 
 - (void) settings
@@ -613,14 +626,15 @@
 - (void) showControls
 {
     [autohideTimer invalidate];
-    if (_playButton.alpha == 1 && !forceShowControls)
+    if (_stepper.alpha == 1 && !forceShowControls)
     {
         forceShowControls = NO;
         [self hideControls];
         return;
     }
     forceShowControls = NO;
-    autohideTimer = [NSTimer scheduledTimerWithTimeInterval:6 target:self selector:@selector(hideControls) userInfo:nil repeats:NO];
+    autohideTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self
+                                                   selector:@selector(hideControls) userInfo:nil repeats:NO];
     
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [UIView animateWithDuration:0.2
@@ -737,6 +751,47 @@
 {
     forceTextRedraw = YES;
     [self updateText];
+}
+
+/**
+ Called when double tap on view occurs
+
+ @param recognizer Double tap touch recognizer responsible
+ */
+- (void) handleDoubleTap:(UITapGestureRecognizer *)recognizer
+{
+    CGPoint location  = [recognizer locationInView:self.view];
+    CGFloat viewWidth = self.view.bounds.size.width;
+    
+    // Detect position of the tap.
+    // Scrub on sides, play/pause in center.
+    if (location.x < viewWidth * 0.1 ||
+        location.x > viewWidth * 0.9)
+    {
+        self.slider.value += (location.x > viewWidth * 0.9) ? 3 : -3;  // scrub 3s back or forward
+        [self scrub:nil];
+        
+        [UIView animateWithDuration:0.2
+                         animations:^{
+                             _timeLabel.alpha = 1;
+                         }];
+    }
+    else
+    {
+        [self playTapped:nil];  // play/pause
+        
+        [UIView animateWithDuration:0.2
+                         animations:^{
+                             if (playing)
+                             {
+                                 _timeLabel.alpha = 1;
+                             }
+                             _playButton.alpha = 1;
+                         }];
+    }
+    
+    autohideTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self
+                                                   selector:@selector(hideControls) userInfo:nil repeats:NO];
 }
 
 #pragma mark - Segue config for Font Menu
