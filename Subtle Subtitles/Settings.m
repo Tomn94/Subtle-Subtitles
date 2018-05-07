@@ -118,7 +118,7 @@
     cell.backgroundColor = [UIColor colorWithWhite:0.2 alpha:1]; // iPad fix
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.bounds];
     cell.selectedBackgroundView.backgroundColor = [UIColor darkGrayColor];
-    cell.textLabel.textAlignment = NSTextAlignmentLeft;
+    cell.textLabel.textAlignment = NSTextAlignmentNatural;
     cell.textLabel.textColor = [UIColor whiteColor];
     
     if (indexPath.section == 0 && indexPath.row == settings.count)

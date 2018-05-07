@@ -333,6 +333,13 @@ selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
                          (rating >= 3) ? star : ((rating > 2) ? emptyStar : @""),
                          (rating >= 4) ? star : ((rating > 3) ? emptyStar : @""),
                          (rating >= 5) ? star : ((rating > 4) ? emptyStar : @"")];
+        // Flip empty star in right-to-left
+        if ([val hasSuffix:emptyStar] &&
+            [UIView userInterfaceLayoutDirectionForSemanticContentAttribute:cell.semanticContentAttribute] == UIUserInterfaceLayoutDirectionRightToLeft)
+        {
+            // Put half-a-star at the start instead of end
+            val = [emptyStar stringByAppendingString:[val substringToIndex:val.length - 2]];
+        }
         [infos addObject:val];
     }
     
