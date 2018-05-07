@@ -59,6 +59,7 @@
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     self.tableView.tableFooterView = [UIView new];
+    [[UIView appearanceWhenContainedIn:[SearchTable class], nil] setTintColor:[UIColor whiteColor]]; // for row swipe actions
     
     [self.tableView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)]];
     
@@ -461,9 +462,51 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     }
 }
 
+- (UISwipeActionsConfiguration *)        tableView:(UITableView *)tableView
+trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
+NS_AVAILABLE_IOS(11.0)
+{
+    UIContextualAction *linkAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
+                                                                       title:@""
+                                                                     handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+                                                                         
+                                                                         CGRect rect = [self.tableView rectForRowAtIndexPath:indexPath];
+                                                                         rect.origin.x = rect.size.width - 98;
+                                                                         rect.size.width = 50;
+                                                                         [self share:indexPath
+                                                                              atRect:rect];
+                                                                         
+                                                                         completionHandler(YES);
+                                                                     }];
+    linkAction.image = [UIImage imageNamed:@"link"];
+    linkAction.backgroundColor = [UIColor grayColor];
+    
+    UIContextualAction *fileAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
+                                                                             title:@""
+                                                                           handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+                                                                               
+                                                                               CGRect rect = [self.tableView rectForRowAtIndexPath:indexPath];
+                                                                               rect.origin.x = rect.size.width - 48;
+                                                                               rect.size.width = 48;
+                                                                               [self openIn:indexPath
+                                                                                     atRect:rect];
+                                                                               
+                                                                               completionHandler(YES);
+                                                                           }];
+    fileAction.image = [UIImage imageNamed:@"share"];
+    fileAction.backgroundColor = [UIView appearance].tintColor;
+    
+    return [UISwipeActionsConfiguration configurationWithActions:@[fileAction, linkAction]];
+}
+
 - (NSArray<UITableViewRowAction *> *) tableView:(UITableView *)tableView
                    editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (@available(iOS 11.0, *))
+    {
+        return @[];
+    }
+    
     UITableViewRowAction *linkAction = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault
                                                                                    title:@"   "
                                                                          backgroundColor:[UIColor grayColor]
@@ -475,11 +518,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                                                                      rect.origin.x = rect.size.width - 98;
                                                                                      rect.size.width = 50;
                                                                                      [self share:indexPath
-                                                                                         atRect:rect];
+                                                                                          atRect:rect];
                                                                                  }];
     UITableViewRowAction *fileAction = [BGTableViewRowActionWithImage rowActionWithStyle:UITableViewRowActionStyleDefault
                                                                                    title:@"   "
-                                                                         backgroundColor:self.tableView.tintColor
+                                                                         backgroundColor:[UIView appearance].tintColor
                                                                                    image:[UIImage imageNamed:@"share"]
                                                                            forCellHeight:67
                                                                                  handler:^(UITableViewRowAction *action,
@@ -488,7 +531,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                                                                                      rect.origin.x = rect.size.width - 48;
                                                                                      rect.size.width = 48;
                                                                                      [self openIn:indexPath
-                                                                                          atRect:rect];
+                                                                                           atRect:rect];
                                                                                  }];
     
     return @[fileAction, linkAction];
