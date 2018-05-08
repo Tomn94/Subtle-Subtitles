@@ -59,7 +59,7 @@
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     self.tableView.tableFooterView = [UIView new];
-    [[UIView appearanceWhenContainedIn:[SearchTable class], nil] setTintColor:[UIColor whiteColor]]; // for row swipe actions
+    [[UIView appearanceWhenContainedInInstancesOfClasses:@[[SearchTable class]]] setTintColor:[UIColor whiteColor]]; // for row swipe actions
     
     [self.tableView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)]];
     
