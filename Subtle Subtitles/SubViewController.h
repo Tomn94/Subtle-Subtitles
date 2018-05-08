@@ -20,7 +20,7 @@ typedef enum : NSUInteger {
     kTEXT
 } kSRTState;
 
-@interface SubViewController : UIViewController <UIDocumentInteractionControllerDelegate, UIPopoverPresentationControllerDelegate>
+@interface SubViewController : UIViewController <UIDocumentInteractionControllerDelegate, UIPopoverPresentationControllerDelegate, UIGestureRecognizerDelegate>
 {
     NSTimeInterval time;
     BOOL playing;

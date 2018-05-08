@@ -77,11 +77,14 @@
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
     UIPinchGestureRecognizer *pinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinch:)];
+    pinch.delegate = self;
     [self.view addGestureRecognizer:pinch];
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];
-    [doubleTap setNumberOfTapsRequired:2];
+    doubleTap.numberOfTapsRequired = 2;
+    doubleTap.delegate = self;
     [self.view addGestureRecognizer:doubleTap];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showControls)];
+    tap.delegate = self;
     [tap requireGestureRecognizerToFail:pinch];
     [tap requireGestureRecognizerToFail:doubleTap];
     [self.view addGestureRecognizer:tap];
@@ -375,9 +378,9 @@
     curIndex = 0;
     [self updateText];
     [self updateTime];
-    forceShowControls = YES;
     if (sender != nil)
     {
+        forceShowControls = YES;
         [self showControls];
     }
 }
@@ -803,6 +806,19 @@
     
     autohideTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self
                                                    selector:@selector(hideControls) userInfo:nil repeats:NO];
+}
+
+#pragma mark - Gesture Recognizer Delegate
+
+- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+        shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isKindOfClass:[UIControl class]])
+    {
+        return NO;
+    }
+    
+    return YES;
 }
 
 #pragma mark - Segue config for Font Menu
