@@ -658,7 +658,7 @@
 					"__UI_TESTING__=0",
 				);
 				INFOPLIST_FILE = "Subtle Subtitles/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tomn.Subtle-Subtitles";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -686,7 +686,7 @@
 					"__UI_TESTING__=0",
 				);
 				INFOPLIST_FILE = "Subtle Subtitles/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tomn.Subtle-Subtitles";
 				PRODUCT_NAME = "$(TARGET_NAME)";
