@@ -348,7 +348,7 @@ selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
             [UIView userInterfaceLayoutDirectionForSemanticContentAttribute:cell.semanticContentAttribute] == UIUserInterfaceLayoutDirectionRightToLeft)
         {
             // Put half-a-star at the start instead of end
-            val = [emptyStar stringByAppendingString:[val substringToIndex:val.length - 2]];
+            val = [emptyStar stringByAppendingString:[val substringToIndex:val.length - 1]];
         }
         [infos addObject:val];
     }
