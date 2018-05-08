@@ -204,6 +204,17 @@
     [self stop];
 }
 
+- (void) viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    if ([UIView userInterfaceLayoutDirectionForSemanticContentAttribute:self.view.semanticContentAttribute] == UIUserInterfaceLayoutDirectionRightToLeft)
+    {
+        _stepperValue.textAlignment = NSTextAlignmentLeft;
+        _timeLabel.textAlignment    = NSTextAlignmentRight;
+    }
+}
+
 - (void) viewWillTransitionToSize:(CGSize)size
         withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {

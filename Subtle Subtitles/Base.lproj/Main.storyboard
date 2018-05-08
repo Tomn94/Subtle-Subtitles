@@ -167,7 +167,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="x5C-4y-UJQ">
+                            <slider opaque="NO" contentMode="scaleToFill" semanticContentAttribute="playback" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="x5C-4y-UJQ">
                                 <rect key="frame" x="43" y="617" width="289" height="31"/>
                                 <connections>
                                     <action selector="scrub:" destination="KXK-aY-shy" eventType="valueChanged" id="vSf-mv-sNm"/>
@@ -180,7 +180,7 @@
                                 </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00/00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtg-AB-otZ">
-                                <rect key="frame" x="45" y="585" width="77" height="16"/>
+                                <rect key="frame" x="45" y="585" width="285" height="16"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -193,7 +193,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delay: 0 s" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMd-tB-Usv">
-                                <rect key="frame" x="270" y="560" width="60" height="16"/>
+                                <rect key="frame" x="45" y="560" width="285" height="16"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -216,9 +216,11 @@
                             <constraint firstItem="gMS-YV-O2Q" firstAttribute="top" secondItem="Pnc-aP-2ui" secondAttribute="bottom" constant="10" id="b8a-ap-zxY"/>
                             <constraint firstItem="k79-b1-1bH" firstAttribute="leading" secondItem="LMd-tB-Usv" secondAttribute="trailing" constant="10" id="ias-QL-a6h"/>
                             <constraint firstItem="k79-b1-1bH" firstAttribute="trailing" secondItem="x5C-4y-UJQ" secondAttribute="trailing" id="krt-OB-KFA"/>
+                            <constraint firstItem="Vtg-AB-otZ" firstAttribute="trailing" secondItem="x5C-4y-UJQ" secondAttribute="trailing" id="n9P-hS-ygs"/>
                             <constraint firstItem="Vtg-AB-otZ" firstAttribute="centerY" secondItem="k79-b1-1bH" secondAttribute="centerY" id="oLb-MQ-Nsp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="k79-b1-1bH" secondAttribute="trailing" id="pSF-lE-zoE"/>
                             <constraint firstItem="6MT-OH-wmX" firstAttribute="centerY" secondItem="Vtg-AB-otZ" secondAttribute="centerY" id="sdP-Qe-w7B"/>
+                            <constraint firstItem="LMd-tB-Usv" firstAttribute="leading" secondItem="x5C-4y-UJQ" secondAttribute="leading" id="tEe-cT-Hmi"/>
                             <constraint firstItem="4jf-Qj-feu" firstAttribute="top" secondItem="gMS-YV-O2Q" secondAttribute="bottom" constant="10" id="ubW-Wd-ZHc"/>
                             <constraint firstItem="4jf-Qj-feu" firstAttribute="top" secondItem="gMS-YV-O2Q" secondAttribute="bottom" constant="10" id="ubs-rH-jfd"/>
                             <constraint firstItem="k79-b1-1bH" firstAttribute="top" secondItem="LMd-tB-Usv" secondAttribute="bottom" constant="22" id="z21-7m-QBu">
